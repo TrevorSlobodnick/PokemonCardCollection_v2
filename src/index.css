@@ -1,13 +1,41 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: 'PokeText';
+  src: url("fonts/poketext_font.ttf");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*{
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
+
+body{
+  font-family: Helvetica, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+body > div{
+  display: flex;
+}
+
+h1{
+  text-align: center;
+  font-family: 'PokeText', Helvetica, Verdana, sans-serif;
+  padding-top: 0.5em;
+}
+
+img{
+  width: 30%;
+}
+
+
+
+.image-wrapper{
+  text-align: center;
+}
+
+.image-wrapper:first-of-type img{
+  transform: scaleX(-1);
 }
