@@ -1,13 +1,24 @@
 import './App.css';
 import Header from './components/Header';
-import ComingSoon from './components/ComingSoon';
+import HomePage from './components/HomePage';
+import AddCardPage from './components/AddCardPage';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
-      <ComingSoon/>
-    </div>
+    <Router>
+      <div className="App">
+        <Header/>
+        <Switch>
+          <Route path="/?sort=rarity&search=&type=name">
+            <HomePage/>
+          </Route>
+          <Route path="/add">
+            <AddCardPage/>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
