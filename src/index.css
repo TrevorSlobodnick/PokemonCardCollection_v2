@@ -30,6 +30,12 @@ img{
   width: 30%;
 }
 
+/*TODO: change this*/
+input, select{
+  border: solid thin black;
+  margin: 0.5em;
+}
+
 
 
 .image-wrapper{
