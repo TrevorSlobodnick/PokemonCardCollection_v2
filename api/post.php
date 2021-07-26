@@ -1,14 +1,18 @@
 <?php
+require_once("Database.php");
+require_once("PokemonTCGApi.php");
 
-require_once("config.php");
+//header('Access-Control-Allow-Origin: *');
 
 $dbc = Database::getInstance();
 $pokemonTCGApi = new PokemonTCGApi();
 
-$pokemonTCGApi->getCard(28, "Shining Legends");
+$cardToAdd = $pokemonTCGApi->getCard(28, "Shining Legends");
+
+// foreach ($_POST as $key => $value) {
+//     echo "Key=" . $key . "&value=" . $value;
+// }
 
 
-$exampleQuery = "?q=set.name:Generations+supertype:Pokemon+!name:\"M%20Venusaur-EX\"";
-$exampleRequest = POKEMONTCG_API_ENDPOINT . $exampleQuery;
 
 ?>

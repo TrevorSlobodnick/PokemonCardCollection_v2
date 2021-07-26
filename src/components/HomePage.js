@@ -3,6 +3,7 @@ import { useLocation } from "react-router";
 import { useState } from 'react';
 import { VALID_SORT_VALUES, VALID_SEARCHTYPE_VALUES } from "../util/Constants.js"
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const HomePage = ( props ) => {
 
@@ -137,6 +138,21 @@ const HomePage = ( props ) => {
         e.preventDefault() //stops page reload
         console.log("Search Icon Clicked");
         updateHomePath(sort, search, searchType)
+        let info = { 
+            "KEY" : "VALUE!",
+            "search" : "Wat",
+            "searchType" : "set"
+         }
+        axios({
+            method: 'post',
+            url: 'https://www.tslobodnick.ca/Test/post.php',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: new URLSearchParams(info)
+        }).then(result => {
+            console.log(result)
+        })
         searchCollection()
     }
 
@@ -151,7 +167,7 @@ const HomePage = ( props ) => {
      * Filters the cards to only show the ones that pass the search criteria
      */
     const searchCollection = () => {
-        console.log("Search Complete!")
+        console.log("Search Complete");
     }
 
     //HELPER FUNCTION
