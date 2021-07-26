@@ -1,6 +1,9 @@
 <?php 
 
+require_once("config.php");
+
 class PokemonCard{
+    //NOTE: these properties are all the exact same ones in the database, the api is slightly different
     public $id;
     public $card_id;
     public $card_number;
@@ -18,32 +21,51 @@ class PokemonCard{
     public $large_image;
     public $date_added;
 
-    public function __construct($apiObj)
-    {
-        //id is added automatically when the card is added to the database, the id property is in this class so we can load the database rows directly into this class
-        $this->card_id = $apiObj->id;
-        $this->card_number = $apiObj->number;
-        $this->name = $apiObj->name;
-        $this->supertype = $apiObj->supertype;
-        $this->hp = $apiObj->hp;
-        $this->primary_type = $apiObj->types[0]; //pokemon must have at least one type
-        // second type is optional, check for it
-        if(count($apiObj->types) == 2){
-            //if it has a second type, set it
-            $this->secondary_type = $apiObj->types[1];
+    public function __construct($dataObj, $dataSource){
+        // If the dataObj is from the API...
+        if($dataSource == DataSource::API){
+            $this->card_id = $dataObj->id;
+            $this->card_number = $dataObj->number;
+            $this->name = $dataObj->name;
+            $this->supertype = $dataObj->supertype;
+            $this->hp = $dataObj->hp;
+            $this->primary_type = $dataObj->types[0]; //pokemon must have at least one type
+            // second type is optional, check for it
+            if(count($dataObj->types) == 2){
+                //if it has a second type, set it
+                $this->secondary_type = $dataObj->types[1];
+            }
+            else{
+                //otherwise set to empty string
+                $this->secondary_type = "";
+            }
+            $this->set_id = $dataObj->set->id;
+            $this->set_name = $dataObj->set->name;
+            $this->set_series = $dataObj->set->series;
+            $this->artist = $dataObj->artist;
+            $this->rarity = $dataObj->rarity;
+            $this->small_image = $dataObj->images->small;
+            $this->large_image = $dataObj->images->large;
+            $this->date_added = date("Y-m-d H:i:s");
         }
-        else{
-            //otherwise set to empty string
-            $this->secondary_type = "";
+        // If the dataObj is from the Database...
+        else if($dataSource == DataSource::DATABASE){
+            $this->card_id = $dataObj["card_id"];
+            $this->card_number = $dataObj["card_number"];
+            $this->name = $dataObj["name"];
+            $this->supertype = $dataObj["supertype"];
+            $this->hp = $dataObj["hp"];
+            $this->primary_type = $dataObj["primary_type"];
+            $this->secondary_type = $dataObj["secondary_type"];
+            $this->set_id = $dataObj["set_id"];
+            $this->set_name = $dataObj["set_name"];
+            $this->set_series = $dataObj["set_series"];
+            $this->artist = $dataObj["artist"];
+            $this->rarity = $dataObj["rarity"];
+            $this->small_image = $dataObj["small_image"];
+            $this->large_image = $dataObj["large_image"];
+            $this->date_added = date("Y-m-d H:i:s");
         }
-        $this->set_id = $apiObj->set->id;
-        $this->set_name = $apiObj->set->name;
-        $this->set_series = $apiObj->set->series;
-        $this->artist = $apiObj->artist;
-        $this->rarity = $apiObj->rarity;
-        $this->small_image = $apiObj->images->small;
-        $this->large_image = $apiObj->images->large;
-        $this->date_added = date("Y-m-d H:i:s");
     }
 }
 
