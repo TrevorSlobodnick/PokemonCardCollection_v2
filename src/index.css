@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'PokeText';
-  src: url("fonts/poketext_font.ttf");
+  src: url("./fonts/poketext_font.ttf");
 }
 
 *{
@@ -28,6 +28,12 @@ h1{
 
 img{
   width: 30%;
+}
+
+/*TODO: change this*/
+input, select{
+  border: solid thin black;
+  margin: 0.5em;
 }
 
 

@@ -1,14 +1,14 @@
-
+import pikachuImg from "../images/pika.png"
 
 const ComingSoon = () => {
     return (
         <div>
             <div class="image-wrapper">
-                <img src="images/pika.png" alt="Pikachu"/>
+                <img src={pikachuImg} alt="Pikachu"/>
             </div>
             <h1>Coming Soon</h1>
             <div class="image-wrapper">
-                <img src="images/pika.png" alt="Pikachu"/>
+                <img src={pikachuImg} alt="Pikachu"/>
             </div>
         </div>
     )
