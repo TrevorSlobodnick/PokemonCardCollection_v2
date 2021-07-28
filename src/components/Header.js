@@ -28,7 +28,7 @@ const Header = () => {
 
     const onMobileNavWrapperClick = (e) => {
         //if this function is called the mobile nav is already open
-        if(e.target == e.currentTarget){
+        if(e.target === e.currentTarget){
             // the element clicked is the mobile nav wrapper div,
             // the only time this would happen is when the user clicks the "whitespace"
             closeMobileNav()

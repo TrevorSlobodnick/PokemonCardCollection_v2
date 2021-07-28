@@ -13,11 +13,11 @@ function App() {
       <div className="App">
         <Header/>
         <Switch>
-          <Route path="/">
-            <HomePage homePath={homePath} setHomePath={setHomePath} />
-          </Route>
           <Route exact path="/Add">
             <AddCardPage/>
+          </Route>
+          <Route path="/">
+            <HomePage homePath={homePath} setHomePath={setHomePath} />
           </Route>
         </Switch>
       </div>
