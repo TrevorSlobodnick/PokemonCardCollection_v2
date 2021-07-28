@@ -25,7 +25,9 @@ else if($_POST['task'] == "get_prices"){
 
 }
 else if($_POST['task'] == "get_sets"){
-
+    //TODO: add endpoint sets = https://api.pokemontcg.io/v2/sets
+    $sets = $pokemonTCGApi->getSets();
+    $strippedSets = $pokemonTCGApi->stripSets($sets);
 }
 else if($_POST['task'] == "add_card"){
     $cardNumber = $_POST['cardNumber'];

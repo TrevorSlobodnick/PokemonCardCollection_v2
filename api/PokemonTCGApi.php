@@ -19,7 +19,7 @@ class PokemonTCGApi{
     }
 
     /**
-     * Queries the PokemonTCG Api and looks for a pokemon card with the given number and set name and attempts to return data for the card
+     * Queries the PokemonTCG Api and gets a pokemon card with the given number and set name and returns data for the card
      * @param Integer $number - the number of the card, the number is located on the bottom left or right, 
      *                            there should be 2 numbers seperated by a slash, it is the first number before the slash.
      * @param String $setName - the name of the set, the set symbol is located at the bottom left or right, 
@@ -33,10 +33,38 @@ class PokemonTCGApi{
         $setName = str_replace(" ", "%20", $setName);
         //set the query
         $query = "?q=!number:" . $number . "+set.name:" . $setName;
-        $url = POKEMONTCG_API_ENDPOINT . $query;
+        $url = POKEMONTCG_API_CARD_ENDPOINT . $query;
         $jsonStr = file_get_contents($url, false, $this->context);
         $decodedJson = json_decode($jsonStr);
         return $decodedJson->data;
+    }
+
+    /**
+     * Queries the PokemonTCG Api and gets all the card sets, then returns them
+     * @return Array an array containing all of the sets
+     */
+    public function getSets(){
+        $url = POKEMONTCG_API_SET_ENDPOINT;
+        $jsonStr = file_get_contents($url, false, $this->context);
+        $decodedJson = json_decode($jsonStr);
+        return $decodedJson->data;
+    }
+
+    /**
+     * Gets the id, name, series, and symbol from each pokemon card set in the given array
+     * @param Array $sets an array of pokemon card sets, gotten from the pokemontcg api
+     * @return Array an array of pokemon card sets that only contain the id, name, series, symbol
+     */
+    public function stripSets($sets){
+        $strippedSets = [];
+        foreach ($sets as $obj) {
+            $id = $obj->id;
+            $name = $obj->name;
+            $series = $obj->series;
+            $symbol = $obj->symbol;
+            $strippedSets[] = new PokemonCardSet($id, $name, $series, $symbol);
+        }
+        return $strippedSets;
     }
 }
 
