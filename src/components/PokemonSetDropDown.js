@@ -1,13 +1,17 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Backend } from '../util/Backend.js'
 
 
 const PokemonSetDropDown = () => {
 
     console.log(Backend) //silences warning, temporary
+    const [sets, setSets] = useState([]) 
 
     useEffect(() => {
-        
+        Backend.getSets().then(result => {
+            // setSets(result)
+            console.log(result)
+        })
     })
 
     return (

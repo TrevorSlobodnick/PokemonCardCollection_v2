@@ -1,4 +1,8 @@
 <?php 
+    /**
+     * Contains basic set information for a pokemon card set, including:
+     * id, name, series, symbol
+     */
     class PokemonCardSet{
         public $id;
         public $name;
