@@ -1,0 +1,566 @@
+{
+    "Sword & Shield Series" : [
+      {
+        "Name": "Chilling Reign",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2021/06/chilling-reign-set-symbol-150x128.png"
+      },
+      {
+        "Name": "Battle Styles",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2021/04/pokemon-battle-styles-set-symbol-139x150.png"
+      },
+      {
+        "Name": "Shining Fates",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2021/02/pokemon-shining-fates-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Vivid Voltage",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2020/11/pokemon-vivid-voltage-set-symbol-150x131.png"
+      },
+      {
+        "Name": "Champion's Path",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2020/10/pokemon-champions-path-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Darkness Ablaze",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2020/09/pokemon-darkness-ablaze-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Rebel Clash",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2020/04/Sword-Shield-Rebel-Clash-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Sword & Shield",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2020/01/pokemon-sword-shield-set-symbol-150x92.png"
+      }
+    ],
+    "Sun & Moon Series" : [
+      {
+        "Name": "Cosmic Eclipse",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/12/cosmic-eclipse-set-symbol-130x150.png"
+      },
+      {
+        "Name": "Hidden Fates",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/09/hidden-fates-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Unified Minds",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/08/pokemon-unified-minds-set-symbol-150x135.png"
+      },
+      {
+        "Name": "Unbroken Bonds",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/pokemon-unbroken-bonds-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Detective Pikachu",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/detective-pikachu-set-symbol-150x147.png"
+      },
+      {
+        "Name": "Team Up",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/01/pokemon-team-up-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Lost Thunder",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/10/sm-lost-thunder-set-symbol-145x150.png"
+      },
+      {
+        "Name": "Dragon Majesty",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/09/dragon-majesty-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Celestial Storm",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/08/sun-and-moon-celestial-storm-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Forbidden Light",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/07/sun-and-moon-forbidden-light-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Ultra Prism",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/07/sun-and-moon-ultra-prism-pokemon-set-symbol-1-150x150.png"
+      },
+      {
+        "Name": "Crimson Invasion",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/07/sun-and-moon-crimson-invasion-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Shining Legends",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/07/shining-legends-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Burning Shadows",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/07/sun-and-moon-burning-shadows-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Guardians Rising",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/07/sun-and-moon-guardians-rising-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Trainer Kit – Lycanroc & Alolan Raichu",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/pokemon-sun-moon-trainer-kit-lycanroc-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Sun & Moon",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/sun-and-moon-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Sun & Moon Promos",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/08/xy-promos-pokemon-set-symbol-150x136.png"
+      }
+    ],
+    "XY Series" : [
+      {
+        "Name": "Evolutions",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-evolutions-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Steam Siege",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-steam-siege-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Fates Collide",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-fates-collide-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Trainer Kit – Pikachu Libre & Suicune",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/pokemon-xy-trainer-kit-pikachu-libre-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Generations",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/generations-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "BREAKpoint",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-BREAKpoint-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "BREAKthrough",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-BREAKthrough-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Ancient Origins",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-ancient-origins-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Roaring Skies",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-roaring-skies-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Trainer Kit – Latias & Latios",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/pokemon-xy-trainer-kit-latias-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Double Crisis",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/08/xy-double-crisis-pokemon-set-symbol.png-150x150.png"
+      },
+      {
+        "Name": "Primal Clash",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-primal-clash-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Trainer Kit – Bisharp & Wigglytuff",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/pokemon-xy-trainer-kit-bisharp-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Phantom Forces",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-phantom-forces-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Furious Fists",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-furious-fists-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Trainer Kit – Sylveon & Noivern",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/pokemon-xy-trainer-kit-sylveon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Flashfire",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-flashfire-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "XY",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/xy-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Kalos Starter Set",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/08/xy-kalos-starter-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "XY - Promos",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/08/xy-promos-pokemon-set-symbol-150x136.png"
+      }
+    ],
+    "Black & White Series" : [
+      {
+        "Name": "Legendary Treasures",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-legendary-treasures-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Plasma Blast",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-plasma-blast-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Plasma Freeze",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-plasma-freeze-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Plasma Storm",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-plasma-storm-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Boundaries Crossed",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-boundaries-crossed-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Dragon Vault",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/08/black-and-white-dragon-vault-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Dragons Exalted",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-dragons-exalted-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Dark Explorers",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-dark-explorers-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Next Destinies",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-next-destinies-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Noble Victories",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-noble-victories-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Trainer Kit – Excadrill & Zoroark",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/pokemon-excadrill-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Emerging Powers",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-emerging-powers-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Black and White Base Set",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/black-and-white-pokemon-set-symbol-150x150.png"
+      }
+    ],
+    "HeartGold & SoulSilver Series" : [
+      {
+        "Name": "Call of Legends",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/call-of-legends-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Triumphant",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/heartgold-and-soulsilver-triumphant-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Undaunted",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/heartgold-and-soulsilver-undaunted-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Unleashed",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/heartgold-and-soulsilver-unleashed-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Trainer Kit – Gyarados & Raichu",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/gyarados-half-deck-symbol-150x150.png"
+      },
+      {
+        "Name": "HeartGold and SoulSilver",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/heartGold-and-soulSilver-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "HeartGold and SoulSilver Promos",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/09/heartgold-soulsilver-promos-pokemon-set-symbol-150x136.png"
+      }
+    ],
+    "Platinum Series" : [
+      {
+        "Name": "Arceus",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/arceus-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Supreme Victors",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/supreme-victors-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Rising Rivals",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/rising-rivals-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "POP Series 9",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-pop-series-9-set-symbol-150x92.png"
+      },
+      {
+        "Name": "Platinum Base Set",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/platinum-base-set-pokemon-set-symbol-150x150.png"
+      }
+    ],
+    "Diamond & Pearl Series" : [
+      {
+        "Name": "POP Series 8",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-pop-series-8-set-symbol-150x91.png"
+      },
+      {
+        "Name": "Stormfront",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/stormfront-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Legends Awakened",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/legends-awakened-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Majestic Dawn",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/majestic-dawn-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "POP Series 7",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-pop-series-7-set-symbol-150x95.png"
+      },
+      {
+        "Name": "Great Encounters",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/great-encounters-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Secret Wonders",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/secret-wonders-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "POP Series 6",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-pop-series-6-set-symbol-150x91.png"
+      },
+      {
+        "Name": "Trainer Kit – Manaphy & Lucario",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/Diamond-and-Pearl-Trainer-Deck-Manaphy-set-symbol-150x89.png"
+      },
+      {
+        "Name": "Mysterious Treasures",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/mysterious-treasures-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Diamond & Pearl",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/diamond-and-pearl-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Diamond & Pearl Promos",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2018/10/diamond-pearl-promos-pokemon-set-symbol-150x136.png"
+      }
+    ],
+    "EX Series" : [
+      {
+        "Name": "POP Series 5",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-pop-series-5-set-symbol-150x97.png"
+      },
+      {
+        "Name": "Power Keepers",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-power-keepers-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Dragon Frontiers",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-dragon-frontiers-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Crystal Guardians",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-crystal-guardians-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "POP Series 4",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-pop-series-4-set-symbol-150x92.png"
+      },
+      {
+        "Name": "Holon Phantoms",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-holon-phantoms-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "POP Series 3",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-pop-series-3-set-symbol-150x94.png"
+      },
+      {
+        "Name": "EX Trainer Kit 2 - Plusle & Minun",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/ex-trainer-kit-2-plusle-pokemon-set-symbol-104x150.png"
+      },
+      {
+        "Name": "Legend Maker",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-legend-maker-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Delta Species",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-delta-species-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Unseen Forces",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-unseen-forces-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "POP Series 2",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-pop-series-2-set-symbol-150x94.png"
+      },
+      {
+        "Name": "Emerald",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-emerald-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Deoxys",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-deoxys-pokemon-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Team Rocket Returns",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-team-rocket-returns-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "POP Series 1",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-pop-series-1-set-symbol-150x100.png"
+      },
+      {
+        "Name": "Fire Red and Leaf Green",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-fire-red-and-leaf-green-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Hidden Legends",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-hidden-legends-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "EX Trainer Kit - Latias & Latios",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/pokemon-ex-trainer-kit-latias-set-symbol-150x101.png"
+      },
+      {
+        "Name": "Team Magma vs Team Aqua",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-team-magma-vs-team-aqua-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Dragon",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-dragon-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Sandstorm",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-sandstorm-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Ruby and Sapphire",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/ex-ruby-and-sapphire-pokemon-set-symbol.png"
+      }
+    ],
+    "e-Card Series" : [
+      {
+        "Name": "Skyridge",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/skyridge-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Nintendo Black Star Promos",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-nintendo-black-star-promos-set-symbol-150x136.png"
+      },
+      {
+        "Name": "Aquapolis",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/aquapolis-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Expedition",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/expedition-base-set-pokemon-set-symbol.png"
+      }
+    ],
+    "Legendary Collection Series" : [
+      {
+        "Name": "Legendary Collection",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/legendary-collection-pokemon-set-symbol.png"
+      }
+    ],
+    "Neo Series" : [
+      {
+        "Name": "Neo Destiny",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/neo-destiny-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Neo Revelation",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/neo-revelation-pokemon-set-symbol-150x97.png"
+      },
+      {
+        "Name": "Southern Islands",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/06/pokemon-southern-islands-set-symbol-150x118.png"
+      },
+      {
+        "Name": "Neo Discovery",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/neo-discovery-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Neo Genesis",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/neo-genesis-pokemon-set-symbol.png"
+      }
+    ],
+    "Gym Series" : [
+      {
+        "Name": "Gym Challenge",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/gym-challenge-pokemon-set-symbol-150x92.png"
+      },
+      {
+        "Name": "Gym Heroes",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/gym-heroes-pokemon-set-symbol-150x91.png"
+      }
+    ],
+    "Original Series" : [
+      {
+        "Name": "Team Rocket",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/team-rocket-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Base Set 2",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/base-set-2-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Fossil",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/fossil-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Wizards Black Star Promos",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/05/pokemon-wizards-black-star-promos-set-symbol-150x136.png"
+      },
+      {
+        "Name": "Jungle",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2017/03/jungle-pokemon-set-symbol.png"
+      },
+      {
+        "Name": "Base Set",
+        "img": "NONE"
+      }
+    ],
+    "Mcdonald's Pokemon Cards" : [
+      {
+        "Name": "Mcdonald's 2021",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2021/02/McDonalds-Pokemon-25th-Anniversary-2021-150x92.png"
+      },
+      {
+        "Name": "Mcdonald's 2019",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2020/02/mcdonalds-pokemon-2019-set-symbol-150x148.png"
+      },
+      {
+        "Name": "Mcdonald's 2018",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/mcdonalds-pokemon-2018-set-symbol-150x140.png"
+      },
+      {
+        "Name": "Mcdonald's 2017",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/mcdonalds-pokemon-2017-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Mcdonald's 2016",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/mcdonalds-pokemon-2016-set-symbol-150x140.png"
+      },
+      {
+        "Name": "Mcdonald's 2015",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/mcdonalds-pokemon-2015-set-symbol-148x150.png"
+      },
+      {
+        "Name": "Mcdonald's 2014",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/mcdonalds-pokemon-2014-set-symbol-150x148.png"
+      },
+      {
+        "Name": "Mcdonald's 2013",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/mcdonalds-pokemon-2013-set-symbol.png"
+      },
+      {
+        "Name": "Mcdonald's 2012",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/mcdonalds-pokemon-2012-set-symbol-150x150.png"
+      },
+      {
+        "Name": "Mcdonald's 2011",
+        "img": "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/mcdonalds-pokemon-2011-set-symbol-150x130.png"
+      }
+    ]
+}
