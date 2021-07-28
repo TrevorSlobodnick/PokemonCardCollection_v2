@@ -32,15 +32,14 @@ export class Backend{
      *                      the object must contain a "task" property with an acceptable value
      */
      static async post(info){
-        axios({
+        const result = await axios({
             method: 'post',
             url: 'https://www.tslobodnick.ca/Test/post.php',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             data: new URLSearchParams(info)
-        }).then(result => {
-            return result
         })
+        return result.data
     }
 }

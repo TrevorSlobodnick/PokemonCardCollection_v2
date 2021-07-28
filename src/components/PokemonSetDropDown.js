@@ -8,10 +8,7 @@ const PokemonSetDropDown = () => {
     const [sets, setSets] = useState([]) 
 
     useEffect(() => {
-        Backend.getSets().then(result => {
-            // setSets(result)
-            console.log(result)
-        })
+        Backend.getSets().then(res => console.log(res))
     })
 
     return (

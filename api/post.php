@@ -2,7 +2,7 @@
 require_once("Database.php");
 require_once("PokemonTCGApi.php");
 
-//header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');
 
 $dbc = Database::getInstance();
 $pokemonTCGApi = new PokemonTCGApi();
@@ -27,7 +27,7 @@ else if($_POST['task'] == "get_prices"){
 else if($_POST['task'] == "get_sets"){
     $sets = $pokemonTCGApi->getSets();
     $strippedSets = $pokemonTCGApi->stripSets($sets);
-    echo $strippedSets;
+    echo json_encode($strippedSets);
 }
 else if($_POST['task'] == "add_card"){
     $cardNumber = $_POST['cardNumber'];
