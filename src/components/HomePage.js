@@ -139,22 +139,22 @@ const HomePage = ( props ) => {
         e.preventDefault() //stops page reload
         console.log("Search Icon Clicked");
         updateHomePath(sort, search, searchType)
-        let info = { 
-            "KEY" : "VALUE!",
-            "search" : "Wat",
-            "searchType" : "set"
-         }
-        axios({
-            method: 'post',
-            url: 'https://www.tslobodnick.ca/Test/post.php',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            data: new URLSearchParams(info)
-        }).then(result => {
-            console.log(result)
-        })
-        searchCollection()
+        let info
+        if(search === ""){
+            info = { 
+                "task" : "get_cards",
+                "filters" : "none"
+            }
+        }
+        else{
+            info = { 
+                "task" : "get_cards",
+                "filters" : "both",
+                "search" : search,
+                "searchType" : searchType
+             }
+        }
+        searchCollection(info)
     }
 
     /**
@@ -166,14 +166,18 @@ const HomePage = ( props ) => {
 
     /**
      * Filters the cards to only show the ones that pass the search criteria
+     * @param {Object} postObj the info object to pass to the post function
      */
-    const searchCollection = () => {
+    const searchCollection = (postObj) => {
         console.log("Search Complete");
+        post(postObj).then(result => {
+            console.log(result)
+        })
     }
 
     //HELPER FUNCTIONS
     /**
-     * 
+     * updates the homePath variable/state and also updates the url to show the current search query
      * @param {String} sortVal The current value of sort, from the form
      * @param {String} searchVal The current value of search, from the form
      * @param {String} searchTypeVal The current value of searchType, from the form
@@ -182,8 +186,27 @@ const HomePage = ( props ) => {
         console.log("Old: " + props.homePath)
         const newPath = "/?sort=" + sortVal + "&search=" + searchVal + "&searchType=" + searchTypeVal
         props.setHomePath(newPath)
+        //update url
         history.replace(newPath)
         console.log("New: " + newPath)
+    }
+
+    /**
+     * Send a post request to the backend
+     * @param {Object} info The object that contains the data to send to the backend, 
+     *                      the object must contain a "task" property with a an acceptable value
+     */
+    const post = async (info) => {
+        axios({
+            method: 'post',
+            url: 'https://www.tslobodnick.ca/Test/post.php',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: new URLSearchParams(info)
+        }).then(result => {
+            return result
+        })
     }
 
     return (
