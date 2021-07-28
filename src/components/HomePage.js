@@ -1,6 +1,6 @@
 import qs from "query-string";
 import { useLocation } from "react-router";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { VALID_SORT_VALUES, VALID_SEARCHTYPE_VALUES } from "../util/Constants.js"
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -60,17 +60,18 @@ const HomePage = ( props ) => {
     const initSearchVal = getValFromQuery("search")
     const initSearchTypeVal = getValFromQuery("searchType")
 
-    // if the url needs to be updated...
-    // meaning, one or more key/value pairs were missing from the url search query,
-    // in order to create a sharable link, all key/value pairs are required to be in the url
-    //  NOTE: we just want to update the url display, not a full rerender
-    if(updateUrl){
-        console.log("replacing...");
-        //change url using react, many people noted this will sometimes reload the page, which isnt a big issue
-        history.replace("/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
-        //change url using browser history api, since it does not necessarily communicate with react, I will be using the react method since this is a react project
-        //window.history.replaceState(null, "Bob", "/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
-    }
+    //This causes a warning if not wrapped in useEffect, this is because we would be reloading the page (history.replace) even though the component hasnt rendered yet
+    useEffect(() => {
+        // if the url needs to be updated...
+        // meaning, one or more key/value pairs were missing from the url search query, in order to create a sharable link, all key/value pairs are required to be in the url
+        if(updateUrl){ 
+            console.log("replacing...");
+            //change url using react, many people noted this will sometimes reload the page, which isnt a big issue
+            history.replace("/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
+            //change url using browser history api, since it does not necessarily communicate with react, I will be using the react method since this is a react project
+            //window.history.replaceState(null, "Bob", "/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
+        }
+    })
 
     // set the initial state using init variables above, which will set the value if the url contains one and it is valid,
     // otherwise, it will use the default value
@@ -170,7 +171,13 @@ const HomePage = ( props ) => {
         console.log("Search Complete");
     }
 
-    //HELPER FUNCTION
+    //HELPER FUNCTIONS
+    /**
+     * 
+     * @param {String} sortVal The current value of sort, from the form
+     * @param {String} searchVal The current value of search, from the form
+     * @param {String} searchTypeVal The current value of searchType, from the form
+     */
     const updateHomePath = (sortVal, searchVal, searchTypeVal) => {
         console.log("Old: " + props.homePath)
         const newPath = "/?sort=" + sortVal + "&search=" + searchVal + "&searchType=" + searchTypeVal
