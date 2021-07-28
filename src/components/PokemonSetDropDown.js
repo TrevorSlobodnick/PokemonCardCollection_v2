@@ -1,6 +1,15 @@
+import { useEffect } from "react"
+import { Backend } from '../util/Backend.js'
 
 
 const PokemonSetDropDown = () => {
+
+    console.log(Backend) //silences warning, temporary
+
+    useEffect(() => {
+        
+    })
+
     return (
         <select>
             <optgroup label="Sword & Shield Series">

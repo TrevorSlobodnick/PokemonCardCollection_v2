@@ -3,7 +3,6 @@ import { useLocation } from "react-router";
 import { useEffect, useState } from 'react';
 import { VALID_SORT_VALUES, VALID_SEARCHTYPE_VALUES } from "../util/Constants.js"
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 
 const HomePage = ( props ) => {
 
@@ -170,9 +169,6 @@ const HomePage = ( props ) => {
      */
     const searchCollection = (postObj) => {
         console.log("Search Complete");
-        post(postObj).then(result => {
-            console.log(result)
-        })
     }
 
     //HELPER FUNCTIONS
@@ -189,24 +185,6 @@ const HomePage = ( props ) => {
         //update url
         history.replace(newPath)
         console.log("New: " + newPath)
-    }
-
-    /**
-     * Send a post request to the backend
-     * @param {Object} info The object that contains the data to send to the backend, 
-     *                      the object must contain a "task" property with a an acceptable value
-     */
-    const post = async (info) => {
-        axios({
-            method: 'post',
-            url: 'https://www.tslobodnick.ca/Test/post.php',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            data: new URLSearchParams(info)
-        }).then(result => {
-            return result
-        })
     }
 
     return (

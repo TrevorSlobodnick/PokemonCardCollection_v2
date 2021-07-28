@@ -12,6 +12,8 @@ $pokemonTCGApi = new PokemonTCGApi();
 if($_POST['task'] == "get_cards"){
     if($_POST['filters'] == "none"){
         //the search field was empty
+
+        //Handle which cards to return on the front end
     }
     else{
         //the search field had a value
@@ -19,7 +21,10 @@ if($_POST['task'] == "get_cards"){
         $searchType = $_POST['searchType'];
     }
 }
-else if($_POST['task'] == "get_price"){
+else if($_POST['task'] == "get_prices"){
+
+}
+else if($_POST['task'] == "get_sets"){
 
 }
 else if($_POST['task'] == "add_card"){
