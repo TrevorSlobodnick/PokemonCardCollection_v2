@@ -16,7 +16,7 @@ function App() {
           <Route path="/">
             <HomePage homePath={homePath} setHomePath={setHomePath} />
           </Route>
-          <Route path="/Add">
+          <Route exact path="/Add">
             <AddCardPage/>
           </Route>
         </Switch>
