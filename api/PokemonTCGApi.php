@@ -19,6 +19,8 @@ class PokemonTCGApi{
         $this->context = stream_context_create($this->options);
     }
 
+    //TODO: Change set name to set id
+
     /**
      * Queries the PokemonTCG Api and gets a pokemon card with the given number and set name and returns data for the card
      * @param Integer $number - the number of the card, the number is located on the bottom left or right, 
@@ -50,6 +52,8 @@ class PokemonTCGApi{
         $decodedJson = json_decode($jsonStr);
         return $decodedJson->data;
     }
+
+    //TODO: images->symbol NOT ->symbol
 
     /**
      * Gets the id, name, series, and symbol from each pokemon card set in the given array

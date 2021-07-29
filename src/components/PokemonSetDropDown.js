@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Select from "react-select"
 import { Backend } from '../util/Backend.js'
 
 
@@ -14,30 +15,28 @@ const PokemonSetDropDown = () => {
                 //the selectData Object doesnt have the series as a key yet
                 selectData[series] = []
             }
-            selectData[series].push(set)
+            selectData[series].push({
+                "value" : set.id,
+                "label" : <div data-id={set.id}><img src={set.symbol} alt={set.name} /><p>{set.name} from {set.series}</p></div>
+            })
+            //console.log(set.symbol); TODO: Fix backend so images appear
         });
         return selectData
     }
 
-    const displaySelectOptions = () => {
-        //selectData = an object where the keys are the optgroups (series) and the values are an array of the options
+    const getFormattedSelectData = () => {
         let selectData = getSelectData()
-        //selectDataKeys = array of set series, used to group the sets
-        let selectDataKeys = Object.keys(selectData);
-        return selectDataKeys.map(group => {
-            return <optgroup key={group} label={group}>
-                {getOptionsForGroup(selectData[group])}
-            </optgroup>
-        });
-    }
-
-    const getOptionsForGroup = (optionsArr) => {
-        return optionsArr.map(option => {
-            return <option key={option.id} data-id={option.id} value={option.name}>
-                <img src={option.symbol} alt={option.name} />
-                <p>{option.name}</p>
-            </option>
+        //the keys (series) will act as groups
+        let selectDataKeys = Object.keys(selectData)
+        let tmp = selectDataKeys.map(key => {
+            let groupedOptions = {
+                "label" : key,
+                "options" : selectData[key]
+            }
+            return groupedOptions
         })
+        console.log(tmp);
+        return tmp
     }
 
     useEffect(() => {
@@ -47,9 +46,13 @@ const PokemonSetDropDown = () => {
     }, []) //the square brackets is the dependencies param, meaning if a dependency changes, the useEffect is to be called again, however if the value never changes (like an empty array), the function only runs once when the component is initially rendered
 
     return (
-        <select>
-            {displaySelectOptions()}
-        </select>
+        <Select
+            className="select"
+            isSearchable={true}
+            isClearable={true}
+            name="set"
+            options={getFormattedSelectData()}
+        />
     )
 }
 

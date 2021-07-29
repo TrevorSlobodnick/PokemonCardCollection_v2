@@ -72,6 +72,7 @@ h1{
   right: 0px;
   display: flex;
   justify-content: flex-end;
+  z-index: 1; /*Z-index is required so it appears above the select element on the add page*/
 }
 
 .mobile-nav{
@@ -105,4 +106,8 @@ h1{
 
 .width-anim{
   transition: width .3s linear;
+}
+
+.help{
+  background-color: "purple";
 }
