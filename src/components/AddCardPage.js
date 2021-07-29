@@ -33,8 +33,8 @@ const AddCardPage = () => {
 
     const submitForm = (id, num) => {
         console.log("Form Submitted")
-        Backend.addCard(id, num).then(response => {
-            console.log("Card Added");
+        Backend.addCard(num, id).then(response => {
+            console.log("Card Added")
             console.log(response)
         })
     }
