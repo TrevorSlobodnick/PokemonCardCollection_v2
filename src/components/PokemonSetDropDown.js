@@ -4,54 +4,51 @@ import { Backend } from '../util/Backend.js'
 
 const PokemonSetDropDown = () => {
 
-    console.log(Backend) //silences warning, temporary
     const [sets, setSets] = useState([]) 
 
+    const getSelectData = () => {
+        let selectData = {}
+        sets.forEach(set => {
+            let series = set.series
+            if(selectData[series] == null){
+                //the selectData Object doesnt have the series as a key yet
+                selectData[series] = []
+            }
+            selectData[series].push(set)
+        });
+        return selectData
+    }
+
+    const displaySelectOptions = () => {
+        //selectData = an object where the keys are the optgroups (series) and the values are an array of the options
+        let selectData = getSelectData()
+        //selectDataKeys = array of set series, used to group the sets
+        let selectDataKeys = Object.keys(selectData);
+        return selectDataKeys.map(group => {
+            return <optgroup key={group} label={group}>
+                {getOptionsForGroup(selectData[group])}
+            </optgroup>
+        });
+    }
+
+    const getOptionsForGroup = (optionsArr) => {
+        return optionsArr.map(option => {
+            return <option key={option.id} data-id={option.id} value={option.name}>
+                <img src={option.symbol} alt={option.name} />
+                <p>{option.name}</p>
+            </option>
+        })
+    }
+
     useEffect(() => {
-        Backend.getSets().then(res => console.log(res))
-    })
+        Backend.getSets().then(response => {
+            setSets(response)
+        })
+    }, []) //the square brackets is the dependencies param, meaning if a dependency changes, the useEffect is to be called again, however if the value never changes (like an empty array), the function only runs once when the component is initially rendered
 
     return (
         <select>
-            <optgroup label="Sword & Shield Series">
-
-            </optgroup>
-            <optgroup label="Sun & Moon Series">
-
-            </optgroup>
-            <optgroup label="XY Series">
-
-            </optgroup>
-            <optgroup label="Black & White Series">
-
-            </optgroup>
-            <optgroup label="HeartGold & SoulSilver Series">
-
-            </optgroup>
-            <optgroup label="Platinum Series">
-
-            </optgroup>
-            <optgroup label="Diamond & Pearl Series">
-
-            </optgroup>
-            <optgroup label="EX Series">
-
-            </optgroup>
-            <optgroup label="e-Card Series">
-
-            </optgroup>
-            <optgroup label="Neo Series">
-
-            </optgroup>
-            <optgroup label="Gym Series">
-
-            </optgroup>
-            <optgroup label="Original Series">
-
-            </optgroup>
-            <optgroup label="Mcdonald's Pokemon Cards">
-
-            </optgroup>
+            {displaySelectOptions()}
         </select>
     )
 }
