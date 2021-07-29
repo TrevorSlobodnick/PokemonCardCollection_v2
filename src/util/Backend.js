@@ -15,8 +15,13 @@ export class Backend{
 
     }
 
-    static async addCard(){
-
+    static async addCard(cardNumber, setId){
+        const cardAdded = await this.post({
+            "task" : "add_card",
+            "cardNumber" : cardNumber,
+            "setId" : setId
+        })
+        return cardAdded
     }
 
     static async getSets(){

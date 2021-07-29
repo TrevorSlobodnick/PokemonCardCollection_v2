@@ -1,6 +1,7 @@
 import React from 'react'
 import PokemonSetDropDown from './PokemonSetDropDown'
 import { useState } from "react"
+import { Backend } from '../util/Backend'
 
 const AddCardPage = () => {
 
@@ -10,7 +11,6 @@ const AddCardPage = () => {
     const onSelectChange = (valueType, actionType) => {
         if(actionType.action === "select-option"){
             setSetId(valueType.value)
-            console.log(valueType.value);
         }
     }
 
@@ -22,7 +22,6 @@ const AddCardPage = () => {
         if(e.key === "Enter"){
             e.preventDefault() //prevents refresh
             setNumber(e.target.value)
-            console.log(e.target.value)
             submitForm(setId, e.target.value)
         }
     }
@@ -33,9 +32,11 @@ const AddCardPage = () => {
     }
 
     const submitForm = (id, num) => {
-        console.log("Form Submitted with values:")
-        console.log("Id: " + id);
-        console.log("Number: " + num);
+        console.log("Form Submitted")
+        Backend.addCard(id, num).then(response => {
+            console.log("Card Added");
+            console.log(response)
+        })
     }
 
     return (

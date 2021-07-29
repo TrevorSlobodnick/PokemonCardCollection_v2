@@ -31,7 +31,8 @@ else if($_POST['task'] == "get_sets"){
 }
 else if($_POST['task'] == "add_card"){
     $cardNumber = $_POST['cardNumber'];
-    $setName = $_POST['setName'];
+    $setId = $_POST['setId'];
+    return $pokemonTCGApi->getCard($cardNumber, $setId);
 }
 
 ?>
