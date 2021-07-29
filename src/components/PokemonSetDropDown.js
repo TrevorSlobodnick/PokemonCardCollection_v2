@@ -3,9 +3,9 @@ import Select from "react-select"
 import { Backend } from '../util/Backend.js'
 
 
-const PokemonSetDropDown = () => {
+const PokemonSetDropDown = ( props ) => {
 
-    const [sets, setSets] = useState([]) 
+    const [sets, setSets] = useState([])
 
     const getSelectData = () => {
         let selectData = {}
@@ -17,9 +17,8 @@ const PokemonSetDropDown = () => {
             }
             selectData[series].push({
                 "value" : set.id,
-                "label" : <div data-id={set.id}><img src={set.symbol} alt={set.name} /><p>{set.name} from {set.series}</p></div>
+                "label" : <div className="option" data-id={set.id}><img className="option-img" src={set.symbol} alt={set.name} /><p className="option-text">{set.name}</p></div>
             })
-            //console.log(set.symbol); TODO: Fix backend so images appear
         });
         return selectData
     }
@@ -35,7 +34,6 @@ const PokemonSetDropDown = () => {
             }
             return groupedOptions
         })
-        console.log(tmp);
         return tmp
     }
 
@@ -51,6 +49,7 @@ const PokemonSetDropDown = () => {
             isSearchable={true}
             isClearable={true}
             name="set"
+            onChange={props.onSelectChange}
             options={getFormattedSelectData()}
         />
     )
