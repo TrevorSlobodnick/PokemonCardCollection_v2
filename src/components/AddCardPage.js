@@ -7,6 +7,7 @@ const AddCardPage = () => {
 
     const [setId, setSetId] = useState("")
     const [number, setNumber] = useState(0)
+    const [lastAdded, setLastAdded] = useState({})
 
     const onSelectChange = (valueType, actionType) => {
         if(actionType.action === "select-option"){
@@ -34,13 +35,13 @@ const AddCardPage = () => {
     const submitForm = (id, num) => {
         console.log("Form Submitted")
         Backend.addCard(num, id).then(response => {
-            console.log("Card Added")
             console.log(response)
+            setLastAdded(response)
         })
     }
 
     return (
-        <div>
+        <div className="add-page-content">
             <form>
                 <label htmlFor="setName">Set</label>
                 <PokemonSetDropDown onSelectChange={onSelectChange} />
@@ -48,6 +49,9 @@ const AddCardPage = () => {
                 <input type="number" name="cardNumber" id="cardNumber" onKeyDown={onKeyDown} onChange={onNumberInputChange} placeholder="58" />
                 <input type="submit" name="submit" id="submit" onClick={onSubmitClicked} value="Add Card" />
             </form>
+            <div className="img-wrapper">
+                {Object.keys(lastAdded).length === 0 ? <img src="" alt=""/> : <img width="128px" src={lastAdded.images.small} alt={lastAdded.name} />}
+            </div>
         </div>
     )
 }
