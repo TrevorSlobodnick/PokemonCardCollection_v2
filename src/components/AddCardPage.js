@@ -12,7 +12,9 @@ const AddCardPage = () => {
 
     const onSelectChange = (valueType, actionType) => {
         if(actionType.action === "select-option"){
-            setSetId(valueType.value)
+            //valueType.value will be equal to the name of the set, this is required for the default search functionality to work
+            //the id is passed to the html element when being created, so it can be accessed via data-id
+            setSetId(valueType.label.props['data-id'])
         }
     }
 

@@ -16,7 +16,7 @@ const PokemonSetDropDown = ( props ) => {
                 selectData[series] = []
             }
             selectData[series].push({
-                "value" : set.id,
+                "value" : set.name,
                 "label" : <div className="option" data-id={set.id}><img className="option-img" src={set.symbol} alt={set.name} /><p className="option-text">{set.name}</p></div>
             })
         });
