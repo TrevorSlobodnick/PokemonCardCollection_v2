@@ -1,6 +1,21 @@
+/*
+COLORS -> https://www.schemecolor.com/pokemon-colors.php
+  Boston University Red: #c52018
+  Cerulean Blue: #3B4CCA
+  Alt Blue: #0d5bc4
+  Golden Yellow: #FFDE00
+  Gold Foil: #B3A125
+  Silver: #eaeaea
+*/
+
 @font-face {
   font-family: 'PokeText';
   src: url("./fonts/poketext_font.ttf");
+}
+
+@font-face {
+  font-family: 'Roboto Thin';
+  src: url("./fonts/Roboto-Thin.ttf");
 }
 
 /*Reset Styles*/
@@ -22,6 +37,7 @@ a{
 body{
   font-family: Helvetica, Verdana, sans-serif;
   min-height: 100vh;
+  background-color: #eaeaea;
 }
 
 header{
@@ -29,18 +45,28 @@ header{
   max-height: 10vh;
   display: flex;
   align-items: center;
+  background-color: #c52018;
 }
 
 header .img-wrapper{
-  width: 25%;
+  width: 40px;
+  max-height: 10vh;
+  display: flex;
+  padding-left: 5px;
 }
 
 header img{
   width: 100%;
+  max-height: 10vh;
+  margin: 0px auto;
 }
 
 h1{
   font-size: 1em;
+  font-family: sans-serif;
+  line-height: 1em;
+  font-weight: 500;
+  padding-left: 2px;
 }
 
 form{
@@ -62,11 +88,16 @@ form input[type="number"]{
   border: solid thin black;
   max-height: 38px;
   padding-left: 5px;
+  border-radius: 4px;
 }
 
 form input[type="submit"]{
   margin-top: 2em;
-  padding: 1.6em 0px;
+  padding: 1.4em 0px;
+  background-color: #0d5bc4;
+  font-size: 1em;
+  font-weight: 100;
+  font-family: sans-serif;
 }
 
 form label{
@@ -116,6 +147,13 @@ form label{
   width: 100%;
 }
 
+.mobile-nav li{
+  background-color: #c521182f;
+  color: #eaeaea;
+  box-sizing: border-box;
+  border-bottom: solid 1px rgba(245, 245, 245, 0.2);
+}
+
 .mobile-nav-link{
   display: none; /* set to display: flex (0.1s delay) when mobile nav is clicked */
   align-items: center;
@@ -151,10 +189,21 @@ form label{
   text-align: center;
 }
 
+.card-placeholder{
+  margin: 0px auto;
+  width: 128px;
+  border: solid thin black;
+  border-radius: 10px;
+  min-height: 30vh;
+}
+
+
+
 
 
 /*react-select styles*/
 .css-yk16xz-control{
+  border-color: black !important;
   max-height: 38px;
 }
 
