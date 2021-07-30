@@ -94,6 +94,7 @@ form input[type="number"]{
 form input[type="submit"]{
   margin-top: 2em;
   padding: 1.4em 0px;
+  color: #eaeaea;
   background-color: #0d5bc4;
   font-size: 1em;
   font-weight: 100;

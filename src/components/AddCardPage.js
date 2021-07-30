@@ -2,6 +2,7 @@ import React from 'react'
 import PokemonSetDropDown from './PokemonSetDropDown'
 import { useState } from "react"
 import { Backend } from '../util/Backend'
+import { StatusMessage } from '../util/StatusMessage'
 
 const AddCardPage = () => {
 
@@ -37,9 +38,11 @@ const AddCardPage = () => {
         Backend.addCard(num, id).then(response => {
             console.log(response)
             if(response == null){
+                StatusMessage.showErrorMessage("Card could not be added")
                 setLastAdded({})
             }
             else{
+                StatusMessage.showSuccessMessage("Card added Successfully")
                 setLastAdded(response)
             }
         })

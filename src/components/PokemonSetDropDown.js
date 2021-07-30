@@ -40,6 +40,11 @@ const PokemonSetDropDown = ( props ) => {
     useEffect(() => {
         Backend.getSets().then(response => {
             setSets(response)
+            return () => {
+                //why we do this
+                //https://stackoverflow.com/questions/54954385/react-useeffect-causing-cant-perform-a-react-state-update-on-an-unmounted-comp#comment121180788_65007703
+                setSets([])
+            }
         })
     }, []) //the square brackets is the dependencies param, meaning if a dependency changes, the useEffect is to be called again, however if the value never changes (like an empty array), the function only runs once when the component is initially rendered
 
