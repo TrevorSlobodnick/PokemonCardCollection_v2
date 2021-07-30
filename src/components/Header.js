@@ -61,8 +61,8 @@ const Header = () => {
                 <nav id="mobile-nav" className="mobile-nav width-anim">
                     <ul>
                         <li className="close-mobile-nav" onClick={closeMobileNav}>X</li>
-                        <li><Link className="mobile-nav-link" to="/">Home</Link></li>
-                        <li><Link className="mobile-nav-link" to="/Add">Add</Link></li>
+                        <li onClick={closeMobileNav}><Link className="mobile-nav-link" to="/">Home</Link></li>
+                        <li onClick={closeMobileNav}><Link className="mobile-nav-link" to="/Add">Add</Link></li>
                     </ul>
                 </nav>
             </div>
