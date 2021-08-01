@@ -31,6 +31,7 @@ class PokemonTCGApi{
         $this->options = [
             "http" => [
                 "method" => "GET",
+                "ignore_errors" => true,
                 "header" => "X-Api-Key: " . POKEMONTCG_API_KEY
             ]
         ];
@@ -45,9 +46,9 @@ class PokemonTCGApi{
     */
     public static function containsErrorMessage($obj){
         if(property_exists($obj, "message")){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -70,10 +71,17 @@ class PokemonTCGApi{
             // the data property holds the information we requested, so return that
             return $decodedJson->data;
         }
-        else{
+        else if(property_exists($decodedJson, "error")){
             // there was an error, likely the $number provided was invalid
             // return the error object, which contains the error message and code
             return $decodedJson->error;
+        }
+        else{
+            // unknown error
+            $unknownError = new stdClass();
+            $unknownError->message = "Unknown Error";
+            $unknownError->code = 0;
+            return $unknownError;
         }
     }
 

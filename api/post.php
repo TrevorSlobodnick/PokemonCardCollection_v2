@@ -52,7 +52,7 @@ else if($_POST['task'] == "add_card"){
     $card = $pokemonTCGApi->getCard($cardNumber, $setId);
     // if getCard returned an error object...
     if(PokemonTCGApi::containsErrorMessage($card)){
-        // the card was not retreived
+        // the card was not retreived, instead $card is an object containing error info
         echo json_encode(new Response(false, $card));
     }
     else{
