@@ -42,7 +42,9 @@ else if($_POST['task'] == "get_prices"){
 else if($_POST['task'] == "get_sets"){
     $sets = $pokemonTCGApi->getSets();
     $strippedSets = $pokemonTCGApi->stripSets($sets);
-    echo json_encode($strippedSets);
+    // since the api "sets" endpoint is a constant, it wont produce any errors
+    // therefor we just have to format the output
+    echo json_encode(new Response(true, $strippedSets));
 }
 else if($_POST['task'] == "add_card"){
     $cardNumber = $_POST['cardNumber'];
@@ -56,6 +58,9 @@ else if($_POST['task'] == "add_card"){
     else{
         // the card was successfully retreived
         echo json_encode(new Response(true, $card));
+
+        //TODO: add card to database
+        //TODO: check for/handle errors
     }
 }
 

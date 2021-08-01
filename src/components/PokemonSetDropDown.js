@@ -39,7 +39,8 @@ const PokemonSetDropDown = ( props ) => {
 
     useEffect(() => {
         Backend.getSets().then(response => {
-            setSets(response)
+            //getSets will never return an error, so no need to check if response.completed === true
+            setSets(response.data)
             return () => {
                 //why we do this
                 //https://stackoverflow.com/questions/54954385/react-useeffect-causing-cant-perform-a-react-state-update-on-an-unmounted-comp#comment121180788_65007703

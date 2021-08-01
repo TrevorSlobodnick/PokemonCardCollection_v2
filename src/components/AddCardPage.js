@@ -39,13 +39,13 @@ const AddCardPage = () => {
         console.log("Form Submitted")
         Backend.addCard(num, id).then(response => {
             console.log(response)
-            if(response == null){
-                StatusMessage.showErrorMessage("Card could not be added")
+            if(response.completed === false){
+                StatusMessage.showErrorMessage("Card could not be added:\n" + response.message)
                 setLastAdded({})
             }
             else{
                 StatusMessage.showSuccessMessage("Card added Successfully")
-                setLastAdded(response)
+                setLastAdded(response.data)
             }
         })
     }
