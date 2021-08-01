@@ -5,6 +5,17 @@ require_once("PokemonCardSet.php");
 
 /**
  * Class that handles communicating with the api
+ * 
+ * NOTE: 
+ *   if the url contains a query (ends with ?q=) ...
+ *       if the query isnt formated correctly an object gets returned with the property "error"
+ *          the error prop is an object that has a "message" property and a "code" property
+ *       if the query is formatted correctly, an object with properties "data", "page", "pageSize", "count", "totalCount" is returned
+ *          the data property is the only one being utilized, and it contains an array of objects matching the query
+ *          NOTE: the "data" array can be empty, contain 1 object, or contain many objects
+ *   if the url uses ids (sets/<id> or cards/<id>)
+ *       the error object is formatted the same
+ *       however the "data" property now only contains a single object, the one that matches the id, instead of an array
  */
 class PokemonTCGApi{
 
@@ -27,11 +38,24 @@ class PokemonTCGApi{
     }
 
     /**
+    * Checks if an object returned from the pokemontcg api has a "message" property
+    * if it does, that means there was an error, and the object contains the error message and code
+    * @param Object $obj the api response to check
+    * @return Boolean true if there was an error, otherwise return false
+    */
+    public static function containsErrorMessage($obj){
+        if(property_exists($obj, "message")){
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Queries the PokemonTCG Api and gets a pokemon card with the given number and set name and returns data for the card
      * @param Integer $number - the number of the card, the number is located on the bottom left or right, 
      *                            there should be 2 numbers seperated by a slash, its the one before the slash.
      * @param String $setId - the id of the set, the frontend will have access to this info.
-     * @return Array the json data for the card, or an empty array if no values
+     * @return Object the json data for the card, or in the case of an error, an object containing the error message and code
      */
     public function getCard($number, $setId){
         //create the cardId by combining the setId and the card number, seperated by a dash
@@ -41,7 +65,16 @@ class PokemonTCGApi{
         $url = POKEMONTCG_API_CARD_ENDPOINT . $query;
         $jsonStr = file_get_contents($url, false, $this->context);
         $decodedJson = json_decode($jsonStr);
-        return $decodedJson->data;
+        if(property_exists($decodedJson, "data")){
+            // since we are use cards/<id endpoint>, we are expecting an object from the api that has a data property
+            // the data property holds the information we requested, so return that
+            return $decodedJson->data;
+        }
+        else{
+            // there was an error, likely the $number provided was invalid
+            // return the error object, which contains the error message and code
+            return $decodedJson->error;
+        }
     }
 
     /**

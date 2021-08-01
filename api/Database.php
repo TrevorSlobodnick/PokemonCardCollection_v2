@@ -44,6 +44,18 @@
         }
 
         /**
+         * Get the total number of rows in the table
+         * @param String $table the table to get the rows from
+         * @return Integer number of rows in the table
+         */
+        public function getTableRowCount($table){
+            $sql = "SELECT COUNT(*) FROM " . $table;
+            $result = $this->sqlQuery($sql);
+            $numOfRows = $result->fetch();
+            return $numOfRows;
+        }
+
+        /**
          * Execute an SQL Query
          * @param String $sql the sql query to run
          * @param Array $bindVal an associative array containg the values for all placeholders in the query [placeholder => value]

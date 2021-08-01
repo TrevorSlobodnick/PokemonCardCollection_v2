@@ -1,15 +1,30 @@
 <?php
 require_once("Database.php");
 require_once("PokemonTCGApi.php");
+require_once("Response.php");
 
 header('Access-Control-Allow-Origin: *');
 
 $dbc = Database::getInstance();
 $pokemonTCGApi = new PokemonTCGApi();
 
-//$cardToAdd = $pokemonTCGApi->getCard(28, "Shining Legends");
+session_start();
+
+//if this is the first time this script is loaded, initialize the session variables
+if(!isset($_SESSION['startId'])){
+    // $_SESSION['startId'] keeps track of the last id retreived from the previous database query,
+    // so if the user requests 100 more cards, (using the same query), we know where to start
+    $_SESSION['startId'] = 0;
+}
+if(!isset($_SESSION['prevDBTask'])){
+    // $_SESSION['prevDBTask'] keeps track of the last database retrieval task, 
+    // if this is different from the current task, then the $_SESSION['startId'] gets reset to 0
+    $_SESSION['prevDBTask'] = "";
+}
 
 if($_POST['task'] == "get_cards"){
+    $startId = $_SESSION['startId'];
+    $prevDBTask = $_SESSION['prevDBTask'];
     if($_POST['filters'] == "none"){
         //the search field was empty
 
@@ -33,7 +48,15 @@ else if($_POST['task'] == "add_card"){
     $cardNumber = $_POST['cardNumber'];
     $setId = $_POST['setId'];
     $card = $pokemonTCGApi->getCard($cardNumber, $setId);
-    echo json_encode($card);
+    // if getCard returned an error object...
+    if(PokemonTCGApi::containsErrorMessage($card)){
+        // the card was not retreived
+        echo json_encode(new Response(false, $card));
+    }
+    else{
+        // the card was successfully retreived
+        echo json_encode(new Response(true, $card));
+    }
 }
 
 ?>
