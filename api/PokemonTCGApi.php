@@ -3,12 +3,19 @@
 require_once("config.php");
 require_once("PokemonCardSet.php");
 
+/**
+ * Class that handles communicating with the api
+ */
 class PokemonTCGApi{
 
     //https://stackoverflow.com/a/2107792
     private $options;
     private $context;
 
+    /**
+     * Setting the options and context variables for the entire class, 
+     * this will be used for sending headers with our requests to the api
+     */
     public function __construct(){
         $this->options = [
             "http" => [
@@ -19,14 +26,12 @@ class PokemonTCGApi{
         $this->context = stream_context_create($this->options);
     }
 
-    //TODO: Change set name to set id
-
     /**
      * Queries the PokemonTCG Api and gets a pokemon card with the given number and set name and returns data for the card
      * @param Integer $number - the number of the card, the number is located on the bottom left or right, 
      *                            there should be 2 numbers seperated by a slash, its the one before the slash.
      * @param String $setId - the id of the set, the frontend will have access to this info.
-     * @return Object the json data for the card, or an empty array if no values
+     * @return Array the json data for the card, or an empty array if no values
      */
     public function getCard($number, $setId){
         //create the cardId by combining the setId and the card number, seperated by a dash
@@ -51,9 +56,9 @@ class PokemonTCGApi{
     }
 
     /**
-     * Gets the id, name, series, and symbol from each pokemon card set in the given array
-     * @param Array $sets an array of pokemon card sets, gotten from the pokemontcg api
-     * @return Array an array of pokemon card sets that only contain the id, name, series, symbol
+     * Loops through each set in the given array and gets the id, name, series, and symbol from each card set object, then creates a PokemonCardSet object containing this information
+     * @param Array $sets an array of card sets retrieved from the pokemontcg api
+     * @return Array an array of PokemonCardSet Objects that only contain the id, name, series, symbol
      */
     public function stripSets($sets){
         $strippedSets = [];

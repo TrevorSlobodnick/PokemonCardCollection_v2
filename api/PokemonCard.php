@@ -36,7 +36,7 @@ class PokemonCard{
                 $this->secondary_type = $dataObj->types[1];
             }
             else{
-                //otherwise set to empty string
+                //otherwise set second type to empty string
                 $this->secondary_type = "";
             }
             $this->set_id = $dataObj->set->id;

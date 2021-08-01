@@ -13,7 +13,7 @@ if($_POST['task'] == "get_cards"){
     if($_POST['filters'] == "none"){
         //the search field was empty
 
-        //Handle which cards to return on the front end
+        //Return a max of 100 cards, use php session to keep track of this
     }
     else{
         //the search field had a value
