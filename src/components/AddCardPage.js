@@ -40,7 +40,7 @@ const AddCardPage = () => {
         Backend.addCard(num, id).then(response => {
             console.log(response)
             if(response.completed === false){
-                StatusMessage.showErrorMessage("Card could not be added:\n" + response.message)
+                StatusMessage.showErrorMessage("Card could not be added:\n\n" + response.data.message)
                 setLastAdded({})
             }
             else{

@@ -14,12 +14,31 @@ export class StatusMessage{
         transition: Slide
     }
 
-    static showSuccessMessage(message){
-        toast.success("\u2705 " + message, this.DEFAULT_SETTINGS)
+    static showSuccessMessage(){
+        toast.success(<this.SuccessMessage text="Successfully added card" />)
         //alt checkmark = \u2714
     }
 
     static showErrorMessage(message){
-        toast.error("\u2757 " + message, this.DEFAULT_SETTINGS)
+        toast.error(<this.ErrorMessage text="Could not add card." errorMsg={message} />)
+    }
+
+    static SuccessMessage({closeToast, toastProps, text}){
+        return <div className="toast">
+            <p className="toastUnicode">{"\u2705"}</p>
+            <div className="toastDiv">
+                <p className="toastStatus">{text}</p>
+            </div>
+        </div>
+    }
+
+    static ErrorMessage({closeToast, toastProps, text, errorMsg}){
+        return <div className="toast">
+            <p className="toastUnicode">{"\u2757"}</p>
+            <div className="toastDiv">
+                <p className="toastStatus">{text}</p>
+                <p className="errorMessage">{errorMsg}</p>
+            </div>
+        </div>
     }
 }
