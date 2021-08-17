@@ -89,10 +89,9 @@ const HomePage = ( props ) => {
      */
     const onSortValueChanged = (valueType, actionType) => {
         if(actionType.action === "select-option"){
-            console.log(valueType)
-            //setSort(e.target.value)
-            //updateHomePath(e.target.value, search, searchType)
-            //sortCollection()
+            setSort(valueType.value)
+            updateHomePath(valueType.value, search, searchType)
+            sortCollection()
         }
     }
 
@@ -109,9 +108,8 @@ const HomePage = ( props ) => {
      */
     const onSearchTypeValueChanged = (valueType, actionType) => {
         if(actionType.action === "select-option"){
-            console.log(valueType);
-            //setSearchType(e.target.value)
-            //updateHomePath(sort, search, e.target.value)
+            setSearchType(valueType.value)
+            updateHomePath(sort, search, valueType.value)
         }
     }
 
@@ -201,9 +199,10 @@ const HomePage = ( props ) => {
     }
 
     return (
-        <form>
+        <form className="home-form">
             <Select
-                className="sort-select"
+                className="sort-select react-select"
+                classNamePrefix="sort-select"
                 isSearchable={false}
                 isClearable={false}
                 defaultValue={getSelectData("sort")[0]}
@@ -211,10 +210,10 @@ const HomePage = ( props ) => {
                 onChange={onSortValueChanged}
                 options={getSelectData("sort")}
             />
-            <div>
-                <input type="text" name="search" onChange={onSearchValueChanged} onKeyDown={onKeyDown} defaultValue={search} />
+            <div className="search-div">
                 <Select
-                    className="search-type-select"
+                    className="search-type-select react-select"
+                    classNamePrefix="search-type-select"
                     isSearchable={false}
                     isClearable={false}
                     defaultValue={getSelectData("searchType")[0]}
@@ -222,8 +221,9 @@ const HomePage = ( props ) => {
                     onChange={onSearchTypeValueChanged}
                     options={getSelectData("searchType")}
                 />
-                <input type="image" name="submit" onClick={onSubmit} src="" alt="Go!" border="0" />
+                <input type="text" name="search" className="search" onChange={onSearchValueChanged} onKeyDown={onKeyDown} defaultValue={search} />
             </div>
+            <input type="image" name="submit" onClick={onSubmit} src="" alt="Go!" border="0" />
         </form>
     )
 }
