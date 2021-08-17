@@ -1,8 +1,9 @@
-import qs from "query-string";
-import { useLocation } from "react-router";
-import { useEffect, useState } from 'react';
-import { VALID_SORT_VALUES, VALID_SEARCHTYPE_VALUES } from "../util/Constants.js"
-import { useHistory } from "react-router-dom";
+import qs from "query-string"
+import { useLocation } from "react-router"
+import { useEffect, useState } from 'react'
+import { VALID_SORT_VALUES, VALID_SEARCHTYPE_VALUES, SORT_OPTIONS, SEARCH_TYPE_OPTIONS } from "../util/Constants.js"
+import { useHistory } from "react-router-dom"
+import Select from "react-select"
 
 const HomePage = ( props ) => {
 
@@ -85,13 +86,14 @@ const HomePage = ( props ) => {
      * - Set the sort state to the current value of the sort drop down box,
      * - update the home path,
      * - then sort the collection
-     * @param {Event} e 
      */
-    const onSortValueChanged = (e) => {
-        console.log(e.target.value)
-        setSort(e.target.value)
-        updateHomePath(e.target.value, search, searchType)
-        sortCollection()
+    const onSortValueChanged = (valueType, actionType) => {
+        if(actionType.action === "select-option"){
+            console.log(valueType)
+            //setSort(e.target.value)
+            //updateHomePath(e.target.value, search, searchType)
+            //sortCollection()
+        }
     }
 
     /**
@@ -104,11 +106,13 @@ const HomePage = ( props ) => {
 
     /**
      * set the searchType state to the current value of the searchType drop down box
-     * @param {Event} e 
      */
-    const onSearchTypeValueChanged = (e) => {
-        setSearchType(e.target.value)
-        updateHomePath(sort, search, e.target.value)
+    const onSearchTypeValueChanged = (valueType, actionType) => {
+        if(actionType.action === "select-option"){
+            console.log(valueType);
+            //setSearchType(e.target.value)
+            //updateHomePath(sort, search, e.target.value)
+        }
     }
 
     /**
@@ -187,22 +191,39 @@ const HomePage = ( props ) => {
         console.log("New: " + newPath)
     }
 
+    const getSelectData = (key) => {
+        if (key === "sort"){
+            return SORT_OPTIONS
+        }
+        else if (key === "searchType"){
+            return SEARCH_TYPE_OPTIONS
+        }
+    }
+
     return (
         <form>
-            <select onChange={onSortValueChanged} name="sort" defaultValue={sort}>
-                <option value="rarity">Rarity</option>
-                <option value="alpha">A-Z</option>
-                <option value="price">Price</option>
-                <option value="set">Set</option>
-                <option value="newold">New &#8594; Old</option>
-                <option value="oldnew">Old &#8594; New</option>
-            </select>
-            <input type="text" name="search" onChange={onSearchValueChanged} onKeyDown={onKeyDown} defaultValue={search} />
-            <select onChange={onSearchTypeValueChanged} name="searchType" defaultValue={searchType}>
-                <option value="name">Name</option>
-                <option value="set">Set</option>
-            </select>
-            <input type="image" name="submit" onClick={onSubmit} src="" alt="Go!" border="0" />
+            <Select
+                className="sort-select"
+                isSearchable={false}
+                isClearable={false}
+                defaultValue={getSelectData("sort")[0]}
+                name="sort"
+                onChange={onSortValueChanged}
+                options={getSelectData("sort")}
+            />
+            <div>
+                <input type="text" name="search" onChange={onSearchValueChanged} onKeyDown={onKeyDown} defaultValue={search} />
+                <Select
+                    className="search-type-select"
+                    isSearchable={false}
+                    isClearable={false}
+                    defaultValue={getSelectData("searchType")[0]}
+                    name="searchType"
+                    onChange={onSearchTypeValueChanged}
+                    options={getSelectData("searchType")}
+                />
+                <input type="image" name="submit" onClick={onSubmit} src="" alt="Go!" border="0" />
+            </div>
         </form>
     )
 }

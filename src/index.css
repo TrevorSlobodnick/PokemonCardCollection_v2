@@ -251,6 +251,7 @@ form label{
 .toastDiv{
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .toastStatus{
