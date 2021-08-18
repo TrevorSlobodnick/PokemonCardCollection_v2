@@ -75,19 +75,20 @@ p{
 
 form{
   flex: 1;
-  width: 95%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 form input{
   box-sizing: border-box;
   min-height: 38px;
   font-family: Helvetica, Verdana, sans-serif;
-  font-size: 1em;
+  font-size: 1.05em;
 }
 
 form input[type="number"]{
@@ -107,8 +108,16 @@ form input[type="submit"]{
   font-family: sans-serif;
 }
 
+form input[type="image"]:last-of-type{
+  width: 10%;
+}
+
 form label{
   margin-top: 1em;
+}
+
+fieldset{
+  width: 100%;
 }
 /*HTML Element Styles*/
 
@@ -205,13 +214,19 @@ form label{
 }
 
 
-
+.home-form{
+  flex-direction: row;
+  justify-content: flex-end;
+}
 
 .home-form *{
   min-height: 0px;
 }
 
 .search-div{
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 3%;
   display: flex;
   align-items: flex-end;
 }
@@ -221,6 +236,28 @@ form label{
   border-bottom: solid thin black;
   max-height: 20px;
 }
+
+.search:focus{
+  outline: none;
+}
+
+.search-icon{
+  width: 15px;
+  border-bottom: solid thin black;
+  margin-left: 1%;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 4px;
+}
+
+input[type="submit"].apply-filters{
+  margin-top: 0.7em;
+  padding: 0.7em;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+
 /*react-select styles*/
 .css-yk16xz-control{
   border-color: black !important;
@@ -257,8 +294,7 @@ form label{
 
 .react-select.sort-select{
   width: 75%;
-  margin-left: auto;
-  margin-right: auto;
+  padding-left: 3%;
 }
 
 .search-div .react-select{
@@ -266,7 +302,7 @@ form label{
 }
 
 .react-select{
-  font-size: 1em;
+  font-size: 0.9em;
 }
 
 div.sort-select__indicator, div.search-type-select__indicator{
@@ -288,6 +324,10 @@ div.sort-select__control, div.search-type-select__control{
 div.sort-select__value-container, div.search-type-select__value-container{
   padding-right: 0px;
   padding-left: 2px !important;
+}
+
+div.sort-select__single-value, div.search-type-select__single-value{
+  color: black;
 }
 /*react-select styles*/
 

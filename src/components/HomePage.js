@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { VALID_SORT_VALUES, VALID_SEARCHTYPE_VALUES, SORT_OPTIONS, SEARCH_TYPE_OPTIONS } from "../util/Constants.js"
 import { useHistory } from "react-router-dom"
 import Select from "react-select"
+import SearchImg from "../images/search.svg"
 
 const HomePage = ( props ) => {
 
@@ -200,30 +201,37 @@ const HomePage = ( props ) => {
 
     return (
         <form className="home-form">
-            <Select
-                className="sort-select react-select"
-                classNamePrefix="sort-select"
-                isSearchable={false}
-                isClearable={false}
-                defaultValue={getSelectData("sort")[0]}
-                name="sort"
-                onChange={onSortValueChanged}
-                options={getSelectData("sort")}
-            />
-            <div className="search-div">
+            <fieldset>
+                <legend>Sort</legend>
                 <Select
-                    className="search-type-select react-select"
-                    classNamePrefix="search-type-select"
+                    className="sort-select react-select"
+                    classNamePrefix="sort-select"
                     isSearchable={false}
                     isClearable={false}
-                    defaultValue={getSelectData("searchType")[0]}
-                    name="searchType"
-                    onChange={onSearchTypeValueChanged}
-                    options={getSelectData("searchType")}
+                    defaultValue={getSelectData("sort")[0]}
+                    name="sort"
+                    onChange={onSortValueChanged}
+                    options={getSelectData("sort")}
                 />
-                <input type="text" name="search" className="search" onChange={onSearchValueChanged} onKeyDown={onKeyDown} defaultValue={search} />
-            </div>
-            <input type="image" name="submit" onClick={onSubmit} src="" alt="Go!" border="0" />
+            </fieldset>
+            <fieldset>
+                <legend>Filters</legend>
+                <div className="search-div">
+                    <Select
+                        className="search-type-select react-select"
+                        classNamePrefix="search-type-select"
+                        isSearchable={false}
+                        isClearable={false}
+                        defaultValue={getSelectData("searchType")[0]}
+                        name="searchType"
+                        onChange={onSearchTypeValueChanged}
+                        options={getSelectData("searchType")}
+                    />
+                    <img className="search-icon" src={SearchImg} alt="" />
+                    <input type="text" name="search" className="search" onChange={onSearchValueChanged} onKeyDown={onKeyDown} defaultValue={search} />
+                </div>
+            </fieldset>
+            <input type="submit" name="submit" value="Apply Filters" className="apply-filters" onClick={onSubmit} />
         </form>
     )
 }
