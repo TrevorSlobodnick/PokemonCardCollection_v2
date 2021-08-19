@@ -46,7 +46,6 @@ class PokemonCard{
             $this->rarity = $dataObj->rarity;
             $this->small_image = $dataObj->images->small;
             $this->large_image = $dataObj->images->large;
-            $this->date_added = date("Y-m-d H:i:s");
         }
         // If the dataObj is from the Database...
         else if($dataSource == DataSource::DATABASE){
@@ -64,8 +63,28 @@ class PokemonCard{
             $this->rarity = $dataObj["rarity"];
             $this->small_image = $dataObj["small_image"];
             $this->large_image = $dataObj["large_image"];
-            $this->date_added = date("Y-m-d H:i:s");
+            $dateTimeStr = strtotime($dataObj["date_added"]);
+            $this->date_added = date("Y-m-d H:i:s", $dateTimeStr); //MySQL datetime format is Y-m-d H:i:s
         }
+    }
+
+    public function getBindVals(){
+        return [
+            "cardId" => $this->card_id,
+            "cardNumber" => $this->card_number,
+            "name" => $this->name,
+            "supertype" => $this->supertype,
+            "hp" => $this->hp,
+            "primary_type" => $this->primary_type,
+            "secondary_type" => $this->secondary_type,
+            "set_id" => $this->set_id,
+            "set_name" => $this->set_name,
+            "set_series" => $this->set_series,
+            "artist" => $this->artist,
+            "rarity" => $this->rarity,
+            "small_image" => $this->small_image,
+            "large_image" => $this->large_image
+        ];
     }
 }
 
