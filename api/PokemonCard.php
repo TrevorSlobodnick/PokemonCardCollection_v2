@@ -68,6 +68,10 @@ class PokemonCard{
         }
     }
 
+    /**
+     * Gets the values for the placeholders in the PDO sql insert query
+     * @return Array Associative array of the values needed to insert a card into the database
+     */
     public function getBindVals(){
         return [
             "cardId" => $this->card_id,

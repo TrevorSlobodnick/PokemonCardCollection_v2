@@ -78,10 +78,7 @@ class PokemonTCGApi{
         }
         else{
             // unknown error
-            $unknownError = new stdClass();
-            $unknownError->message = "Unknown Error";
-            $unknownError->code = 0;
-            return $unknownError;
+            return Warning::UnknownError;
         }
     }
 
