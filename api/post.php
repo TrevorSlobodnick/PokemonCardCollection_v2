@@ -1,5 +1,6 @@
 <?php
 require_once("Database.php");
+require_once("PokemonCard.php");
 require_once("PokemonTCGApi.php");
 require_once("Response.php");
 
@@ -61,7 +62,7 @@ else if($_POST['task'] == "add_card"){
         $pokemonCard = new PokemonCard($card, DataSource::API);
 
         $sql = 'INSERT INTO `' . TABLE_NAME . '` ' . 
-                '(cardId, cardNumber, name, supertype, hp, primary_type, secondary_type, set_id, set_name, set_series, artist, rarity, small_image, large_image, date_added) ' .
+                '(card_id, card_number, name, supertype, hp, primary_type, secondary_type, set_id, set_name, set_series, artist, rarity, small_image, large_image, date_added) ' .
                 'VALUES ' .
                 '(:cardId, :cardNumber, :name, :supertype, :hp, :primary_type, :secondary_type, :set_id, :set_name, :set_series, :artist, :rarity, :small_image, :large_image, NOW())';
         $bindVal = $pokemonCard->getBindVals();

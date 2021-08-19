@@ -60,7 +60,7 @@ const AddCardPage = () => {
                 <input type="submit" name="submit" id="submit" onClick={onSubmitClicked} value="Add Card" />
             </form>
             <div className="img-wrapper">
-                {Object.keys(lastAdded).length === 0 ? <div className="card-placeholder" width="128px"></div> : <img width="128px" src={lastAdded.images.small} alt={lastAdded.name} />}
+                {Object.keys(lastAdded).length === 0 ? <div className="card-placeholder" width="128px"></div> : <img width="128px" src={lastAdded['small_image']} alt={lastAdded.name} />}
             </div>
         </div>
     )
