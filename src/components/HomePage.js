@@ -174,6 +174,9 @@ const HomePage = ( props ) => {
         console.log("Search Complete");
     }
 
+    const getCards = (postObj) => {
+    }
+
     //HELPER FUNCTIONS
     /**
      * updates the homePath variable/state and also updates the url to show the current search query
@@ -197,6 +200,10 @@ const HomePage = ( props ) => {
         else if (key === "searchType"){
             return SEARCH_TYPE_OPTIONS
         }
+    }
+
+    const getCards = () => {
+
     }
 
     return (
@@ -233,6 +240,7 @@ const HomePage = ( props ) => {
             </fieldset>
             <input type="submit" name="submit" value="Apply Filters" className="apply-filters" onClick={onSubmit} />
         </form>
+
     )
 }
 

@@ -11,20 +11,43 @@ $pokemonTCGApi = new PokemonTCGApi();
 
 session_start();
 
+// for a new get_cards query...
+// run 2 queries when getting cards
+//   1. without a limit, then save the amount of results returned to a session variable (this will be the max value)
+//   2. with a limit of 100
+// if the max value and the second query have the same amount of results...
+//   the second query has less than 100 cards, (do not display a load more button)
+// if the max value is greater than the second query...
+//   the second query has more than 100 cards (display a load button)
+//   keep a tally of how many cards have been sent with this query (prevCards), so we know where to start for the next query
+
+// for the same get_cards query...
+// use the limit 100 query and set the offset value to the prevCards value
+    //Example:
+        //The SQL query below says "return only 100 records, start on record 101 (OFFSET 100)":
+        //$sql = "SELECT * FROM table LIMIT 100 OFFSET 100";
+// get the amount of rows returned and compare it to the max value
+// if they are the same...
+//   the max amount of cards have been returned for this query, (do not display a load more button)
+// if the max value is still greater than the prevCards amount
+//   there is still more cards to display (display a load button)
+//   add 100 to the prevCards session variable
+
+
 //if this is the first time this script is loaded, initialize the session variables
-if(!isset($_SESSION['startId'])){
-    // $_SESSION['startId'] keeps track of the last id retreived from the previous database query,
+if(!isset($_SESSION['prevCards'])){
+    // $_SESSION['prevCards'] keeps track of the last id retreived from the previous database query,
     // so if the user requests 100 more cards, (using the same query), we know where to start
-    $_SESSION['startId'] = 0;
+    $_SESSION['prevCards'] = 0;
 }
 if(!isset($_SESSION['prevDBTask'])){
     // $_SESSION['prevDBTask'] keeps track of the last database retrieval task, 
-    // if this is different from the current task, then the $_SESSION['startId'] gets reset to 0
+    // if this is different from the current task, then the $_SESSION['prevCards'] gets reset to 0
     $_SESSION['prevDBTask'] = "";
 }
 
 if($_POST['task'] == "get_cards"){
-    $startId = $_SESSION['startId'];
+    $prevCards = $_SESSION['prevCards'];
     $prevDBTask = $_SESSION['prevDBTask'];
     if($_POST['filters'] == "none"){
         //the search field was empty
