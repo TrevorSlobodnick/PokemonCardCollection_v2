@@ -22,19 +22,6 @@ const AddCardPage = () => {
         setNumber(e.target.value)
     }
 
-    const onKeyDown = (e) => {
-        if(e.key === "Enter"){
-            e.preventDefault() //prevents refresh
-            setNumber(e.target.value)
-            submitForm(setId, e.target.value)
-        }
-    }
-
-    const onSubmitClicked = (e) => {
-        e.preventDefault()
-        submitForm(setId, number)
-    }
-
     const submitForm = (id, num) => {
         console.log("Form Submitted")
         Backend.addCard(num, id).then(response => {
@@ -48,6 +35,19 @@ const AddCardPage = () => {
                 setLastAdded(response.data)
             }
         })
+    }
+
+    const onKeyDown = (e) => {
+        if(e.key === "Enter"){
+            e.preventDefault() //prevents refresh
+            setNumber(e.target.value)
+            submitForm(setId, e.target.value)
+        }
+    }
+
+    const onSubmitClicked = (e) => {
+        e.preventDefault()
+        submitForm(setId, number)
     }
 
     return (

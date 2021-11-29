@@ -1,7 +1,7 @@
 import Header from './components/Header';
 import HomePage from './components/HomePage';
 import AddCardPage from './components/AddCardPage';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {

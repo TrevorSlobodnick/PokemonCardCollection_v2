@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../images/logo.png'
-import { ReactComponent as HamburgerIcon } from '../images/hamburger.svg'
+import {ReactSVG} from "react-svg"
+import hamburger from "../images/hamburger.svg"
 
 const Header = () => {
 
@@ -50,11 +51,10 @@ const Header = () => {
                     <li><Link to="/Add">Add</Link></li>
                 </ul>
             </nav>
-            {/* DESKTOP LAYOUT */}
 
             {/* MOBILE LAYOUT */}
             <div className="right-header mobile-header">
-                <HamburgerIcon onClick={openMobileNav} />
+                <ReactSVG src={hamburger} onClick={openMobileNav} />
             </div>
                 {/* Display when hamburger clicked */}
             <div id="mobile-nav-wrapper" className="mobile-nav-wrapper width-anim" onClick={onMobileNavWrapperClick}>
@@ -66,8 +66,6 @@ const Header = () => {
                     </ul>
                 </nav>
             </div>
-                {/* Display when hamburger clicked */}
-            {/* MOBILE LAYOUT */}
         </header>
     )
 }

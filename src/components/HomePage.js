@@ -1,6 +1,6 @@
 import qs from "query-string"
 import { useLocation } from "react-router"
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { VALID_SORT_VALUES, VALID_SEARCHTYPE_VALUES, SORT_OPTIONS, SEARCH_TYPE_OPTIONS } from "../util/Constants.js"
 import { useHistory } from "react-router-dom"
 import Select from "react-select"
@@ -84,6 +84,36 @@ const HomePage = ( props ) => {
     const [searchType, setSearchType] = useState(initSearchTypeVal)
 
     /**
+     * updates the homePath variable/state and also updates the url to show the current search query
+     * @param {String} sortVal The current value of sort, from the form
+     * @param {String} searchVal The current value of search, from the form
+     * @param {String} searchTypeVal The current value of searchType, from the form
+     */
+    const updateHomePath = (sortVal, searchVal, searchTypeVal) => {
+        console.log("Old: " + props.homePath)
+        const newPath = "/?sort=" + sortVal + "&search=" + searchVal + "&searchType=" + searchTypeVal
+        props.setHomePath(newPath)
+        //update url
+        history.replace(newPath)
+        console.log("New: " + newPath)
+    }
+
+    /**
+     * Filters the cards to match the sort criteria
+     */
+    const sortCollection = () => {
+        console.log("Sort Complete!")
+    }
+
+    /**
+     * Filters the cards to only show the ones that pass the search criteria
+     * @param {Object} postObj the info object to pass to the post function
+     */
+    const searchCollection = (postObj) => {
+        console.log("Search Complete");
+    }
+
+    /**
      * - Set the sort state to the current value of the sort drop down box,
      * - update the home path,
      * - then sort the collection
@@ -159,40 +189,6 @@ const HomePage = ( props ) => {
         searchCollection(info)
     }
 
-    /**
-     * Filters the cards to match the sort criteria
-     */
-    const sortCollection = () => {
-        console.log("Sort Complete!")
-    }
-
-    /**
-     * Filters the cards to only show the ones that pass the search criteria
-     * @param {Object} postObj the info object to pass to the post function
-     */
-    const searchCollection = (postObj) => {
-        console.log("Search Complete");
-    }
-
-    const getCards = (postObj) => {
-    }
-
-    //HELPER FUNCTIONS
-    /**
-     * updates the homePath variable/state and also updates the url to show the current search query
-     * @param {String} sortVal The current value of sort, from the form
-     * @param {String} searchVal The current value of search, from the form
-     * @param {String} searchTypeVal The current value of searchType, from the form
-     */
-    const updateHomePath = (sortVal, searchVal, searchTypeVal) => {
-        console.log("Old: " + props.homePath)
-        const newPath = "/?sort=" + sortVal + "&search=" + searchVal + "&searchType=" + searchTypeVal
-        props.setHomePath(newPath)
-        //update url
-        history.replace(newPath)
-        console.log("New: " + newPath)
-    }
-
     const getSelectData = (key) => {
         if (key === "sort"){
             return SORT_OPTIONS
@@ -200,10 +196,6 @@ const HomePage = ( props ) => {
         else if (key === "searchType"){
             return SEARCH_TYPE_OPTIONS
         }
-    }
-
-    const getCards = () => {
-
     }
 
     return (
