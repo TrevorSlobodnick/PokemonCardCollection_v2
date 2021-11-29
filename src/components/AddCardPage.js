@@ -3,12 +3,24 @@ import PokemonSetDropDown from './PokemonSetDropDown'
 import { useState } from "react"
 import { Backend } from '../util/Backend'
 import { StatusMessage } from '../util/StatusMessage'
+import Tags from "./Tags"
 
 const AddCardPage = () => {
 
     const [setId, setSetId] = useState("")
     const [number, setNumber] = useState(0)
     const [lastAdded, setLastAdded] = useState({})
+    const [variants, setVariants] = useState([]) //this will be an array of objects to start, it will need to be parsed and converted to json before sending to database, we only care about the value property
+
+    const VARIANTS = [
+        {value: "Holo", label: "Holo"},
+        {value: "Reverse Holo", label: "Reverse Holo"},
+        {value: "Half Art", label: "Half Art"},
+        {value: "Full Art", label: "Full Art"},
+        {value: "Secret Rare", label: "Secret Rare"},
+        {value: "Rainbow", label: "Rainbow"},
+        {value: "Promo", label: "Promo"}
+    ]
 
     const onSelectChange = (valueType, actionType) => {
         if(actionType.action === "select-option"){
@@ -50,13 +62,19 @@ const AddCardPage = () => {
         submitForm(setId, number)
     }
 
+    const onVariantChange = (optionsSelected, actionType) => {
+        setVariants(optionsSelected)
+    }
+
     return (
         <div className="add-page-content">
             <form>
-                <label htmlFor="setName">Set</label>
+                <label htmlFor="setName">Set*</label>
                 <PokemonSetDropDown onSelectChange={onSelectChange} />
-                <label htmlFor="cardNumber">Number</label>
+                <label htmlFor="cardNumber">Number*</label>
                 <input type="number" name="cardNumber" id="cardNumber" onKeyDown={onKeyDown} onChange={onNumberInputChange} placeholder="58" />
+                <label htmlFor="cardVariant">Tags</label>
+                <Tags onChange={onVariantChange} options={VARIANTS} isMulti value={variants} />
                 <input type="submit" name="submit" id="submit" onClick={onSubmitClicked} value="Add Card" />
             </form>
             <div className="img-wrapper">

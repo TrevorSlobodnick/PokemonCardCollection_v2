@@ -258,6 +258,12 @@ input[type="submit"].apply-filters{
 }
 
 
+
+
+
+
+
+
 /*react-select styles*/
 .css-yk16xz-control{
   border-color: black !important;
@@ -329,7 +335,56 @@ div.sort-select__value-container, div.search-type-select__value-container{
 div.sort-select__single-value, div.search-type-select__single-value{
   color: black;
 }
+
+div.variant-select__control{
+  max-height: unset;
+}
+
+div.variant-select__multi-value{
+  /* display: none; */
+}
 /*react-select styles*/
+
+
+
+
+
+/* Tag/Variant Styles */
+#tags > li{
+  display: flex;
+}
+
+.tag{
+  display: flex;
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.tag:hover{
+  background-color: rgb(199, 199, 199);
+  cursor: pointer;
+}
+
+.tag > div {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.6rem;
+  padding-right: 0.1rem;
+}
+
+.tag .text{
+  font-size: 1rem;
+}
+
+.close-tab{
+  min-width: 21px;
+  padding-right: 0.5rem;
+}
+
+
+
 
 
 
