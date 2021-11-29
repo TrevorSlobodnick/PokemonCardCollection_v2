@@ -339,10 +339,6 @@ div.sort-select__single-value, div.search-type-select__single-value{
 div.variant-select__control{
   max-height: unset;
 }
-
-div.variant-select__multi-value{
-  /* display: none; */
-}
 /*react-select styles*/
 
 
