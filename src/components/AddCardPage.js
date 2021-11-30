@@ -5,6 +5,7 @@ import { Backend } from '../util/Backend'
 import { StatusMessage } from '../util/StatusMessage'
 import Tags from "./Tags"
 import { VARIANTS } from '../util/Constants'
+import Select from 'react-select'
 
 const AddCardPage = () => {
 
@@ -27,17 +28,17 @@ const AddCardPage = () => {
 
     const submitForm = (id, num) => {
         console.log("Form Submitted")
-        Backend.addCard(num, id).then(response => {
-            console.log(response)
-            if(response.completed === false){
-                StatusMessage.showErrorMessage("Card could not be added:\n\n" + response.data.message)
-                setLastAdded({})
-            }
-            else{
-                StatusMessage.showSuccessMessage("Card added Successfully")
-                setLastAdded(response.data)
-            }
-        })
+        // Backend.addCard(num, id).then(response => {
+        //     console.log(response)
+        //     if(response.completed === false){
+        //         StatusMessage.showErrorMessage("Card could not be added:\n\n" + response.data.message)
+        //         setLastAdded({})
+        //     }
+        //     else{
+        //         StatusMessage.showSuccessMessage("Card added Successfully")
+        //         setLastAdded(response.data)
+        //     }
+        // })
     }
 
     const onKeyDown = (e) => {
@@ -53,10 +54,6 @@ const AddCardPage = () => {
         submitForm(setId, number)
     }
 
-    const onVariantChange = (optionsSelected, actionType) => {
-        setVariants(optionsSelected)
-    }
-
     return (
         <div className="add-page-content">
             <form>
@@ -64,8 +61,13 @@ const AddCardPage = () => {
                 <PokemonSetDropDown onSelectChange={onSelectChange} />
                 <label htmlFor="cardNumber">Number*</label>
                 <input type="number" name="cardNumber" id="cardNumber" onKeyDown={onKeyDown} onChange={onNumberInputChange} placeholder="58" />
-                <label htmlFor="cardVariant">Tags</label>
-                <Tags onChange={onVariantChange} options={VARIANTS} isMulti value={variants} />
+                <label>Grade</label>
+                <input type="number" name="grade" id="grade" placeholder="9" max={10} />
+                <label>Grade Company</label>
+                <input type="text" name="gradeCompany" id="gradeCompany" placeholder="psa" />
+                <label>Rarity</label>
+                <Select />
+                <label>Extras</label>
                 <input type="submit" name="submit" id="submit" onClick={onSubmitClicked} value="Add Card" />
             </form>
             <div className="img-wrapper">
