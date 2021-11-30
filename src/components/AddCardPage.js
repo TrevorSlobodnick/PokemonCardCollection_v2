@@ -2,7 +2,6 @@ import React from 'react'
 import PokemonSetDropDown from './PokemonSetDropDown'
 import { useState } from "react"
 import Select from 'react-select'
-import Button from 'react-bootstrap/Button'
 
 const AddCardPage = () => {
 
@@ -51,7 +50,6 @@ const AddCardPage = () => {
         <div className="add-page-content">
             <form>
                 <label htmlFor="setName">Set*</label>
-                <Button />
                 <PokemonSetDropDown onSelectChange={onSelectChange} />
                 <label htmlFor="cardNumber">Number*</label>
                 <input type="number" name="cardNumber" id="cardNumber" onKeyDown={onKeyDown} onChange={onNumberInputChange} placeholder="58" />
