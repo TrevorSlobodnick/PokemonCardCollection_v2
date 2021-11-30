@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Backend } from '../util/Backend'
 import { StatusMessage } from '../util/StatusMessage'
 import Tags from "./Tags"
+import { VARIANTS } from '../util/Constants'
 
 const AddCardPage = () => {
 
@@ -11,16 +12,6 @@ const AddCardPage = () => {
     const [number, setNumber] = useState(0)
     const [lastAdded, setLastAdded] = useState({})
     const [variants, setVariants] = useState([]) //this will be an array of objects to start, it will need to be parsed and converted to json before sending to database, we only care about the value property
-
-    const VARIANTS = [
-        {value: "Holo", label: "Holo"},
-        {value: "Reverse Holo", label: "Reverse Holo"},
-        {value: "Half Art", label: "Half Art"},
-        {value: "Full Art", label: "Full Art"},
-        {value: "Secret Rare", label: "Secret Rare"},
-        {value: "Rainbow", label: "Rainbow"},
-        {value: "Promo", label: "Promo"}
-    ]
 
     const onSelectChange = (valueType, actionType) => {
         if(actionType.action === "select-option"){

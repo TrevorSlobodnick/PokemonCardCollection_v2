@@ -23,3 +23,13 @@ export const SEARCH_TYPE_OPTIONS = [
     { "label" : "Name", "value" : "name" },
     { "label" : "Set", "value" : "set" }
 ]
+
+export const VARIANTS = [
+    {value: "Holo", label: "Holo"},
+    {value: "Reverse Holo", label: "Reverse Holo"},
+    {value: "Half Art", label: "Half Art"},
+    {value: "Full Art", label: "Full Art"},
+    {value: "Secret Rare", label: "Secret Rare"},
+    {value: "Rainbow Secret Rare", label: "Rainbow Secret Rare"},
+    {value: "Promo", label: "Promo"}
+]
