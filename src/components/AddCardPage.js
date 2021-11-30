@@ -1,18 +1,13 @@
 import React from 'react'
 import PokemonSetDropDown from './PokemonSetDropDown'
 import { useState } from "react"
-import { Backend } from '../util/Backend'
-import { StatusMessage } from '../util/StatusMessage'
-import Tags from "./Tags"
-import { VARIANTS } from '../util/Constants'
 import Select from 'react-select'
+import Button from 'react-bootstrap/Button'
 
 const AddCardPage = () => {
 
     const [setId, setSetId] = useState("")
     const [number, setNumber] = useState(0)
-    const [lastAdded, setLastAdded] = useState({})
-    const [variants, setVariants] = useState([]) //this will be an array of objects to start, it will need to be parsed and converted to json before sending to database, we only care about the value property
 
     const onSelectChange = (valueType, actionType) => {
         if(actionType.action === "select-option"){
@@ -32,11 +27,9 @@ const AddCardPage = () => {
         //     console.log(response)
         //     if(response.completed === false){
         //         StatusMessage.showErrorMessage("Card could not be added:\n\n" + response.data.message)
-        //         setLastAdded({})
         //     }
         //     else{
         //         StatusMessage.showSuccessMessage("Card added Successfully")
-        //         setLastAdded(response.data)
         //     }
         // })
     }
@@ -58,6 +51,7 @@ const AddCardPage = () => {
         <div className="add-page-content">
             <form>
                 <label htmlFor="setName">Set*</label>
+                <Button />
                 <PokemonSetDropDown onSelectChange={onSelectChange} />
                 <label htmlFor="cardNumber">Number*</label>
                 <input type="number" name="cardNumber" id="cardNumber" onKeyDown={onKeyDown} onChange={onNumberInputChange} placeholder="58" />
@@ -68,11 +62,11 @@ const AddCardPage = () => {
                 <label>Rarity</label>
                 <Select />
                 <label>Extras</label>
+                <div>
+                    <input type="checkbox" name="extras"  />
+                </div>
                 <input type="submit" name="submit" id="submit" onClick={onSubmitClicked} value="Add Card" />
             </form>
-            <div className="img-wrapper">
-                {Object.keys(lastAdded).length === 0 ? <div className="card-placeholder" width="128px"></div> : <img width="128px" src={lastAdded['small_image']} alt={lastAdded.name} />}
-            </div>
         </div>
     )
 }

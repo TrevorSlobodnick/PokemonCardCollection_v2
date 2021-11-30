@@ -52,8 +52,8 @@ const PokemonSetDropDown = ( props ) => {
     return (
         <Select
             className="select"
-            isSearchable={true}
-            isClearable={true}
+            isSearchable={false}
+            isClearable={false}
             name="set"
             onChange={props.onSelectChange}
             options={getFormattedSelectData()}
