@@ -40,7 +40,7 @@ export class Backend{
      static async post(info){
         const result = await axios({
             method: 'post',
-            url: 'https://www.tslobodnick.ca/Test/post.php',
+            url: 'https://www.tslobodnick.ca/PokemonCardCollection/v2/api/post.php',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
