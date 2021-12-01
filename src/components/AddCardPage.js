@@ -1,12 +1,14 @@
 import React from 'react'
-import PokemonSetDropDown from './PokemonSetDropDown'
+import PokemonSetDropDown from './formcontrols/PokemonSetDropDown'
 import { useState } from "react"
 import Select from 'react-select'
+import { APPEARANCES } from '../util/Constants'
 
 const AddCardPage = () => {
 
     const [setId, setSetId] = useState("")
     const [number, setNumber] = useState(0)
+    const [step, setStep] = useState(1)
 
     const onSelectChange = (valueType, actionType) => {
         if(actionType.action === "select-option"){
@@ -46,25 +48,39 @@ const AddCardPage = () => {
         submitForm(setId, number)
     }
 
-    return (
-        <div className="add-page-content">
-            <form>
-                <label htmlFor="setName">Set*</label>
-                <PokemonSetDropDown onSelectChange={onSelectChange} />
-                <label htmlFor="cardNumber">Number*</label>
-                <input type="number" name="cardNumber" id="cardNumber" onKeyDown={onKeyDown} onChange={onNumberInputChange} placeholder="58" />
-                <label>Grade</label>
-                <input type="number" name="grade" id="grade" placeholder="9" max={10} />
-                <label>Grade Company</label>
-                <input type="text" name="gradeCompany" id="gradeCompany" placeholder="psa" />
-                <label>Rarity</label>
-                <Select />
-                <label>Extras</label>
+    const displayForm = () => {
+        if (step === 1){
+            return <form>
                 <div>
-                    <input type="checkbox" name="extras"  />
+                    <label htmlFor="setName">Set</label>
+                    <PokemonSetDropDown onSelectChange={onSelectChange} />
                 </div>
+                <div>
+                    <label htmlFor="cardNumber">Number</label>
+                    <input type="number" name="cardNumber" id="cardNumber" className="form-control" onKeyDown={onKeyDown} onChange={onNumberInputChange} /> 
+                </div>
+                <button className="btn btn-success" onClick={() => setStep(2)}>Next</button>
+            </form>
+        }
+        else{
+            return <form>
+                <div>
+                    <label htmlFor="appearance">Appearance</label>
+                    <Select id="appearance" className="form-control" classNamePrefix="appearance" options={APPEARANCES} />
+                </div>
+                <div>
+                    <button className="btn">Add Rating</button>
+                </div>
+                <button className="btn btn-warning" onClick={() => setStep(1)}>Back</button>
                 <input type="submit" name="submit" id="submit" onClick={onSubmitClicked} value="Add Card" />
             </form>
+        }
+    }
+
+    return (
+        <div className="container">
+            <h1>Add Pokemon Card</h1>
+            {displayForm()}
         </div>
     )
 }

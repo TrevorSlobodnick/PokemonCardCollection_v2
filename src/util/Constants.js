@@ -24,12 +24,15 @@ export const SEARCH_TYPE_OPTIONS = [
     { "label" : "Set", "value" : "set" }
 ]
 
-export const VARIANTS = [
+export const APPEARANCES = [
     {value: "Holo", label: "Holo"},
     {value: "Reverse Holo", label: "Reverse Holo"},
-    {value: "Half Art", label: "Half Art"},
-    {value: "Full Art", label: "Full Art"},
-    {value: "Secret Rare", label: "Secret Rare"},
-    {value: "Rainbow Secret Rare", label: "Rainbow Secret Rare"},
-    {value: "Promo", label: "Promo"}
+    {value: "Ultra Rare", label: "Ultra Rare"},
+    {value: "Secret Rare", label: "Secret Rare"}
+]
+
+export const GRADING_COMPANIES = [
+    {value: "PSA", label: "PSA (Professional Sports Authenticator)"},
+    {value: "BGS", label: "BGS (Beckett Grading Services)"},
+    {value: "CGC", label: "CGC (Certified Guaranty Company)"},
 ]

@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../images/logo.png'
-import {ReactSVG} from "react-svg"
-import hamburger from "../images/hamburger.svg"
 
 const Header = () => {
 
@@ -38,34 +36,26 @@ const Header = () => {
 
     return (
         <header>
-            <div className="left-header">
-                <div className="img-wrapper">
-                    <img src={logo} alt="" />
+            <nav className="navbar navbar-expand-lg  navbar-light">
+                <div className="container-fluid">
+                    <div className="navbar-brand" href="#">
+                        <img src={logo} alt="" />
+                    </div>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <Link className="nav-link active" aria-live="page" to="/">Home</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/Add">Add</Link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <h1>Pokemon Card Collection</h1>
-            </div>
-            {/* DESKTOP LAYOUT */}
-            <nav className="right-header desktop-header">
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/Add">Add</Link></li>
-                </ul>
             </nav>
-
-            {/* MOBILE LAYOUT */}
-            <div className="right-header mobile-header">
-                <ReactSVG src={hamburger} onClick={openMobileNav} />
-            </div>
-                {/* Display when hamburger clicked */}
-            <div id="mobile-nav-wrapper" className="mobile-nav-wrapper width-anim" onClick={onMobileNavWrapperClick}>
-                <nav id="mobile-nav" className="mobile-nav width-anim">
-                    <ul>
-                        <li className="close-mobile-nav" onClick={closeMobileNav}>X</li>
-                        <li onClick={closeMobileNav}><Link className="mobile-nav-link" to="/">Home</Link></li>
-                        <li onClick={closeMobileNav}><Link className="mobile-nav-link" to="/Add">Add</Link></li>
-                    </ul>
-                </nav>
-            </div>
         </header>
     )
 }

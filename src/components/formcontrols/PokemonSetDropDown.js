@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Select from "react-select"
-import { Backend } from '../util/Backend.js'
+import { Backend } from '../../util/Backend.js'
 
 
 const PokemonSetDropDown = ( props ) => {
@@ -15,10 +15,18 @@ const PokemonSetDropDown = ( props ) => {
                 //the selectData Object doesnt have the series as a key yet
                 selectData[series] = []
             }
-            selectData[series].push({
-                "value" : set.name,
-                "label" : <div className="option" data-id={set.id}><img className="option-img" src={set.symbol} alt={set.name} /><p className="option-text">{set.name}</p></div>
-            })
+            if(set.name === "Base"){
+                selectData[series].push({
+                    "value" : set.name,
+                    "label" : <div className="option" data-id={set.id}><img id="base-img" className="option-img" src={set.symbol} alt={set.name} /><p className="option-text">{set.name}</p></div>
+                })
+            }
+            else{
+                selectData[series].push({
+                    "value" : set.name,
+                    "label" : <div className="option" data-id={set.id}><img className="option-img" src={set.symbol} alt={set.name} /><p className="option-text">{set.name}</p></div>
+                })
+            }
         });
         return selectData
     }
@@ -39,7 +47,7 @@ const PokemonSetDropDown = ( props ) => {
 
     useEffect(() => {
         Backend.getSets().then(response => {
-            //getSets will never return an error, so no need to check if response.completed === true
+            //no need to check if response.completed === true
             setSets(response.data)
             return () => {
                 //why we do this
@@ -51,10 +59,13 @@ const PokemonSetDropDown = ( props ) => {
 
     return (
         <Select
-            className="select"
+            className="select form-control"
+            classNamePrefix="pokemon-set"
             isSearchable={false}
             isClearable={false}
             name="set"
+            id="setName"
+            placeholder="Set"
             onChange={props.onSelectChange}
             options={getFormattedSelectData()}
         />
