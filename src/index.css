@@ -117,10 +117,12 @@ input[type="submit"].apply-filters{
 
 
 
+
+
 /* bootstrap styles */
-.form-control:focus {
+.form-control:focus, .btn:focus {
   box-shadow: none;
-  border-color: white;
+  border-color: initial;
 }
 
 .nav-link{
@@ -132,12 +134,12 @@ input[type="submit"].apply-filters{
 
 
 /*react-select styles*/
-.pokemon-set__control, .rarity__control{
+.pokemon-set__control, .appearance__control, .grade-company__control{
   border-style: none !important;
   border-color: black !important;
 }
 
-.pokemon-set__control--is-focused, .rarity__control--is-focused{
+.pokemon-set__control--is-focused, .appearance__control--is-focused, .grade-company__control--is-focused{
   box-shadow: none !important;
 }
 

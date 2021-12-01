@@ -67,6 +67,7 @@ const PokemonSetDropDown = ( props ) => {
             id="setName"
             placeholder="Set"
             onChange={props.onSelectChange}
+            defaultValue={props.selected.length === 0 ? null : props.selected}
             options={getFormattedSelectData()}
         />
     )
