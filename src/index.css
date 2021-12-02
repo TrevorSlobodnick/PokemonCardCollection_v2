@@ -52,13 +52,9 @@ p{
   box-sizing: border-box;
 }
 
-form{
+.add-page > *{
   max-width: 800px;
   margin: 0px auto;
-}
-
-input{
-  border: solid thin black;
 }
 /*HTML Element Styles*/
 
@@ -112,7 +108,11 @@ input[type="submit"].apply-filters{
   font-size: 0.9em;
 }
 
-
+.display-grade{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
 
 
 
@@ -144,7 +144,7 @@ input[type="submit"].apply-filters{
 }
 
 .pokemon-set__value-container{
-  overflow: visible;
+  overflow: visible !important;
 }
 
 .css-g1d714-ValueContainer{

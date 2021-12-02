@@ -1,38 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import logo from '../images/logo.png'
 
 const Header = () => {
 
-    const openMobileNav = () => {
-        document.getElementById("mobile-nav-wrapper").style.width = "100%"
-        document.getElementById("mobile-nav").style.width = "50%"
-        let linkColl = document.getElementsByClassName("mobile-nav-link")
-        // wait 0.1s to change the display type
-        setTimeout(function(){
-            Array.from(linkColl).forEach(link => link.style.display = "flex")
-        }, 100)
-    }
-
-    const closeMobileNav = () => {
-        document.getElementById("mobile-nav-wrapper").style.width = "0px"
-        document.getElementById("mobile-nav").style.width = "0px"
-        //for every link in the nav...
-        let linkColl = document.getElementsByClassName("mobile-nav-link")
-        // wait 0.1s to change the display type
-        setTimeout(function(){
-            Array.from(linkColl).forEach(link => link.style.display = "none")
-        }, 100)
-    }
-
-    const onMobileNavWrapperClick = (e) => {
-        //if this function is called the mobile nav is already open
-        if(e.target === e.currentTarget){
-            // the element clicked is the mobile nav wrapper div,
-            // the only time this would happen is when the user clicks the "whitespace"
-            closeMobileNav()
-        }
-    }
+    const location = useLocation();
 
     return (
         <header>
@@ -47,10 +19,10 @@ const Header = () => {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-live="page" to="/">Home</Link>
+                                <Link className={location.pathname === "/" ? "nav-link active" : "nav-link"} to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/Add">Add</Link>
+                                <Link className={location.pathname === "/Add" ? "nav-link active" : "nav-link"} to="/Add">Add</Link>
                             </li>
                         </ul>
                     </div>

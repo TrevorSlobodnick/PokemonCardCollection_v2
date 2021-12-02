@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import Select from "react-select"
 import { Backend } from '../../util/Backend.js'
+import { isEmptyObj } from '../../util/Utils'
 
 
 const PokemonSetDropDown = ( props ) => {
-
     const [sets, setSets] = useState([])
 
     const getSelectData = () => {
@@ -46,19 +46,45 @@ const PokemonSetDropDown = ( props ) => {
     }
 
     useEffect(() => {
-        Backend.getSets().then(response => {
-            //no need to check if response.completed === true
-            setSets(response.data)
-            return () => {
-                //why we do this
-                //https://stackoverflow.com/questions/54954385/react-useeffect-causing-cant-perform-a-react-state-update-on-an-unmounted-comp#comment121180788_65007703
-                setSets([])
-            }
-        })
+        if(localStorage.getItem("update_sets") === "false"){
+            //if update_sets has a value, then sets will too
+            const localSets = JSON.parse(localStorage.getItem("sets"))
+            setSets(localSets)
+        }
+        else{
+            Backend.getSets().then(response => { //no need to check if response.completed === true
+                //set the set state
+                setSets(response.data)
+                //add items to local storage
+                localStorage.setItem("sets", JSON.stringify(response.data))
+                localStorage.setItem("update_sets", "false")
+            })
+        }
+        return () => {
+            //why we do this
+            //https://stackoverflow.com/questions/54954385/react-useeffect-causing-cant-perform-a-react-state-update-on-an-unmounted-comp#comment121180788_65007703
+            setSets([])
+        }
     }, []) //the square brackets is the dependencies param, meaning if a dependency changes, the useEffect is to be called again, however if the value never changes (like an empty array), the function only runs once when the component is initially rendered
 
-    return (
-        <Select
+    const displaySelect = () => {
+        if(isEmptyObj(props.set)){
+            //no default value
+            return <Select
+                className="select form-control"
+                classNamePrefix="pokemon-set"
+                isSearchable={false}
+                isClearable={false}
+                name="set"
+                id="setName"
+                placeholder="Set"
+                onChange={props.onSelectChange}
+                options={getFormattedSelectData()}
+            />
+        }
+        else{
+            //default value
+            return <Select
             className="select form-control"
             classNamePrefix="pokemon-set"
             isSearchable={false}
@@ -67,9 +93,14 @@ const PokemonSetDropDown = ( props ) => {
             id="setName"
             placeholder="Set"
             onChange={props.onSelectChange}
-            defaultValue={props.selected.length === 0 ? null : props.selected}
+            defaultValue={props.set}
             options={getFormattedSelectData()}
         />
+        }
+    }
+    
+    return (
+        displaySelect()
     )
 }
 

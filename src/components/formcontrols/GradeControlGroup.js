@@ -1,22 +1,22 @@
 import React from 'react'
 import Select from 'react-select'
 import { GRADING_COMPANIES } from '../../util/Constants'
+import { isEmptyObj } from '../../util/Utils'
 
-const GradeControlGroup = ( props ) => {
+const GradeControlGroup = ( {onClick, grade, setGrade, gradeCompany, setGradeCompany} ) => {
     return (
-        <div>
-            <div className="mt-3 d-flex">
-                <div>
+        <div className="mt-3">
+            <div className="d-flex">
+                <div className="position-relative me-3">
                     <label htmlFor="grade" className="form-label">Grade</label>
-                    <input type="range" name="grade" id="grade" className="form-range" min={1} max={10} />
+                    <div className="display-grade">{grade}</div>
+                    <input type="range" name="grade" id="grade" className="form-range" defaultValue={grade} onChange={(e) => setGrade(e.target.value)} min={1} max={10} />
                 </div>
-                <div className="flex-grow-1">
+                <div className="mx-3 flex-grow-1">
                     <label htmlFor="gradeCompany">Grade Company</label>
-                    <Select id="gradeCompany" className="form-control" classNamePrefix="grade-company" options={GRADING_COMPANIES} />
+                    <Select id="gradeCompany" className="form-control" classNamePrefix="grade-company" defaultValue={isEmptyObj(gradeCompany) ? "" : gradeCompany} onChange={(optSelected, action) => setGradeCompany(optSelected)} options={GRADING_COMPANIES} />
                 </div>
-            </div>
-            <div>
-                <button type="button" className="btn btn-outline-dark" onClick={props.onClick}>Remove Grade</button>
+                <button type="button" className="ms-3 align-self-center btn btn-outline-dark" onClick={onClick}><i className="bi bi-trash"></i></button>
             </div>
         </div>
     )
