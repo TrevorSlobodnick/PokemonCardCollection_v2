@@ -66,7 +66,6 @@ const HomePage = ( props ) => {
         // if the url needs to be updated...
         // meaning, one or more key/value pairs were missing from the url search query, in order to create a sharable link, all key/value pairs are required to be in the url
         if(updateUrl){ 
-            console.log("replacing...");
             //change url using react, many people noted this will sometimes reload the page, which isnt a big issue
             history.replace("/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
             //change url using browser history api, since it does not necessarily communicate with react, I will be using the react method since this is a react project

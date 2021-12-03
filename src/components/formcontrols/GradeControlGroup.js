@@ -14,7 +14,7 @@ const GradeControlGroup = ( {onClick, grade, setGrade, gradeCompany, setGradeCom
                 </div>
                 <div className="mx-3 flex-grow-1">
                     <label htmlFor="gradeCompany">Grade Company</label>
-                    <Select id="gradeCompany" className="form-control" classNamePrefix="grade-company" defaultValue={isEmptyObj(gradeCompany) ? "" : gradeCompany} onChange={(optSelected, action) => setGradeCompany(optSelected)} options={GRADING_COMPANIES} />
+                    <Select id="gradeCompany" className="form-control" classNamePrefix="grade-company" placeholder="Grade Company" defaultValue={isEmptyObj(gradeCompany) ? "" : gradeCompany} onChange={(optSelected, action) => setGradeCompany(optSelected)} options={GRADING_COMPANIES} />
                 </div>
                 <button type="button" className="ms-3 align-self-center btn btn-outline-dark" onClick={onClick}><i className="bi bi-trash"></i></button>
             </div>

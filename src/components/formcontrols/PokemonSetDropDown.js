@@ -18,13 +18,13 @@ const PokemonSetDropDown = ( props ) => {
             if(set.name === "Base"){
                 selectData[series].push({
                     "value" : set.name,
-                    "label" : <div className="option" data-id={set.id}><img id="base-img" className="option-img" src={set.symbol} alt={set.name} /><p className="option-text">{set.name}</p></div>
+                    "label" : <div className="option" data-id={set.id} data-listed-total={set.totalCardsListed} data-actual-total={set.totalCards}><img id="base-img" className="option-img" src={set.symbol} alt={set.name} /><p className="option-text">{set.name}</p></div>
                 })
             }
             else{
                 selectData[series].push({
                     "value" : set.name,
-                    "label" : <div className="option" data-id={set.id}><img className="option-img" src={set.symbol} alt={set.name} /><p className="option-text">{set.name}</p></div>
+                    "label" : <div className="option" data-id={set.id} data-listed-total={set.totalCardsListed} data-actual-total={set.totalCards}><img className="option-img" src={set.symbol} alt={set.name} /><p className="option-text">{set.name}</p></div>
                 })
             }
         });
@@ -35,14 +35,14 @@ const PokemonSetDropDown = ( props ) => {
         let selectData = getSelectData()
         //the keys (series) will act as groups
         let selectDataKeys = Object.keys(selectData)
-        let tmp = selectDataKeys.map(key => {
+        let opts = selectDataKeys.map(key => {
             let groupedOptions = {
                 "label" : key,
-                "options" : selectData[key]
+                "options" : selectData[key].reverse()
             }
             return groupedOptions
         })
-        return tmp
+        return opts.reverse()
     }
 
     useEffect(() => {

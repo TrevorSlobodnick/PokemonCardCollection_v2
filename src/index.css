@@ -114,7 +114,9 @@ input[type="submit"].apply-filters{
   right: 0px;
 }
 
-
+.validation-text{
+  color: red;
+}
 
 
 

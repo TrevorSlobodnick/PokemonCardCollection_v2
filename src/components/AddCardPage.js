@@ -4,7 +4,8 @@ import { useState } from "react"
 import Select from 'react-select'
 import { APPEARANCES } from '../util/Constants'
 import GradeControlGroup from './formcontrols/GradeControlGroup'
-import { isEmptyObj } from '../util/Utils'
+import { getCardId, isEmptyObj } from '../util/Utils'
+import { Backend } from '../util/Backend'
 
 const AddCardPage = () => {
 
@@ -16,6 +17,9 @@ const AddCardPage = () => {
     const [grade, setGrade] = useState(0)
     const [gradeCompany, setGradeCompany] = useState({}) //this is an option from a select { label: "", value: "" }
     const [appearance, setAppearance] = useState({}) //this is an option from a select { label: "", value: "" }
+    const [card, setCard] = useState({})
+    //errors
+    const [numberErrorMsg, setNumberErrorMsg] = useState("");
 
     const onSetSelectChange = (optSelected, actionType) => {
         setSetId(optSelected.label.props['data-id'])
@@ -24,12 +28,20 @@ const AddCardPage = () => {
     }
 
     const onNumberInputChange = (e) => {
-        if(e.target.value.toString().length < 4){
-            setNumber(e.target.value)
+        //val is 0 if input field is empty, otherwise its the value of the input field
+        let val = parseInt(e.target.value, 10);
+        if(e.target.value === ""){
+            e.target.style.removeProperty("border-color")
+            setNumberErrorMsg("");
+        }
+        else if(val > set.label.props["data-actual-total"] || val < 1){
+            e.target.style.borderColor = "red"
         }
         else{
-            e.target.value = number
+            e.target.style.removeProperty("border-color")
+            setNumberErrorMsg("");
         }
+        setNumber(e.target.value)
     }
 
     const submitForm = (id, num) => {
@@ -51,11 +63,23 @@ const AddCardPage = () => {
     }
 
     const onStepUp = () => {
-        setStep(step + 1)
+        if(number < set.label.props["data-actual-total"] && number > 0){
+            setStep(2)
+            const cardId = getCardId(setId, number)
+            if(isEmptyObj(card) || card.id !== cardId){
+                Backend.getCardFromApi(cardId).then(response => {
+                    console.log(response.data)
+                    setCard(response.data)
+                })
+            }
+        }
+        else{
+            setNumberErrorMsg("The number must be between 1 and " + set.label.props["data-actual-total"])
+        }
     }
 
     const onStepDown = () => {
-        setStep(step - 1)
+        setStep(1)
     }
 
     const onEnterKeyPressed = (e) => {
@@ -86,7 +110,13 @@ const AddCardPage = () => {
                 </div>
                 <div className="mt-3">
                     <label htmlFor="cardNumber">Number</label>
-                    <input type="number" name="cardNumber" id="cardNumber" className="form-control" value={number === 0 ? "" : number} onKeyDown={onEnterKeyPressed} onChange={onNumberInputChange} /> 
+                    <div className="input-group">
+                        <input type="number" name="cardNumber" id="cardNumber" className="form-control" disabled={isEmptyObj(set) ? true : false} value={number === 0 ? "" : number} onKeyDown={onEnterKeyPressed} onChange={onNumberInputChange} placeholder="" aria-label="" aria-describedby="add-total"/>
+                        <div className="input-group-append">
+                            <span className="input-group-text" id="addon-total">{isEmptyObj(set) ? "/???" : "/" + set.label.props["data-actual-total"]}</span>
+                        </div>
+                    </div>
+                    <div className="validation-text">{numberErrorMsg}</div> 
                 </div>
                 <div className="mt-4 text-end">
                     <button type="button" className="btn btn-success set-btn" onClick={onStepUp}>Next</button>
@@ -96,6 +126,7 @@ const AddCardPage = () => {
         else{
             return <form>
                 <div className="mt-3">
+                    {/* APPEARANCE FIELD SHOULD ONLY CONTAIN HOLO OR REVERSE HOLO, ONLY RARE CARDS CAN BE HOLO, THE REST WILL BE PROCESSED SEPERATELY  */}
                     <label htmlFor="appearance">Appearance</label>
                     <Select id="appearance" className="form-control" classNamePrefix="appearance" placeholder="Appearance" defaultValue={isEmptyObj(appearance) ? "" : appearance} onChange={(optSelected, a) => setAppearance(optSelected)} options={APPEARANCES} />
                 </div>

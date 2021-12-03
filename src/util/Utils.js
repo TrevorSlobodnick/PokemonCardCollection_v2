@@ -6,3 +6,7 @@ export const isEmptyObj = (obj) => {
         return false
     }
 }
+
+export const getCardId = (setId, number) => {
+    return setId + "-" + number;
+}
