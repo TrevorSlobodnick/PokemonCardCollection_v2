@@ -2,7 +2,6 @@ import React from 'react'
 import PokemonSetDropDown from './formcontrols/PokemonSetDropDown'
 import { useState } from "react"
 import Select from 'react-select'
-import { APPEARANCES } from '../util/Constants'
 import GradeControlGroup from './formcontrols/GradeControlGroup'
 import { getCardId, isEmptyObj } from '../util/Utils'
 import { Backend } from '../util/Backend'
@@ -18,6 +17,7 @@ const AddCardPage = () => {
     const [gradeCompany, setGradeCompany] = useState({}) //this is an option from a select { label: "", value: "" }
     const [appearance, setAppearance] = useState({}) //this is an option from a select { label: "", value: "" }
     const [card, setCard] = useState({})
+    const [appearanceOptions, setAppearanceOptions] = useState([]); //this is an array of options for a select [{ label: "", value: "" }]
     //errors
     const [numberErrorMsg, setNumberErrorMsg] = useState("");
 
@@ -42,6 +42,25 @@ const AddCardPage = () => {
             setNumberErrorMsg("");
         }
         setNumber(e.target.value)
+    }
+
+    const getAppearanceOptions = (rarity) => {
+        if(rarity === "Common" || rarity === "Uncommon"){
+            return [
+                { label: "None", value: ""},
+                { label: "Reverse Holo", value: "Reverse Holo"}
+            ]
+        }
+        else if(rarity === "Rare Holo"){
+            return [
+                { label: "None", value: ""},
+                { label: "Reverse Holo", value: "Reverse Holo"},
+                { label: "Holo", value: "Holo"}
+            ]
+        }
+        else{
+            return [{ label: "N/A", value: ""}];
+        }
     }
 
     const submitForm = (id, num) => {
@@ -70,6 +89,11 @@ const AddCardPage = () => {
                 Backend.getCardFromApi(cardId).then(response => {
                     console.log(response.data)
                     setCard(response.data)
+                    const appOpts = getAppearanceOptions(response.data.rarity)
+                    setAppearanceOptions(appOpts)
+                    if(isEmptyObj(appearance)){
+                        setAppearance(appOpts[0])
+                    }
                 })
             }
         }
@@ -126,9 +150,8 @@ const AddCardPage = () => {
         else{
             return <form>
                 <div className="mt-3">
-                    {/* APPEARANCE FIELD SHOULD ONLY CONTAIN HOLO OR REVERSE HOLO, ONLY RARE CARDS CAN BE HOLO, THE REST WILL BE PROCESSED SEPERATELY  */}
-                    <label htmlFor="appearance">Appearance</label>
-                    <Select id="appearance" className="form-control" classNamePrefix="appearance" placeholder="Appearance" defaultValue={isEmptyObj(appearance) ? "" : appearance} onChange={(optSelected, a) => setAppearance(optSelected)} options={APPEARANCES} />
+                    <label htmlFor="appearance">Special Appearance</label>
+                    <Select id="appearance" className="form-control" classNamePrefix="appearance" placeholder="Appearance" defaultValue={isEmptyObj(appearance) ? appearanceOptions[0] : appearance} onChange={(optSelected, a) => setAppearance(optSelected)} options={appearanceOptions} />
                 </div>
                 {displayGrade ? 
                     <GradeControlGroup grade={grade} setGrade={setGrade} gradeCompany={gradeCompany} setGradeCompany={setGradeCompany} onClick={toggleGrade} />

@@ -19,10 +19,10 @@ const Header = () => {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className={location.pathname === "/" ? "nav-link active" : "nav-link"} to="/">Home</Link>
+                                <Link className={location.pathname === "/" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className={location.pathname === "/Add" ? "nav-link active" : "nav-link"} to="/Add">Add</Link>
+                                <Link className={location.pathname === "/Add" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/Add">Add</Link>
                             </li>
                         </ul>
                     </div>
