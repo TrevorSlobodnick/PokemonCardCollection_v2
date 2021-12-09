@@ -91,9 +91,7 @@ const AddCardPage = () => {
                     setCard(response.data)
                     const appOpts = getAppearanceOptions(response.data.rarity)
                     setAppearanceOptions(appOpts)
-                    if(isEmptyObj(appearance)){
-                        setAppearance(appOpts[0])
-                    }
+                    setAppearance(appOpts[0])
                 })
             }
         }
@@ -148,10 +146,16 @@ const AddCardPage = () => {
             </form>
         }
         else{
-            return <form>
+            if(isEmptyObj(card)){
+                return <div className='mt-5 text-center' style={{"fontSize": "1.7rem"}}>
+                    <p>Getting Card...</p>
+                </div>
+            }
+            else{
+                return <form>
                 <div className="mt-3">
                     <label htmlFor="appearance">Special Appearance</label>
-                    <Select id="appearance" className="form-control" classNamePrefix="appearance" placeholder="Appearance" defaultValue={isEmptyObj(appearance) ? appearanceOptions[0] : appearance} onChange={(optSelected, a) => setAppearance(optSelected)} options={appearanceOptions} />
+                    <Select id="appearance" className="form-control" classNamePrefix="appearance" placeholder="Appearance" value={appearance} onChange={(optSelected, a) => setAppearance(optSelected)} options={appearanceOptions} />
                 </div>
                 {displayGrade ? 
                     <GradeControlGroup grade={grade} setGrade={setGrade} gradeCompany={gradeCompany} setGradeCompany={setGradeCompany} onClick={toggleGrade} />
@@ -164,7 +168,8 @@ const AddCardPage = () => {
                     <button type="button" className="btn btn-warning" onClick={onStepDown}>Back</button>
                     <input type="submit" name="submit" id="submit" className="btn btn-success" onClick={onSubmitClicked} value="Add Card" />
                 </div>
-            </form>
+                </form>
+            }
         }
     }
 
