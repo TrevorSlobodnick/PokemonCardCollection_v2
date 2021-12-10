@@ -15,7 +15,7 @@ if($_POST['task'] == "get_cards"){
     //get cards, max 100
 }
 else if($_POST['task'] == "get_prices"){
-    //this will be one of the last tasks to implement
+    //get prices of that card
 }
 else if($_POST['task'] == "get_sets"){
     $sets = $pokemonTCGApi->getSets(); //get sets from api
@@ -27,21 +27,23 @@ else if($_POST['task'] == "get_card_from_api"){
     echo json_encode(new Response(true, $card));
 }
 else if($_POST['task'] == "add_card"){
-    $card = $_POST['card'];
-    $pokemonCard = new PokemonCard($card, DataSource::API);
-
-    $sql = 'INSERT INTO `' . TABLE_NAME . '` ' . 
-            '(card_id, card_number, name, supertype, hp, primary_type, secondary_type, set_id, set_name, set_series, artist, rarity, small_image, large_image, date_added) ' .
-            'VALUES ' .
-            '(:cardId, :cardNumber, :name, :supertype, :hp, :primary_type, :secondary_type, :set_id, :set_name, :set_series, :artist, :rarity, :small_image, :large_image, NOW())';
-    $bindVal = $pokemonCard->getBindVals();
-    $status = $dbc->sqlQuery($sql, $bindVal);
-    if($status){
-        echo json_encode(new Response(true, $pokemonCard));
-    }
-    else{
-        echo json_encode(new Response(false, Warning::AddToDatabaseError));
-    }
+    $data = $_POST['card'];
+    $pokemonCard = new PokemonCard($card);
+    echo json_encode($pokemonCard);
+    //modify the card to correct some values
+    // $sql = 'INSERT INTO `' . TABLE_NAME . '` ' . 
+    //         '(card_id, card_number, name, supertype, hp, primary_type, secondary_type, set_id, set_name, set_series, artist, rarity, small_image, large_image, date_added) ' .
+    //         'VALUES ' .
+    //         '(:cardId, :cardNumber, :name, :supertype, :hp, :primary_type, :secondary_type, :set_id, :set_name, :set_series, :artist, :rarity, :small_image, :large_image, NOW())';
+    // $bindVal = $pokemonCard->getBindVals();
+    // $status = $dbc->sqlQuery($sql, $bindVal);
+    // if($status){
+    //     echo json_encode(new Response(true, $pokemonCard));
+    // }
+    // else{
+    //     echo json_encode(new Response(false, Warning::AddToDatabaseError));
+    // }
+    echo json_encode(new Response(true, $pokemonCard));
 }
 
 ?>

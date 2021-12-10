@@ -45,7 +45,7 @@ const AddCardPage = () => {
     }
 
     const getAppearanceOptions = (rarity) => {
-        if(rarity === "Common" || rarity === "Uncommon"){
+        if(rarity === "Common" || rarity === "Uncommon" || rarity === "Rare"){
             return [
                 { label: "None", value: ""},
                 { label: "Reverse Holo", value: "Reverse Holo"}
@@ -63,7 +63,12 @@ const AddCardPage = () => {
         }
     }
 
-    const submitForm = (id, num) => {
+    const submitForm = () => {
+        const lang = "en"; //temporary constant until we support multi language cards, at which point this will be a state variable managed through the form
+        const isPromo = false; //temporary constant until we support promo cards, at which point this will be a state variable managed through the form
+        let cardToSend = card;
+        cardToSend.lang = lang;
+        cardToSend.isPromo = isPromo;
         console.log("Form Submitted")
         // Backend.addCard(num, id).then(response => {
         //     console.log(response)
@@ -78,7 +83,7 @@ const AddCardPage = () => {
 
     const onSubmitClicked = (e) => {
         e.preventDefault()
-        submitForm(setId, number)
+        submitForm()
     }
 
     const onStepUp = () => {

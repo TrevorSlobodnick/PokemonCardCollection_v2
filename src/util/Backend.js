@@ -12,7 +12,7 @@ export class Backend{
     }
 
     static async getPrices(){
-
+        //get the prices of each card
     }
 
     static async getCardFromApi(cardId){
@@ -32,7 +32,6 @@ export class Backend{
     }
 
     static async getSets(){
-        //getSets will never return an error because the endpoint is a constant
         const sets = await this.post({
             "task" : "get_sets"
         })

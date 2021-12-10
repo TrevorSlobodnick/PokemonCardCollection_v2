@@ -24,13 +24,6 @@ export const SEARCH_TYPE_OPTIONS = [
     { "label" : "Set", "value" : "set" }
 ]
 
-export const APPEARANCES = [
-    {value: "Holo", label: "Holo"},
-    {value: "Reverse Holo", label: "Reverse Holo"},
-    {value: "Ultra Rare", label: "Ultra Rare"},
-    {value: "Secret Rare", label: "Secret Rare"}
-]
-
 export const GRADING_COMPANIES = [
     {value: "PSA", label: "PSA (Professional Sports Authenticator)"},
     {value: "BGS", label: "BGS (Beckett Grading Services)"},
