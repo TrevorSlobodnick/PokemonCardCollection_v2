@@ -27,14 +27,13 @@ else if($_POST['task'] == "get_card_from_api"){
     echo json_encode(new Response(true, $card));
 }
 else if($_POST['task'] == "add_card"){
-    $data = $_POST['card'];
-    $pokemonCard = new PokemonCard($card);
-    echo json_encode($pokemonCard);
+    $info = json_decode($_POST['info']);
+    $pokemonCard = PokemonCard::toDatabase($info);
     //modify the card to correct some values
-    // $sql = 'INSERT INTO `' . TABLE_NAME . '` ' . 
-    //         '(card_id, card_number, name, supertype, hp, primary_type, secondary_type, set_id, set_name, set_series, artist, rarity, small_image, large_image, date_added) ' .
+    // $sql = 'INSERT INTO pokemon_cards ' . 
+    //         '(card_id, card_number, name, supertype, hp, types, set_id, set_name, set_series, artist, rarity, small_image, large_image, date_added) ' .
     //         'VALUES ' .
-    //         '(:cardId, :cardNumber, :name, :supertype, :hp, :primary_type, :secondary_type, :set_id, :set_name, :set_series, :artist, :rarity, :small_image, :large_image, NOW())';
+    //         '(:cardId, )';
     // $bindVal = $pokemonCard->getBindVals();
     // $status = $dbc->sqlQuery($sql, $bindVal);
     // if($status){

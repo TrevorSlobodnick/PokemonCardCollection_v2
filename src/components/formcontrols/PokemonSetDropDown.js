@@ -46,7 +46,7 @@ const PokemonSetDropDown = ( props ) => {
     }
 
     useEffect(() => {
-        if(localStorage.getItem("update_sets") === "false"){
+        if(localStorage.getItem("update_sets") === "false" && localStorage.getItem("update_sets") !== ""){
             //if update_sets has a value, then sets will too
             const localSets = JSON.parse(localStorage.getItem("sets"))
             setSets(localSets)

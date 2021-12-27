@@ -23,10 +23,10 @@ export class Backend{
         return card
     }
 
-    static async addCard(card){
+    static async addCard(info){
         const cardAdded = await this.post({
             "task" : "add_card",
-            "card": card
+            "info": info
         })
         return cardAdded
     }
@@ -46,7 +46,7 @@ export class Backend{
      static async post(info){
         const result = await axios({
             method: 'post',
-            url: 'https://www.tslobodnick.ca/PokemonCardCollection/v2/api/post.php',
+            url: 'https://tslobodnick.ca/PokemonCardCollection/v2/api/post.php',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },

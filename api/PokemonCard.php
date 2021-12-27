@@ -4,100 +4,148 @@ require_once("config.php");
 require_once("Database.php");
 
 /**
- * A class that represents a Pokemon Card. Before passing in an object to make a new PokemonCard,
- * run the object through the most appriopriate format (static) function.
+ * A class that represents a Pokemon Card. Use the appropriate static methods to create the card
  */
 class PokemonCard{
-    public $id;
-    public $table_name;
-    public $details_id;
-    public $card_id;
-    public $card_number;
-    public $name;
-    public $supertype;
-    public $hp;
-    public $types; //array stored as json
-    public $set_name;
-    public $set_series;
-    public $artist;
-    public $rarity; //array stored as json string
-    public $small_image;
-    public $large_image;
-    public $date_added;
 
-    public function __construct($card){
-        $properties = get_class_vars(get_class($this));
+    //properties that are populated when sending to database
+    public $artist, $hp, $card_id, $name, $card_number, $supertype, $types, $grade, $grade_company, $rarity, $tags, $set_id, $set_name, $set_series;
 
-        foreach($properties as $prop){
-            if($card->$prop != null){
-                if($prop == "date_added"){
-                    //set the date string
-                    $dateTimeStr = strtotime($card["date_added"]);
-                    $this->$prop = date("Y-m-d H:i:s", $dateTimeStr); //MySQL datetime format is Y-m-d H:i:s
+    private function __construct(){}
+
+    
+    public static function toDatabase($data){
+        //create an empty PokemonCard
+        $dbObj = new self();
+        //add the basic information collected from the api and user
+        $dbObj->artist = $data->artist;
+        $dbObj->hp = $data->hp;
+        $dbObj->card_id = $data->id;
+        $dbObj->name = $data->name;
+        $dbObj->card_number = $data->card_number;
+        $dbObj->supertype = $data->supertype;
+        $dbObj->types = $data->types;
+        $dbObj->grade = $data->grade;
+        $dbObj->grade_company = $data->grade_company;
+        //handle getting the tags and the actual rarity...
+        $dbObj->rarity = self::getActualRarity($data->rarity);
+        $dbObj->tags = self::getTags($dbObj->special_appearance, $dbObj->subtypes, $dbObj->name, $data->rarity);
+        //add set information
+        $dbObj->set_id = $data->set_id;
+        $dbObj->set_name = $data->set_name;
+        $dbObj->set_series = $data->set_series;
+        //finally, return the PokemonCard
+        return $dbObj;
+    }
+
+    /**
+     * getTags is used to get the tags for a card given some information.
+     *
+     * @param string $appearance - the card variant, if any ("", "Holo", "Reverse Holo")
+     * @param array $subtypes - the card subtypes (from the api)
+     * @param string $name - the name on the card
+     * @param string $rarity - the card rarity (from the api)
+     * @return array - an array containing the tags for that card
+     */
+    private static function getTags($appearance, $subtypes, $name, $rarity){
+        $tags = [];
+        if($appearance != ""){
+            //appearance is either holo or reverse holo
+            $tags[] = $appearance;
+        }
+        if(count($subtypes) > 0){
+            for ($i=0; $i < count($subtypes); $i++) { 
+                //this will get all subtypes and add them to tags
+                if($subtypes[$i] == "EX"){
+                    if(str_ends_with($name, "ex")){
+                        $tags[] = "ex";
+                    }
+                    else if(str_ends_with($name, "EX")){
+                        $tags[] = "EX";
+                    }
                 }
                 else{
-                    $this->$prop = $card->prop;
+                    $tags[] = $subtypes[$i];
                 }
             }
         }
-
-        if($card->lang != null && $card->isPromo != null){
-            $this->table_name = $this->determineTableName($card->lang, $card->isPromo);
+        //The above checks cover most cases, but there are still a few 'tags' that would be skipped, 
+        //so we have to manually add those...
+        $lowerRarity = strtolower($rarity);
+        if($lowerRarity == "rare ace"){
+            $tags[] = "ACE";
         }
+        else if($lowerRarity == "rare break"){
+            $tags[] = "BREAK";
+        }
+        else if($lowerRarity == "rare holo lv.x"){
+            $tags[] = "LV.X";
+        }
+        else if($lowerRarity == "rare holo star"){
+            $tags[] = "Star";
+        }
+        else if($lowerRarity == "rare prime"){
+            $tags[] = "Prime";
+        }
+        else if($lowerRarity == "rare rainbow"){
+            $tags[] = "Rainbow";
+        }
+        else if($lowerRarity == "rare shining"){
+            $tags[] = "Shining";
+        }
+        else if($lowerRarity == "rare shiny"){
+            $tags[] = "Shiny";
+        }
+        else if($lowerRarity == "rare shiny gx"){
+            $tags[] = "Shiny";
+            $tags[] = "GX";
+        }
+        return $tags;
     }
 
-    private function determineTableName($lang, $isPromo){
-        if($lang == "en" && $isPromo == false){
-            return TableNames::DETAILS_EN;
+    /**
+     * getActualRarity is used to determine which class of rarity the card
+     * actually falls in, since the api does a terrible job
+     *
+     * @param string $rarity - the rarity of the card (from the api)
+     * @return string - the actual rarity of the card
+     */
+    private static function getActualRarity($rarity){
+        $lowerRarity = strtolower($rarity);
+        //I checked each rarity on the pokemontcg api guru site and came up with this list - Dec 26, 2021
+        if($lowerRarity == "rare secret" || $lowerRarity == "rare rainbow"){
+            return "Secret Rare";
         }
-        return TableNames::DETAILS_EN; //this will be implemented differently in the future when different languages are supported
-    }
-
-    private function determineRarity($rarity){
-        $updatedRarities = [];
-
-        //Check for Secret Rare
-
-        //Check for Ultra Rare
-        foreach(ULTRA_RARE_CHECKLIST as $type){
-            if(strstr($rarity, $type) != false){
-                $updatedRarities[] = trim($type);
-                $updatedRarities[] = "Ultra Rare";
-                return $updatedRarities;
-            }
+        else if(   $lowerRarity == "rare break" 
+                || $lowerRarity == "rare holo gx" 
+                || $lowerRarity == "rare holo v" 
+                || $lowerRarity == "rare holo vmax" 
+                || $lowerRarity == "rare shiny gx" 
+                || $lowerRarity == "rare ultra"
+        ){
+            return "Ultra Rare";
         }
-
-        //Check for other rarities, we also need to check if specialAppearance has a value, if so, add it on as well
-        if(strstr($rarity, " Holo ") != false){
-            str_replace(" Holo ", ",", $rarity);
-            $updatedRarities = explode(",", $rarity);
+        else if(   $lowerRarity == "legend"
+                || $lowerRarity == "rare ace"
+                || $lowerRarity == "rare holo"
+                || $lowerRarity == "rare holo ex"
+                || $lowerRarity == "rare holo lv.x"
+                || $lowerRarity == "rare holo star"
+                || $lowerRarity == "rare prime"
+                || $lowerRarity == "rare prism star"
+        ){
+            return "Rare";
+        }
+        else{
+            return $rarity;
         }
     }
 
     /**
-     * Gets the values for the placeholders in the PDO sql insert query
-     * @return Array Associative array of the values needed to insert a card into the database
+     * Insert the current pokemon card into the database
      */
-    public function getBindVals(){
-        $bindVals = [];
-        foreach(get_object_vars($this) as $key => $val){
-            if($key != "date_added"){
-                $bindVals[$key] = $val;
-            }
-        }
-        return $bindVals;
-    }
+    public function insert(){
 
-    public function create(){
-
-    }
-
-    public function update(){
-        
-    }
-
-    public function delete(){
-        
     }
 }
 

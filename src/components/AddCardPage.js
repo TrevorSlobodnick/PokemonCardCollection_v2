@@ -5,6 +5,7 @@ import Select from 'react-select'
 import GradeControlGroup from './formcontrols/GradeControlGroup'
 import { getCardId, isEmptyObj } from '../util/Utils'
 import { Backend } from '../util/Backend'
+import { GRADING_COMPANIES } from '../util/Constants'
 
 const AddCardPage = () => {
 
@@ -64,12 +65,17 @@ const AddCardPage = () => {
     }
 
     const submitForm = () => {
-        const lang = "en"; //temporary constant until we support multi language cards, at which point this will be a state variable managed through the form
-        const isPromo = false; //temporary constant until we support promo cards, at which point this will be a state variable managed through the form
-        let cardToSend = card;
-        cardToSend.lang = lang;
-        cardToSend.isPromo = isPromo;
-        console.log("Form Submitted")
+        //language_code = "en"; //this is the default value and will change when we support multi language cards
+        //is_promo = 0; //(false) this is the default value and will change when we support promo cards
+        let info = card;
+        info.set_id = card.set.id;
+        info.set_name = card.set.name;
+        info.set_series = card.set.series;
+        info.special_appearance = appearance.value;
+        info.grade = grade;
+        info.grade_company = (gradeCompany.value === undefined) ? "" : gradeCompany.value;
+        console.log("Form Submitted");
+        console.log(info);
         // Backend.addCard(num, id).then(response => {
         //     console.log(response)
         //     if(response.completed === false){
@@ -87,7 +93,7 @@ const AddCardPage = () => {
     }
 
     const onStepUp = () => {
-        if(number < set.label.props["data-actual-total"] && number > 0){
+        if(number <= set.label.props["data-actual-total"] && number > 0){
             setStep(2)
             const cardId = getCardId(setId, number)
             if(isEmptyObj(card) || card.id !== cardId){
@@ -119,12 +125,12 @@ const AddCardPage = () => {
         if(displayGrade){
             setDisplayGrade(false) //dont display grade input
             setGrade(0) //set grade to initial value
-            setGradeCompany("") //set grade company to initial value
+            setGradeCompany({}) //set grade company to initial value
         }
         else{
             setDisplayGrade(true) //display grade input
             setGrade(10) //set grade to a valid value
-            setGradeCompany("PSA") //set grade company to a valid value
+            setGradeCompany(GRADING_COMPANIES[0]) //set grade company to a valid value
         }
     }
 
@@ -140,7 +146,7 @@ const AddCardPage = () => {
                     <div className="input-group">
                         <input type="number" name="cardNumber" id="cardNumber" className="form-control" disabled={isEmptyObj(set) ? true : false} value={number === 0 ? "" : number} onKeyDown={onEnterKeyPressed} onChange={onNumberInputChange} placeholder="" aria-label="" aria-describedby="add-total"/>
                         <div className="input-group-append">
-                            <span className="input-group-text" id="addon-total">{isEmptyObj(set) ? "/???" : "/" + set.label.props["data-actual-total"]}</span>
+                            <span className="input-group-text" id="addon-total">{isEmptyObj(set) ? "/???" : "/" + set.label.props["data-listed-total"]}</span>
                         </div>
                     </div>
                     <div className="validation-text">{numberErrorMsg}</div> 

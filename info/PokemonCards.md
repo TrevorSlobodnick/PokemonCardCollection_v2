@@ -4,7 +4,7 @@
 
 ## Section 1 - Main Types
 
-### Holo Rare
+### Holo
 
 **Description**
 : **The picture window has a glossy/shiny appearance.**
@@ -12,6 +12,7 @@
 **Notes**
 : - **Only rare cards can be holo** 
   - **Not all rare cards get a holo variant**
+  - **I think.. all LV.X cards are Holo**
 
 ### Reverse Holo
 
