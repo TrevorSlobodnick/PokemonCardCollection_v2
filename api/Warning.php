@@ -12,7 +12,8 @@ class Warning{
     public $code;
 
     const UnknownError = new self("Unknown Error", 0);
-    const AddToDatabaseError = new self("Failed to Add Card to Database", 1);
+    const AddToDatabaseError = new self("Failed to add card to database", 1);
+    const NoCardsError = new self("There are no cards in your collection", 2);
 
     public function __construct($message, $code){
         $this->message = $message;

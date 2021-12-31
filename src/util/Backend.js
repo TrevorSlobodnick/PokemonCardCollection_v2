@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export class Backend{
-    static async getCards(filters = "none", search = "", searchType = ""){
+    static async getCards(filters = "", search = "", searchType = ""){
         const cards = await this.post({
             "task" : "get_cards",
             "filters" : filters,
@@ -26,7 +26,7 @@ export class Backend{
     static async addCard(info){
         const cardAdded = await this.post({
             "task" : "add_card",
-            "info": info
+            "info": JSON.stringify(info)
         })
         return cardAdded
     }

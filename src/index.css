@@ -59,6 +59,14 @@ p{
 /*HTML Element Styles*/
 
 
+.pokemon-card{
+  display: inline-block;
+  width: auto;
+  background-color: lightblue;
+  border: solid medium white;
+  padding: 2rem 1rem;
+}
+
 
 
 

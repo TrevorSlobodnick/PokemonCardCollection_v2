@@ -6,6 +6,7 @@ import GradeControlGroup from './formcontrols/GradeControlGroup'
 import { getCardId, isEmptyObj } from '../util/Utils'
 import { Backend } from '../util/Backend'
 import { GRADING_COMPANIES } from '../util/Constants'
+import { StatusMessage } from '../util/StatusMessage'
 
 const AddCardPage = () => {
 
@@ -65,26 +66,41 @@ const AddCardPage = () => {
     }
 
     const submitForm = () => {
-        //language_code = "en"; //this is the default value and will change when we support multi language cards
-        //is_promo = 0; //(false) this is the default value and will change when we support promo cards
-        let info = card;
+        let info = {};
+        //basic info
+        info.card_id = card.id;
+        info.name = card.name;
+        info.card_number = card.number;
+        info.artist = card.artist;
+        info.hp = card.hp;
+        info.rarity = card.rarity;
+        info.supertype = card.supertype;
+        info.subtypes = card.subtypes;
+        info.types = card.types;
+        //other info
+        info.special_appearance = appearance.value;
+        info.language_code = "en"; //this is the default value and will change when we support multi language cards
+        info.is_promo = 0; //(false) this is the default value and will change when we support promo cards
+        //set info
         info.set_id = card.set.id;
         info.set_name = card.set.name;
         info.set_series = card.set.series;
-        info.special_appearance = appearance.value;
+        //grade info
         info.grade = grade;
         info.grade_company = (gradeCompany.value === undefined) ? "" : gradeCompany.value;
-        console.log("Form Submitted");
+        console.log("Info Sent:");
         console.log(info);
-        // Backend.addCard(num, id).then(response => {
-        //     console.log(response)
-        //     if(response.completed === false){
-        //         StatusMessage.showErrorMessage("Card could not be added:\n\n" + response.data.message)
-        //     }
-        //     else{
-        //         StatusMessage.showSuccessMessage("Card added Successfully")
-        //     }
-        // })
+        Backend.addCard(info).then(response => {
+            console.log("Response:");
+            console.log(response)
+            if(response.completed === false){
+                StatusMessage.showErrorMessage("Card could not be added:\n\n" + response.data.message)
+            }
+            else{
+                StatusMessage.showSuccessMessage("Card added Successfully")
+                //TODO: clear form, set to step 1
+            }
+        });
     }
 
     const onSubmitClicked = (e) => {
@@ -96,13 +112,16 @@ const AddCardPage = () => {
         if(number <= set.label.props["data-actual-total"] && number > 0){
             setStep(2)
             const cardId = getCardId(setId, number)
-            if(isEmptyObj(card) || card.id !== cardId){
+            if(card === null || isEmptyObj(card) || card.id !== cardId){
                 Backend.getCardFromApi(cardId).then(response => {
+                    console.log("Api response:");
                     console.log(response.data)
                     setCard(response.data)
-                    const appOpts = getAppearanceOptions(response.data.rarity)
-                    setAppearanceOptions(appOpts)
-                    setAppearance(appOpts[0])
+                    if(response.data !== null){
+                        const appOpts = getAppearanceOptions(response.data.rarity)
+                        setAppearanceOptions(appOpts)
+                        setAppearance(appOpts[0])
+                    }
                 })
             }
         }
@@ -157,29 +176,41 @@ const AddCardPage = () => {
             </form>
         }
         else{
-            if(isEmptyObj(card)){
+            if(card === null){
+                return <div className='mt-5 text-center'>
+                    <p className='text-danger' style={{"fontSize": "1.7rem"}}>Card Not Found!</p>
+                    <button type="button" className="btn btn-warning" onClick={onStepDown}>Back</button>
+                </div>
+            }
+            else if(isEmptyObj(card)){
                 return <div className='mt-5 text-center' style={{"fontSize": "1.7rem"}}>
                     <p>Getting Card...</p>
                 </div>
             }
             else{
-                return <form>
-                <div className="mt-3">
-                    <label htmlFor="appearance">Special Appearance</label>
-                    <Select id="appearance" className="form-control" classNamePrefix="appearance" placeholder="Appearance" value={appearance} onChange={(optSelected, a) => setAppearance(optSelected)} options={appearanceOptions} />
-                </div>
-                {displayGrade ? 
-                    <GradeControlGroup grade={grade} setGrade={setGrade} gradeCompany={gradeCompany} setGradeCompany={setGradeCompany} onClick={toggleGrade} />
-                    :
+                return <div>
+                    <form>
                     <div className="mt-3">
-                        <button type="button" className="btn btn-outline-dark" onClick={toggleGrade}>Add Grade</button>
+                        <label htmlFor="appearance">Special Appearance</label>
+                        <Select id="appearance" className="form-control" classNamePrefix="appearance" placeholder="Appearance" value={appearance} onChange={(optSelected, a) => setAppearance(optSelected)} options={appearanceOptions} />
                     </div>
-                }
-                <div className="mt-4 d-flex justify-content-between">
-                    <button type="button" className="btn btn-warning" onClick={onStepDown}>Back</button>
-                    <input type="submit" name="submit" id="submit" className="btn btn-success" onClick={onSubmitClicked} value="Add Card" />
+                    {displayGrade ? 
+                        <GradeControlGroup grade={grade} setGrade={setGrade} gradeCompany={gradeCompany} setGradeCompany={setGradeCompany} onClick={toggleGrade} />
+                        :
+                        <div className="mt-3">
+                            <button type="button" className="btn btn-outline-dark" onClick={toggleGrade}>Add Grade</button>
+                        </div>
+                    }
+                    <div className="mt-4 d-flex justify-content-between">
+                        <button type="button" className="btn btn-warning" onClick={onStepDown}>Back</button>
+                        <input type="submit" name="submit" id="submit" className="btn btn-success" onClick={onSubmitClicked} value="Add Card" />
+                    </div>
+                    </form>
+                    <div className='text-center mt-4'>
+                        <h4 className='mb-3'>Preview</h4>
+                        <img className='mb-3' src={card.images.small} alt='Pokemon card to be added' />
+                    </div>
                 </div>
-                </form>
             }
         }
     }

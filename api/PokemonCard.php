@@ -8,11 +8,10 @@ require_once("Database.php");
  */
 class PokemonCard{
 
-    //properties that are populated when sending to database
+    //class variables
     public $artist, $hp, $card_id, $name, $card_number, $supertype, $types, $grade, $grade_company, $rarity, $tags, $set_id, $set_name, $set_series;
 
     private function __construct(){}
-
     
     public static function toDatabase($data){
         //create an empty PokemonCard
@@ -20,7 +19,7 @@ class PokemonCard{
         //add the basic information collected from the api and user
         $dbObj->artist = $data->artist;
         $dbObj->hp = $data->hp;
-        $dbObj->card_id = $data->id;
+        $dbObj->card_id = $data->card_id;
         $dbObj->name = $data->name;
         $dbObj->card_number = $data->card_number;
         $dbObj->supertype = $data->supertype;
@@ -29,13 +28,36 @@ class PokemonCard{
         $dbObj->grade_company = $data->grade_company;
         //handle getting the tags and the actual rarity...
         $dbObj->rarity = self::getActualRarity($data->rarity);
-        $dbObj->tags = self::getTags($dbObj->special_appearance, $dbObj->subtypes, $dbObj->name, $data->rarity);
+        $dbObj->tags = self::getTags($data->special_appearance, $data->subtypes, $data->name, $data->rarity);
         //add set information
         $dbObj->set_id = $data->set_id;
         $dbObj->set_name = $data->set_name;
         $dbObj->set_series = $data->set_series;
+        //add the other card information
+        $dbObj->is_promo = $data->is_promo;
+        $dbObj->language_code = $data->language_code;
         //finally, return the PokemonCard
         return $dbObj;
+    }
+
+    /**
+     * Gets the bindVals for an sql query
+     *
+     * @param Array $arr - an array that contains the names of the PokemonCard class variables that are used in the query
+     * @return Array the bindVals for the sql query
+     */
+    public function getBindVals($keys){
+        $bindVals = [];
+        //loop through the keys array and add any class variables that match the $key variable to the $bindVals array
+        foreach ($keys as $key) {
+            if($key === "types" || $key === "tags"){
+                $bindVals[$key] = json_encode($this->$key);
+            }
+            else{
+                $bindVals[$key] = $this->$key;
+            }
+        }
+        return $bindVals;
     }
 
     /**
@@ -145,7 +167,15 @@ class PokemonCard{
      * Insert the current pokemon card into the database
      */
     public function insert(){
-
+        $dbc = Database::getInstance();
+        $keys = ["card_id", "card_number", "name", "supertype", "types", "artist", "hp", "rarity", "tags", "grade", "grade_company", "set_id", "set_name", "set_series", "is_promo", "language_code"];
+        $sql = 'INSERT INTO pokemon_cards ' . 
+                '(card_id, card_number, name, supertype, types, artist, hp, rarity, tags, grade, grade_company, set_id, set_name, set_series, is_promo, language_code) ' .
+                'VALUES ' .
+                '(:card_id, :card_number, :name, :supertype, :types, :artist, :hp, :rarity, :tags, :grade, :grade_company, :set_id, :set_name, :set_series, :is_promo, :language_code)';
+        $bindVals = $this->getBindVals($keys);
+        $status = $dbc->sqlQuery($sql, $bindVals);
+        return $status;
     }
 }
 

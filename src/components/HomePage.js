@@ -5,12 +5,14 @@ import { VALID_SORT_VALUES, VALID_SEARCHTYPE_VALUES, SORT_OPTIONS, SEARCH_TYPE_O
 import { useHistory } from "react-router-dom"
 import Select from "react-select"
 import SearchImg from "../images/search.svg"
+import { Backend } from "../util/Backend.js"
 
 const HomePage = ( props ) => {
 
     const searchQuery = qs.parse(useLocation().search)
     const history = useHistory()
     let updateUrl = false
+    const [cards, setCards] = useState([])
 
     /**
      * Gets a value for a given key from the url search query,
@@ -70,6 +72,16 @@ const HomePage = ( props ) => {
             history.replace("/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
             //change url using browser history api, since it does not necessarily communicate with react, I will be using the react method since this is a react project
             //window.history.replaceState(null, "Bob", "/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
+        }
+        if(cards.length === 0){
+            Backend.getCards().then(response => {
+                if(response.completed){
+                    setCards(response.data)
+                }
+                else{
+                    console.log(response.data);
+                }
+            });
         }
     })
 
@@ -197,7 +209,34 @@ const HomePage = ( props ) => {
         }
     }
 
+    const displayCards = () => {
+        let cardsToDisplay = cards.map(card => 
+            <div key={card.id} className="pokemon-card">
+                {/* <img src={card.small_image} alt={card.name} /> */}
+                <p>Id: {card.id}</p>
+                <p>Card Id: {card.card_id}</p>
+                <p>Name: {card.name}</p>
+                <p>Number: {card.card_number}</p>
+                <p>Rarity: {card.rarity}</p>
+                <p>HP: {card.hp}</p>
+                <p>Artist: {card.artist}</p>
+                <p>Types: {card.types}</p>
+                <p>Supertype: {card.supertype}</p>
+                <p>Tags: {card.tags}</p>
+                <p>Set Id: {card.set_id}</p>
+                <p>Set Name: {card.set_name}</p>
+                <p>Set Series: {card.set_series}</p>
+                <p>Grade: {card.grade}</p>
+                <p>Grade Company: {card.grade_company}</p>
+                <p>Language Code: {card.language_code}</p>
+                <p>Is Promo: {card.is_promo}</p>
+            </div>
+            );
+        return cardsToDisplay;
+    }
+
     return (
+        <div>
         <form className="home-form">
             <fieldset>
                 <legend>Sort</legend>
@@ -231,6 +270,11 @@ const HomePage = ( props ) => {
             </fieldset>
             <input type="submit" name="submit" value="Apply Filters" className="apply-filters" onClick={onSubmit} />
         </form>
+        <h3>Cards</h3>
+        <div id="cards">
+            {displayCards()}
+        </div>
+        </div>
 
     )
 }
