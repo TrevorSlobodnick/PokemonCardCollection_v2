@@ -9,90 +9,39 @@ import { Backend } from "../util/Backend.js"
 
 const HomePage = ( props ) => {
 
-    const searchQuery = qs.parse(useLocation().search)
+    //TODO: implement URL filtering/sorting
+
+    const [searchQuery, setSearchQuery] = useState(qs.parse(useLocation().search))
     const history = useHistory()
-    let updateUrl = false
+    const [updateUrl, setUpdateUrl] = useState(false)
+    const [fetchCards, setFetchCards] = useState(true)
     const [cards, setCards] = useState([])
 
-    /**
-     * Gets a value for a given key from the url search query,
-     * or returns the default for value for the key if a value is invalid or not provided
-     * @param {String} key the value to get from the url search query
-     * @returns {string} the value given with the key, or a default value if no value was given, or the value was invalid
-     */
-    const getValFromQuery = (key) => {
-        if(key === "sort"){
-            //must check for null first
-            if(searchQuery.sort == null){
-                updateUrl = true // update the url to include all required key/value pairs
-                return "rarity" //default
-            }
-            else if(VALID_SORT_VALUES.includes(searchQuery.sort)){
-                return searchQuery.sort
-            }
-            else{
-                return "rarity" //default
-            }
-        }
-        else if(key === "search"){
-            //must check for null first
-            if(searchQuery.search == null){
-                updateUrl = true // update the url to include all required key/value pairs
-                return "" //default
-            }
-            else{
-                return searchQuery.search
-            }
-        }
-        else if(key === "searchType"){
-            //must check for null first
-            if(searchQuery.searchType == null){
-                updateUrl = true // update the url to include all required key/value pairs
-                return "name" //default
-            }
-            else if(VALID_SEARCHTYPE_VALUES.includes(searchQuery.searchType)){
-                return searchQuery.searchType
-            }
-            else{
-                return "name" //default
-            }
-        }
-    }
+    const [sort, setSort] = useState("rarity")
+    const [search, setSearch] = useState("")
+    const [searchType, setSearchType] = useState("name")
 
-    const initSortVal = getValFromQuery("sort")
-    const initSearchVal = getValFromQuery("search")
-    const initSearchTypeVal = getValFromQuery("searchType")
-
-    //This causes a warning if not wrapped in useEffect, this is because we would be reloading the page (history.replace) even though the component hasnt rendered yet
     useEffect(() => {
-        // if the url needs to be updated...
-        // meaning, one or more key/value pairs were missing from the url search query, in order to create a sharable link, all key/value pairs are required to be in the url
-        if(updateUrl){ 
-            //change url using react, many people noted this will sometimes reload the page, which isnt a big issue
-            history.replace("/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
-            //change url using browser history api, since it does not necessarily communicate with react, I will be using the react method since this is a react project
-            //window.history.replaceState(null, "Bob", "/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
-        }
-        if(cards.length === 0){
+        //history.replace("/?sort=search=searchType=")
+        if(fetchCards === true){
             Backend.getCards().then(response => {
+                console.log(response);
                 if(response.completed){
                     setCards(response.data)
                 }
+                else if(response.data.code != null){
+                    //we got a warning...
+                    //in this case, its because there are no cards in the set
+                    setCards([]);
+                }
                 else{
+                    //unknown error occurred
                     console.log(response.data);
                 }
             });
+            setFetchCards(false)
         }
-    })
-
-    // set the initial state using init variables above, which will set the value if the url contains one and it is valid,
-    // otherwise, it will use the default value
-    //  NOTE: I used init variables over the inline function because if I used the function inline it would get called like an async function,
-    //       since I need to update the url if values are missing, I need to know this info at the start, which is why the 
-    //       functions are not used inline and are instead stored in the init variables
-    const [sort, setSort] = useState(initSortVal)
-    const [search, setSearch] = useState(initSearchVal)
-    const [searchType, setSearchType] = useState(initSearchTypeVal)
+    }, [])
 
     /**
      * updates the homePath variable/state and also updates the url to show the current search query
@@ -210,33 +159,21 @@ const HomePage = ( props ) => {
     }
 
     const displayCards = () => {
-        let cardsToDisplay = cards.map(card => 
-            <div key={card.id} className="pokemon-card">
-                {/* <img src={card.small_image} alt={card.name} /> */}
-                <p>Id: {card.id}</p>
-                <p>Card Id: {card.card_id}</p>
-                <p>Name: {card.name}</p>
-                <p>Number: {card.card_number}</p>
-                <p>Rarity: {card.rarity}</p>
-                <p>HP: {card.hp}</p>
-                <p>Artist: {card.artist}</p>
-                <p>Types: {card.types}</p>
-                <p>Supertype: {card.supertype}</p>
-                <p>Tags: {card.tags}</p>
-                <p>Set Id: {card.set_id}</p>
-                <p>Set Name: {card.set_name}</p>
-                <p>Set Series: {card.set_series}</p>
-                <p>Grade: {card.grade}</p>
-                <p>Grade Company: {card.grade_company}</p>
-                <p>Language Code: {card.language_code}</p>
-                <p>Is Promo: {card.is_promo}</p>
+        if(cards.length === 0){
+            return <div className="mt-5 text-center text-muted">No Cards Found</div>
+        }
+        else{
+            let cardsToDisplay = cards.map(card => 
+            <div key={card.id} className="pokemon-card m-3">
+                <img src={card.small_image} alt={card.name} />
             </div>
             );
-        return cardsToDisplay;
+            return cardsToDisplay;
+        }
     }
 
     return (
-        <div>
+        <div className="px-3" style={{maxWidth: "1920px", margin: "auto"}}>
         <form className="home-form">
             <fieldset>
                 <legend>Sort</legend>
@@ -270,8 +207,8 @@ const HomePage = ( props ) => {
             </fieldset>
             <input type="submit" name="submit" value="Apply Filters" className="apply-filters" onClick={onSubmit} />
         </form>
-        <h3>Cards</h3>
-        <div id="cards">
+        <h3 className="text-center mt-4 mb-3">My Collection</h3>
+        <div id="cards" className="mb-5">
             {displayCards()}
         </div>
         </div>

@@ -3,6 +3,8 @@ require_once("Database.php");
 require_once("PokemonCard.php");
 require_once("PokemonTCGApi.php");
 require_once("Response.php");
+require_once("Warnings/NoCardsWarning.php");
+require_once("Warnings/AddToDbWarning.php");
 
 header('Access-Control-Allow-Origin: *');
 
@@ -15,11 +17,11 @@ if($_POST['task'] == "get_cards"){
     //get cards, max 100
     $sql = "SELECT * FROM pokemon_cards;"; //temporary
     $cards = $dbc->fetchArray($sql);
-    if(count($cards) > 0){
+    if($cards !== false){
         echo json_encode(new Response(true, $cards));
     }
     else{
-        echo json_encode(new Response(false, Warning::NoCardsError));
+        echo json_encode(new Response(false, new NoCardsWarning()));
     }
 }
 else if($_POST['task'] == "get_prices"){
@@ -42,7 +44,7 @@ else if($_POST['task'] == "add_card"){
         echo json_encode(new Response(true, $pokemonCard));
     }
     else{
-        echo json_encode(new Response(false, Warning::AddToDatabaseError));
+        echo json_encode(new Response(false, new AddToDbWarning()));
     }
 }
 

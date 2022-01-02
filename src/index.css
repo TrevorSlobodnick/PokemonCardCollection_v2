@@ -59,12 +59,17 @@ p{
 /*HTML Element Styles*/
 
 
+#cards{
+  /* dynamic columns layout - this only works because every card is the same size, 245px x 342px*/
+  display: grid;
+  grid-gap: 20px;
+  grid-auto-rows: 342px;
+  grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+}
+
 .pokemon-card{
   display: inline-block;
   width: auto;
-  background-color: lightblue;
-  border: solid medium white;
-  padding: 2rem 1rem;
 }
 
 

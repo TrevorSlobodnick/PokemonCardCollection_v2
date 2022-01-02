@@ -9,7 +9,7 @@ require_once("Database.php");
 class PokemonCard{
 
     //class variables
-    public $artist, $hp, $card_id, $name, $card_number, $supertype, $types, $grade, $grade_company, $rarity, $tags, $set_id, $set_name, $set_series;
+    public $artist, $hp, $card_id, $name, $card_number, $supertype, $types, $small_image, $large_image, $grade, $grade_company, $rarity, $tags, $set_id, $set_name, $set_series;
 
     private function __construct(){}
     
@@ -24,6 +24,10 @@ class PokemonCard{
         $dbObj->card_number = $data->card_number;
         $dbObj->supertype = $data->supertype;
         $dbObj->types = $data->types;
+        //add image links
+        $dbObj->small_image = $data->small_image;
+        $dbObj->large_image = $data->large_image;
+        //add the grades
         $dbObj->grade = $data->grade;
         $dbObj->grade_company = $data->grade_company;
         //handle getting the tags and the actual rarity...
@@ -168,11 +172,11 @@ class PokemonCard{
      */
     public function insert(){
         $dbc = Database::getInstance();
-        $keys = ["card_id", "card_number", "name", "supertype", "types", "artist", "hp", "rarity", "tags", "grade", "grade_company", "set_id", "set_name", "set_series", "is_promo", "language_code"];
+        $keys = ["card_id", "card_number", "name", "supertype", "types", "artist", "hp", "rarity", "tags", "small_image", "large_image", "grade", "grade_company", "set_id", "set_name", "set_series", "is_promo", "language_code"];
         $sql = 'INSERT INTO pokemon_cards ' . 
-                '(card_id, card_number, name, supertype, types, artist, hp, rarity, tags, grade, grade_company, set_id, set_name, set_series, is_promo, language_code) ' .
+                '(card_id, card_number, name, supertype, types, artist, hp, rarity, tags, small_image, large_image, grade, grade_company, set_id, set_name, set_series, is_promo, language_code) ' .
                 'VALUES ' .
-                '(:card_id, :card_number, :name, :supertype, :types, :artist, :hp, :rarity, :tags, :grade, :grade_company, :set_id, :set_name, :set_series, :is_promo, :language_code)';
+                '(:card_id, :card_number, :name, :supertype, :types, :artist, :hp, :rarity, :tags, :small_image, :large_image, :grade, :grade_company, :set_id, :set_name, :set_series, :is_promo, :language_code)';
         $bindVals = $this->getBindVals($keys);
         $status = $dbc->sqlQuery($sql, $bindVals);
         return $status;

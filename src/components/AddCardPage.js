@@ -6,7 +6,8 @@ import GradeControlGroup from './formcontrols/GradeControlGroup'
 import { getCardId, isEmptyObj } from '../util/Utils'
 import { Backend } from '../util/Backend'
 import { GRADING_COMPANIES } from '../util/Constants'
-import { StatusMessage } from '../util/StatusMessage'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const AddCardPage = () => {
 
@@ -65,6 +66,21 @@ const AddCardPage = () => {
         }
     }
 
+    const resetForm = () => {
+        //reset state values
+        setNumber(0)
+        setSet({})
+        setSetId("") 
+        setDisplayGrade(false)
+        setGrade(0)
+        setGradeCompany({})
+        setCard({})
+        setAppearance({})
+        setAppearanceOptions([])
+        // go back to 1/2
+        setStep(1)
+    }
+
     const submitForm = () => {
         let info = {};
         //basic info
@@ -88,17 +104,21 @@ const AddCardPage = () => {
         //grade info
         info.grade = grade;
         info.grade_company = (gradeCompany.value === undefined) ? "" : gradeCompany.value;
+        //image info
+        info.small_image = card.images.small;
+        info.large_image = card.images.large;
         console.log("Info Sent:");
         console.log(info);
         Backend.addCard(info).then(response => {
             console.log("Response:");
             console.log(response)
             if(response.completed === false){
-                StatusMessage.showErrorMessage("Card could not be added:\n\n" + response.data.message)
+                toast.error("Card could not be added");
+                console.log(response);
             }
             else{
-                StatusMessage.showSuccessMessage("Card added Successfully")
-                //TODO: clear form, set to step 1
+                toast.success(response.data.name + " was added to your collection.")
+                resetForm()
             }
         });
     }

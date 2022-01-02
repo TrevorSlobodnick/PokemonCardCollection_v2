@@ -12,10 +12,12 @@ ReactDOM.render(
         autoClose={2000}
         hideProgressBar={true}
         closeOnClick={true}
-        pauseOnHover={false}
+        pauseOnHover={true}
         draggable={false}
-        progress={undefined}
+        pauseOnFocusLoss={false}
         transition={Slide}
+        theme='colored'
+        icon={true}
      />
   </React.StrictMode>,
   document.getElementById('root')
