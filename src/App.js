@@ -1,12 +1,10 @@
 import Header from './components/Header';
 import HomePage from './components/HomePage';
 import AddCardPage from './components/AddCardPage';
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-
-  const [homePath, setHomePath] = useState("/?sort=rarity&search=&searchType=name")
 
   return (
     <Router>
@@ -17,7 +15,7 @@ function App() {
             <AddCardPage/>
           </Route>
           <Route path="/">
-            <HomePage homePath={homePath} setHomePath={setHomePath} />
+            <HomePage />
           </Route>
         </Switch>
       </div>

@@ -83,10 +83,11 @@ class PokemonCard{
             for ($i=0; $i < count($subtypes); $i++) { 
                 //this will get all subtypes and add them to tags
                 if($subtypes[$i] == "EX"){
-                    if(str_ends_with($name, "ex")){
+                    $lastIndex = strlen($name) - 1;
+                    if($name[$lastIndex - 1] == "e" && $name[$lastIndex] == "x"){
                         $tags[] = "ex";
                     }
-                    else if(str_ends_with($name, "EX")){
+                    else if($name[$lastIndex - 1] == "E" && $name[$lastIndex] == "X"){
                         $tags[] = "EX";
                     }
                 }

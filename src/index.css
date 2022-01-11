@@ -18,6 +18,11 @@ COLORS -> https://www.schemecolor.com/pokemon-colors.php
   src: url("./fonts/Roboto-Thin.ttf");
 }
 
+@font-face {
+  font-family: 'Baloo Bhaijaan';
+  src: url("./fonts/Baloo-Bhaijaan-Regular.ttf");
+}
+
 /*Reset Styles*/
 *{
   padding: 0px;
@@ -60,16 +65,50 @@ p{
 
 
 #cards{
-  /* dynamic columns layout - this only works because every card is the same size, 245px x 342px*/
-  display: grid;
-  grid-gap: 20px;
-  grid-auto-rows: 342px;
-  grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .pokemon-card{
   display: inline-block;
   width: auto;
+}
+
+
+
+
+
+.reverse-holo{
+  background: radial-gradient(50% 123.47% at 50% 50%, #00FF94 0%, #FF00C7 100%), linear-gradient(121.28deg, #213100 0%, #FF0000 100%), linear-gradient(360deg, #0029FF 0%, #8FFF00 100%), linear-gradient(114.9deg, #00C6A2 0%, #6A45A8 100%), radial-gradient(100% 148.07% at 0% 0%, #FFFFFF 0%, #1DCD00 100%);
+  background-blend-mode: screen, color-dodge, overlay, difference, normal;
+}
+
+.reverse-holo > span{
+  color: #0d004d;
+}
+
+.holo{
+  background-color: #0d004d;
+  border-radius: 0.25rem;
+}
+
+.holo > span{
+  background: radial-gradient(50% 123.47% at 50% 50%, #00FF94 0%, #FF00C7 100%), linear-gradient(121.28deg, #213100 0%, #FF0000 100%), linear-gradient(360deg, #0029FF 0%, #8FFF00 100%), linear-gradient(114.9deg, #00C6A2 0%, #6A45A8 100%), radial-gradient(100% 148.07% at 0% 0%, #FFFFFF 0%, #1DCD00 100%);
+  background-blend-mode: screen, color-dodge, overlay, difference, normal;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-text-fill-color: transparent;
+}
+
+.holo > span, .reverse-holo > span{
+  font-family: 'Baloo Bhaijaan', 'Arial', 'Verdana';
+  font-size: 1.2rem;
+  bottom: 8px;
+  padding: 0.7rem 0.9rem;
+  font-weight: bold;
 }
 
 
