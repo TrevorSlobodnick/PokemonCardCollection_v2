@@ -15,7 +15,7 @@ session_start();
 
 if($_POST['task'] == "get_cards"){
     //get cards, max 100
-    $sql = "SELECT * FROM pokemon_cards;"; //temporary
+    $sql = "SELECT * FROM pokemon_cards;"; //get all cards --temporary
     $cards = $dbc->fetchArray($sql);
     if($cards !== false){
         echo json_encode(new Response(true, $cards));

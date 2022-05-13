@@ -29,3 +29,9 @@ export const GRADING_COMPANIES = [
     {value: "BGS", label: "BGS (Beckett Grading Services)"},
     {value: "CGC", label: "CGC (Certified Guaranty Company)"},
 ]
+
+export const ENDPOINTS = {
+    "cards": "https://tslobodnick.ca/projects/pokemon-card-collection/api/cards/index.php",
+    "sets": "https://tslobodnick.ca/projects/pokemon-card-collection/api/sets/index.php",
+    "login": "https://tslobodnick.ca/projects/pokemon-card-collection/api/auth/index.php",
+}

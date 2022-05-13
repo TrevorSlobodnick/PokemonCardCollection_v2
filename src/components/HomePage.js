@@ -16,7 +16,6 @@ const HomePage = ( props ) => {
     const [cards, setCards] = useState([])
 
     useEffect(() => {
-        //history.replace("/?sort=search=searchType=")
         if(fetchCards === true){
             Backend.getCards().then(response => {
                 console.log(response);
@@ -63,7 +62,7 @@ const HomePage = ( props ) => {
                 specialText = "REVERSE HOLO"
                 specialClass = "reverse-holo "
             }
-            return <div key={card.id} className="pokemon-card m-3">
+            return <div key={card.id} data-id={card.id} className="pokemon-card m-3">
                 <div className='position-relative'>
                 <LazyLoadImage
                     src={card.small_image}

@@ -1,57 +1,105 @@
 import axios from "axios"
+import { ENDPOINTS } from "./Constants"
+
+/**
+ * Class that contains potential "location" values when getting a card
+ */
+export class CardLocations{
+    static api = "api"
+    static database = "database"
+}
 
 export class Backend{
-    static async getCards(filters = "", search = "", searchType = ""){
-        const cards = await this.post({
-            "task" : "get_cards",
-            "filters" : filters,
-            "search" : search,
-            "searchType" : searchType
-        })
-        return cards
-    }
 
-    static async getPrices(){
-        //get the prices of each card
-    }
+    /**
+     * Custom axios instance
+     */
+    static ax = axios.create({
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    });
 
-    static async getCardFromApi(cardId){
-        const card = await this.post({
-            "task": "get_card_from_api",
-            "cardId": cardId
-        })
-        return card
-    }
-
-    static async addCard(info){
-        const cardAdded = await this.post({
-            "task" : "add_card",
-            "info": JSON.stringify(info)
-        })
-        return cardAdded
-    }
-
-    static async getSets(){
-        const sets = await this.post({
-            "task" : "get_sets"
-        })
-        return sets
+    /**
+     * Get all cards from database
+     * @returns {Object} Response object
+     */
+    static async getCards(){
+        const result = await this.ax.get(ENDPOINTS.cards)
+        return result.data
     }
 
     /**
-     * Send a post request to the backend
-     * @param {Object} info The object that contains the data to send to the backend, 
-     *                      the object must contain a "task" property with an acceptable value
+     * Get a card from one of the potention CardLocations
+     * @param {string} id if the location is api, this will be the card id, otherwise it will be the database id
+     * @param {CardLocations} location A CardLocation
+     * @returns {Object} Response object
      */
-     static async post(info){
-        const result = await axios({
-            method: 'post',
-            url: 'https://tslobodnick.ca/PokemonCardCollection/v2/api/post.php',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            data: new URLSearchParams(info)
-        })
+    static async getCard(id, location = CardLocations.database){
+        let result;
+        if(Object.keys(CardLocations).includes(location)){
+            result = await this.ax.get(ENDPOINTS.cards, {
+                params: {
+                    location: location,
+                    id: id
+                }
+            });
+        }
+        else{
+            let message = "\"location\" must be one of the following:";
+            for (const loc in this.LOCATIONS) {
+                message += "\n\"" + loc + "\"";
+            }
+            throw new TypeError(message);
+        }
         return result.data
+    }
+
+    /**
+     * Add a card to the database
+     * @param {Object} info the card to add
+     * @returns {Object} Response object
+     */
+    static async addCard(info){
+        const result = await this.ax.post(ENDPOINTS.cards, new URLSearchParams(info))
+        return result.data
+    }
+
+    /**
+     * Update a card in the database
+     * @param {Object} info the new card details
+     * @returns {Object} Response object
+     */
+    static async updateCard(info){
+        const result = await this.ax.put(ENDPOINTS.cards, new URLSearchParams(info))
+        return result.data
+    }
+
+    /**
+     * Delete a card from the database
+     * @param {string} id id of the card to delete
+     * @returns {Object} Response object
+     */
+    static async deleteCard(id){
+        const result = await this.ax.delete(ENDPOINTS.cards, new URLSearchParams({id: id}))
+        return result.data
+    }
+
+    /**
+     * Get all card sets
+     * @returns {Object} Response object
+     */
+    static async getSets(){
+        const result = await this.ax.get(ENDPOINTS.sets)
+        return result.data
+    }
+
+    /**
+     * Check if the user is authenticated
+     * @returns {Object} Response object
+     */
+    static async checkAuth(){
+        const result = await this.ax.get(ENDPOINTS.login)
+        return result.data;
     }
 }
