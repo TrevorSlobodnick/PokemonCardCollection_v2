@@ -1,13 +1,6 @@
 import axios from "axios"
 import { ENDPOINTS } from "./Constants"
-
-/**
- * Class that contains potential "location" values when getting a card
- */
-export class CardLocations{
-    static api = "api"
-    static database = "database"
-}
+import { CardLocations } from "./CardLocations"
 
 export class Backend{
 
