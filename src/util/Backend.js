@@ -30,6 +30,7 @@ export class Backend{
      */
     static async getCard(id, location = CardLocations.database){
         let result;
+        //typecheck to make sure the location provided is a property in the CardLocation class
         if(Object.keys(CardLocations).includes(location)){
             result = await this.ax.get(ENDPOINTS.cards, {
                 params: {

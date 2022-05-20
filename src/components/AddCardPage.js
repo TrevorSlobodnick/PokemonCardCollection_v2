@@ -135,8 +135,6 @@ const AddCardPage = () => {
             const cardId = getCardId(setId, number)
             if(card === null || isEmptyObj(card) || card.id !== cardId){
                 Backend.getCard(cardId, CardLocations.api).then(response => {
-                    console.log("Api response:");
-                    console.log(response.data)
                     setCard(response.data)
                     if(response.data !== null){
                         const appOpts = getAppearanceOptions(response.data.rarity)
