@@ -55,8 +55,9 @@ export class Backend{
      * @returns {Object} Response object
      */
     static async addCard(info){
-        const result = await this.ax.post(ENDPOINTS.cards, new URLSearchParams(info))
-        return result.data
+        const card = new URLSearchParams(info);
+        const result = await this.ax.post(ENDPOINTS.cards, card);
+        return result.data;
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php 
 
-require_once("config.php");
-require_once("Database.php");
+require_once("../config.php");
+require_once("../util/Database.php");
 
 /**
  * A class that represents a Pokemon Card. Use the appropriate static methods to create the card
@@ -13,7 +13,7 @@ class PokemonCard{
 
     private function __construct(){}
     
-    public static function toDatabase($data){
+    public static function fromObject($data){
         //create an empty PokemonCard
         $dbObj = new self();
         //add the basic information collected from the api and user

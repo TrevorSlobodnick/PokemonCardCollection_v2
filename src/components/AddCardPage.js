@@ -114,8 +114,7 @@ const AddCardPage = () => {
             console.log("Response:");
             console.log(response)
             if(response.completed === false){
-                toast.error("Card could not be added");
-                console.log(response);
+                toast.error("Card could not be added - \"" + response.data.message + "\"");
             }
             else{
                 toast.success(response.data.name + " was added to your collection.")
