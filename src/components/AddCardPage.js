@@ -8,6 +8,7 @@ import { Backend } from '../util/Backend'
 import { GRADING_COMPANIES } from '../util/Constants'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { CardLocations } from '../util/CardLocations'
 
 const AddCardPage = () => {
 
@@ -133,7 +134,7 @@ const AddCardPage = () => {
             setStep(2)
             const cardId = getCardId(setId, number)
             if(card === null || isEmptyObj(card) || card.id !== cardId){
-                Backend.getCardFromApi(cardId).then(response => {
+                Backend.getCard(cardId, CardLocations.api).then(response => {
                     console.log("Api response:");
                     console.log(response.data)
                     setCard(response.data)

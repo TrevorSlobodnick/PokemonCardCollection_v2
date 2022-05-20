@@ -20,7 +20,7 @@
         }
     }
     else{
-        echo json_encode(new Response(false, new NoCardsWarning()));
+        echo json_encode(new Response(false, new InvalidRequestWarning()));
     }
 
 ?>
