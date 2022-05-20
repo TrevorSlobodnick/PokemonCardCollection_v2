@@ -1,7 +1,9 @@
 <?php 
 
+    header('Access-Control-Allow-Origin: *');
+
     require_once("../util/User.php");
-    require_once("../models/User.php");
+    require_once("../models/Database.php");
 
     session_start();
     if($_SERVER['REQUEST_METHOD'] === 'GET'){

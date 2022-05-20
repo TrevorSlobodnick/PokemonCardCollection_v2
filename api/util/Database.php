@@ -1,6 +1,6 @@
 <?php
 
-    require_once("config.php");
+    require_once("../config.php");
 
     /**
      * Class that contains the database connection as well as other helper functions to make communication easier
