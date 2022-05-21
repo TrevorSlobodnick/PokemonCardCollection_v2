@@ -3,6 +3,7 @@ import HomePage from './components/HomePage';
 import AddCardPage from './components/AddCardPage';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Login from './components/Login';
 
 function App() {
 
@@ -11,7 +12,10 @@ function App() {
       <div className="App">
         <Header/>
         <Switch>
-          <Route exact path="/Add">
+        <Route exact path="/login">
+            <Login/>
+          </Route>
+          <Route exact path="/add">
             <AddCardPage/>
           </Route>
           <Route path="/">
