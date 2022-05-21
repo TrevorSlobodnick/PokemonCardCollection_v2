@@ -6,9 +6,13 @@
     require_once("../util/Response.php");
     require_once("../models/PokemonCard.php");
     require_once("../models/PokemonTCGApi.php");
-    require_once("../util/warnings/AddToDatabaseWarning.php");
+    require_once("../util/warnings/NoDataWarning.php");
     require_once("../util/warnings/NoCardsWarning.php");
+    require_once("../util/warnings/AddToDatabaseWarning.php");
     require_once("../util/warnings/InvalidRequestWarning.php");
+    require_once("../util/warnings/InvalidLocationWarning.php");
+    require_once("../util/warnings/InvalidCardDataWarning.php");
+    require_once("../util/warnings/UnauthorizedRequestWarning.php");
 
     $dbc = Database::getInstance();
 
@@ -34,11 +38,16 @@
         if(isset($_GET["id"]) && isset($_GET["location"])){
             if($_GET["location"] === "api"){
                 $pokemonTCGApi = new PokemonTCGApi();
-                $card = $pokemonTCGApi->getCard($_GET["id"]);
-                echo json_encode(new Response(true, $card));
+                try{
+                    $card = $pokemonTCGApi->getCard($_GET["id"]);
+                    echo json_encode(new Response(true, $card));
+                }
+                catch (Exception $e) {
+                    echo json_encode(new Response(false, new InvalidIdWarning()));
+                }
             }
             else{
-                echo json_encode(new Response(false, new InvalidRequestWarning()));
+                echo json_encode(new Response(false, new InvalidLocationWarning()));
             }
         }
         else{
@@ -63,7 +72,7 @@
                     addCardToDatabase(end($_POST));
                 }
                 catch(Exception $e){
-                    echo json_encode(new Response(false, new InvalidRequestWarning()));
+                    echo json_encode(new Response(false, new InvalidCardDataWarning()));
                 }
             }
             elseif(count($_POST) > 1){
@@ -75,7 +84,7 @@
                     addCardToDatabase($object);
                 }
                 catch(Exception $e){
-                    echo json_encode(new Response(false, new InvalidRequestWarning()));
+                    echo json_encode(new Response(false, new InvalidCardDataWarning()));
                 }
             }
             //Now we check if the user sent in JSON data, since the post array was empty...
@@ -91,7 +100,7 @@
                         addCardToDatabase(end($_POST));
                     }
                     catch(Exception $e){
-                        echo json_encode(new Response(false, new InvalidRequestWarning()));
+                        echo json_encode(new Response(false, new InvalidCardDataWarning()));
                     }
                 }
                 elseif(count($_POST) > 1){
@@ -103,16 +112,16 @@
                         addCardToDatabase($object);
                     }
                     catch(Exception $e){
-                        echo json_encode(new Response(false, new InvalidRequestWarning()));
+                        echo json_encode(new Response(false, new InvalidCardDataWarning()));
                     }
                 }
                 else{
-                    echo json_encode(new Response(false, new InvalidRequestWarning()));
+                    echo json_encode(new Response(false, new NoDataWarning()));
                 }
             }
         }
         else{
-            echo json_encode(new Response(false, new InvalidRequestWarning()));
+            echo json_encode(new Response(false, new UnauthorizedRequestWarning()));
         }
     }
     else{
