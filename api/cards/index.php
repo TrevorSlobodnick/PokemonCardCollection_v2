@@ -53,35 +53,9 @@
         }
     }
     elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
-        //first we check post array for data
-        if(count($_POST) == 1){
-            //a single object was posted...
-            try{
-                //pass in the last (and only) property in the post array
-                addCardToDatabase(end($_POST));
-            }
-            catch(Exception $e){
-                echo json_encode(new Response(false, new InvalidRequestWarning()));
-            }
-        }
-        elseif(count($_POST) > 1){
-            //all of the properties of the object were posted...
-            try{
-                //typecast post array to an object
-                $object = (object) $_POST;
-                //now we can use that object
-                addCardToDatabase($object);
-            }
-            catch(Exception $e){
-                echo json_encode(new Response(false, new InvalidRequestWarning()));
-            }
-        }
-        //Now we check if the user sent in JSON data, since the post array was empty...
-        else{
-            $json = file_get_contents('php://input');
-            //populate the $_POST array wiht the json input
-            $_POST = json_decode($json);
-            //check again if there is 1 property or more
+        session_start();
+        if(isset($_SESSION["user"])){
+            //first we check post array for data
             if(count($_POST) == 1){
                 //a single object was posted...
                 try{
@@ -104,9 +78,41 @@
                     echo json_encode(new Response(false, new InvalidRequestWarning()));
                 }
             }
+            //Now we check if the user sent in JSON data, since the post array was empty...
             else{
-                echo json_encode(new Response(false, new InvalidRequestWarning()));
+                $json = file_get_contents('php://input');
+                //populate the $_POST array wiht the json input
+                $_POST = json_decode($json);
+                //check again if there is 1 property or more
+                if(count($_POST) == 1){
+                    //a single object was posted...
+                    try{
+                        //pass in the last (and only) property in the post array
+                        addCardToDatabase(end($_POST));
+                    }
+                    catch(Exception $e){
+                        echo json_encode(new Response(false, new InvalidRequestWarning()));
+                    }
+                }
+                elseif(count($_POST) > 1){
+                    //all of the properties of the object were posted...
+                    try{
+                        //typecast post array to an object
+                        $object = (object) $_POST;
+                        //now we can use that object
+                        addCardToDatabase($object);
+                    }
+                    catch(Exception $e){
+                        echo json_encode(new Response(false, new InvalidRequestWarning()));
+                    }
+                }
+                else{
+                    echo json_encode(new Response(false, new InvalidRequestWarning()));
+                }
             }
+        }
+        else{
+            echo json_encode(new Response(false, new InvalidRequestWarning()));
         }
     }
     else{
