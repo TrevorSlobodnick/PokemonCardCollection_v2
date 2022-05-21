@@ -1,10 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../images/logo.png'
+import { Backend } from '../util/Backend';
 
 const Header = () => {
 
     const location = useLocation();
+    const [auth, setAuth] = useState(false);
+
+    useEffect(() => {
+        Backend.checkAuth().then(response => {
+            console.log(response);
+            if(response.data === ""){
+                //authentication failed
+                setAuth(false);
+                return;
+            }
+            else{
+                setAuth(true);
+                return;
+            }
+        });
+    }, [])
+
+    const displayAdminNavLinks = () => {
+        if(auth){
+            return <li className="nav-item">
+            <Link className={location.pathname === "/Add" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/Add">Add</Link>
+            </li>
+        }
+        else{
+            return null;
+        }
+    }
 
     return (
         <header>
@@ -21,9 +49,7 @@ const Header = () => {
                             <li className="nav-item">
                                 <Link className={location.pathname === "/" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/">Home</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className={location.pathname === "/Add" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/Add">Add</Link>
-                            </li>
+                            {displayAdminNavLinks()}
                         </ul>
                     </div>
                 </div>

@@ -2,16 +2,17 @@
 
     header('Access-Control-Allow-Origin: *');
 
-    require_once("../util/User.php");
-    require_once("../models/Database.php");
+    require_once("../models/User.php");
+    require_once("../util/Database.php");
+    require_once("../util/Response.php");
 
     session_start();
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
         if(isset($_SESSION["user"])){
-            return json_encode(true);
+            echo json_encode(new Response(true, $_SESSION["user"]));
         }
         else{
-            return json_encode(false);
+            echo json_encode(new Response(false, ""));
         }
     }
     else if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -25,12 +26,12 @@
             $userData = $dbc->fetch($sql, $bindVals);
             if($userData == false){
                 //no user was found
-                return json_encode(false);
+                echo json_encode(new Response(false, ""));
             }
             else{
                 $user = new User($userData);
                 $_SESSION["user"] = $user;
-                return json_encode(true);
+                echo json_encode(new Response(true, ""));
             }
         }
     }

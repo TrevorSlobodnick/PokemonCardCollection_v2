@@ -32,7 +32,7 @@ const HomePage = ( props ) => {
                         setCards([])
                     }
                 }
-                else if(response.data.code != null){
+                else if(response.data.message != null){
                     //we got a warning...
                     //in this case, its because there are no cards in the set
                     setCards([]);
