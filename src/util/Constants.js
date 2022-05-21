@@ -33,5 +33,6 @@ export const GRADING_COMPANIES = [
 export const ENDPOINTS = {
     "cards": "https://tslobodnick.ca/projects/pokemon-card-collection/api/cards/index.php",
     "sets": "https://tslobodnick.ca/projects/pokemon-card-collection/api/sets/index.php",
-    "login": "https://tslobodnick.ca/projects/pokemon-card-collection/api/auth/index.php",
+    "login": "https://tslobodnick.ca/projects/pokemon-card-collection/api/auth/login.php",
+    "register": "https://tslobodnick.ca/projects/pokemon-card-collection/api/auth/register.php"
 }

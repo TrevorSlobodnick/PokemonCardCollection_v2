@@ -1,4 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+
+const onSubmit = () => {
+        
+}
 
 const Login = () => {
   return (
@@ -16,7 +23,7 @@ const Login = () => {
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
             
-                <input type="submit" name='submit' value="Submit" className="w-100 btn btn-lg btn-primary" />
+                <input type="submit" name='submit' value="Submit" onClick={onSubmit} className="w-100 btn btn-lg btn-primary" />
             </form>
         </div>
     </div>

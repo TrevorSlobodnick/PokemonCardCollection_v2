@@ -97,4 +97,26 @@ export class Backend{
         const result = await this.ax.get(ENDPOINTS.login)
         return result.data;
     }
+
+    /**
+     * Use the given credentials to try to login
+     * @param {Object} info the login info
+     * @returns {Object} Response object
+     */
+    static async login(info){
+        const loginInfo = new URLSearchParams(info);
+        const result = await this.ax.post(ENDPOINTS.login, loginInfo);
+        return result.data;
+    }
+
+    /**
+     * Use the given credentials to try to register a new user
+     * @param {Object} info the register info
+     * @returns {Object} Response object
+     */
+    static async register(info){
+        const registerInfo = new URLSearchParams(info);
+        const result = await this.ax.post(ENDPOINTS.register, registerInfo);
+        return result.data;
+    }
 }
