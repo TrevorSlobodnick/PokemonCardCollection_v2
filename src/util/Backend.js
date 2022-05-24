@@ -100,10 +100,15 @@ export class Backend{
 
     /**
      * Use the given credentials to try to login
-     * @param {Object} info the login info
+     * @param {string} email the email to use for login
+     * @param {string} password the password to use for login
      * @returns {Object} Response object
      */
-    static async login(info){
+    static async login(email, password){
+        const info = {
+            email: email,
+            password: password
+        }
         const loginInfo = new URLSearchParams(info);
         const result = await this.ax.post(ENDPOINTS.login, loginInfo);
         return result.data;
@@ -111,10 +116,15 @@ export class Backend{
 
     /**
      * Use the given credentials to try to register a new user
-     * @param {Object} info the register info
+     * @param {string} email the email to register
+     * @param {string} password the password to register
      * @returns {Object} Response object
      */
-    static async register(info){
+    static async register(email, password){
+        const info = {
+            email: email,
+            password: password
+        }
         const registerInfo = new URLSearchParams(info);
         const result = await this.ax.post(ENDPOINTS.register, registerInfo);
         return result.data;

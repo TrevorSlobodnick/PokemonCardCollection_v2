@@ -22,6 +22,10 @@
         else{
             $dbc = Database::getInstance();
             $sql = "SELECT * FROM users WHERE email = :email AND password = :password;";
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            password_verify($password, $hashedPassword);
             $bindVals = ['email' => $_POST["email"], 'password' => $_POST["password"]];
             $userData = $dbc->fetch($sql, $bindVals);
             if($userData == false){
@@ -31,7 +35,7 @@
             else{
                 $user = new User($userData);
                 $_SESSION["user"] = $user;
-                echo json_encode(new Response(true, ""));
+                echo json_encode(new Response(true, $_SESSION["user"]));
             }
         }
     }

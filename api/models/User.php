@@ -3,15 +3,19 @@
 /**
  * A class that represents a User. 
  */
-class User{
-    public $firstName, $lastName, $email, $password;
+class User implements JsonSerializable{
+    public $id, $email, $password;
 
     public function __construct($userData)
     {
-        $this->firstName = $userData["first_name"];
-        $this->lastName = $userData["last_name"];
+        $this->id = $userData["id"];
         $this->email = $userData["email"];
         $this->password = $userData["password"];
+    }
+
+    public function jsonSerialize(){
+        $props = get_object_vars($this);
+        return $props;
     }
 }
 
