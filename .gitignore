@@ -3,6 +3,9 @@
 # hide backend code
 /api/config.php
 
+# hide phpstorm files
+/api/.idea
+
 
 # dependencies
 /node_modules

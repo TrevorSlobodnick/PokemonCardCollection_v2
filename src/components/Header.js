@@ -11,7 +11,7 @@ const Header = () => {
     useEffect(() => {
         Backend.checkAuth().then(response => {
             console.log(response);
-            if(response.data === ""){
+            if(response.completed === false){
                 //authentication failed
                 setAuth(false);
                 return;
@@ -26,7 +26,7 @@ const Header = () => {
     const displayAdminNavLinks = () => {
         if(auth){
             return <li className="nav-item">
-            <Link className={location.pathname === "/Add" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/Add">Add</Link>
+            <Link className={location.pathname === "/add" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/add">Add</Link>
             </li>
         }
         else{

@@ -1,10 +1,13 @@
-<?php 
+<?php
+
+require_once("../util/Util.php");
 
 /**
  * A class that represents a User. 
  */
 class User implements JsonSerializable{
-    public $id, $email, $password;
+    public $id, $email;
+    private $password;
 
     public function __construct($userData)
     {
@@ -14,7 +17,7 @@ class User implements JsonSerializable{
     }
 
     public function jsonSerialize(){
-        $props = get_object_vars($this);
+        $props = Util::getPublicProperties($this);
         return $props;
     }
 }

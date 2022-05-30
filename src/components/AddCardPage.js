@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PokemonSetDropDown from './formcontrols/PokemonSetDropDown'
-import { useState } from "react"
 import Select from 'react-select'
 import GradeControlGroup from './formcontrols/GradeControlGroup'
 import { getCardId, isEmptyObj } from '../util/Utils'
@@ -9,6 +8,7 @@ import { GRADING_COMPANIES } from '../util/Constants'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { CardLocations } from '../util/CardLocations'
+import { Link } from 'react-router-dom'
 
 const AddCardPage = () => {
 
@@ -24,6 +24,23 @@ const AddCardPage = () => {
     const [appearanceOptions, setAppearanceOptions] = useState([]); //this is an array of options for a select [{ label: "", value: "" }]
     //errors
     const [numberErrorMsg, setNumberErrorMsg] = useState("");
+    //auth
+    const [auth, setAuth] = useState(false);
+
+    useEffect(() => {
+        Backend.checkAuth().then(response => {
+            console.log(response);
+            if(response.completed === false){
+                //authentication failed
+                setAuth(false);
+                return;
+            }
+            else{
+                setAuth(true);
+                return;
+            }
+        });
+    }, [])
 
     const onSetSelectChange = (optSelected, actionType) => {
         setSetId(optSelected.label.props['data-id'])
@@ -233,15 +250,33 @@ const AddCardPage = () => {
         }
     }
 
+    const displayPage = () => {
+        if(auth){
+            return (
+                <div className="container add-page">
+                    <div className="mt-5 d-flex justify-content-between align-items-end">
+                        <h1>Add A Card</h1>
+                        <h2>{step}/2</h2>
+                    </div>
+                    {displayForm()}
+                </div>
+            )
+        }
+        else{
+            return (
+                <div className='text-center'>
+                    <h1 className='m-5 fw-bold'>Sorry!</h1>
+                    <h2 className='m-5 fw-light'>You do not have permission to access this page</h2>
+                    <Link className='btn btn-primary' to="/">Back to Home</Link>
+                </div>
+            )
+        }
+    }
+
     return (
-        <div className="container add-page">
-            <div className="mt-5 d-flex justify-content-between align-items-end">
-                <h1>Add A Card</h1>
-                <h2>{step}/2</h2>
-            </div>
-            {displayForm()}
-        </div>
+        displayPage()
     )
+
 }
 
 export default AddCardPage
