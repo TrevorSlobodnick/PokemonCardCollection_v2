@@ -31,8 +31,14 @@ export const GRADING_COMPANIES = [
 ]
 
 export const ENDPOINTS = {
-    "cards": "https://tslobodnick.ca/projects/pokemon-card-collection/api/cards/index.php",
-    "sets": "https://tslobodnick.ca/projects/pokemon-card-collection/api/sets/index.php",
-    "login": "https://tslobodnick.ca/projects/pokemon-card-collection/api/auth/login.php",
-    "register": "https://tslobodnick.ca/projects/pokemon-card-collection/api/auth/register.php"
+    // "cards": "https://tslobodnick.ca/projects/pokemon-card-collection/api/cards/index.php",
+    // "sets": "https://tslobodnick.ca/projects/pokemon-card-collection/api/sets/index.php",
+    // "login": "https://tslobodnick.ca/projects/pokemon-card-collection/api/auth/login.php",
+    // "logout": "https://tslobodnick.ca/projects/pokemon-card-collection/api/auth/logout.php",
+    // "register": "https://tslobodnick.ca/projects/pokemon-card-collection/api/auth/register.php"
+    "cards": "api/cards/index.php",
+    "sets": "/api/sets/index.php",
+    "login": "/api/auth/login.php",
+    "logout": "/api/auth/logout.php",
+    "register": "/api/auth/register.php"
 }

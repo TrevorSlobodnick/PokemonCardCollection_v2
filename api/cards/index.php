@@ -1,6 +1,6 @@
 <?php 
 
-    header('Access-Control-Allow-Origin: *');
+    // header('Access-Control-Allow-Origin: *');
 
     require_once("../util/Database.php");
     require_once("../util/Response.php");

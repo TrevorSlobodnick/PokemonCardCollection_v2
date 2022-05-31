@@ -29,7 +29,6 @@ const AddCardPage = () => {
 
     useEffect(() => {
         Backend.checkAuth().then(response => {
-            console.log(response);
             if(response.completed === false){
                 //authentication failed
                 setAuth(false);
@@ -125,11 +124,7 @@ const AddCardPage = () => {
         //image info
         info.small_image = card.images.small;
         info.large_image = card.images.large;
-        console.log("Info Sent:");
-        console.log(info);
         Backend.addCard(info).then(response => {
-            console.log("Response:");
-            console.log(response)
             if(response.completed === false){
                 toast.error("Card could not be added - \"" + response.data.message + "\"");
             }

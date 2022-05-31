@@ -129,4 +129,13 @@ export class Backend{
         const result = await this.ax.post(ENDPOINTS.register, registerInfo);
         return result.data;
     }
+
+    /**
+     * Logout the currently signed in user
+     * @returns {Object} Response object
+     */
+    static async logout(){
+        const result = await this.ax.get(ENDPOINTS.logout);
+        return result.data;
+    }
 }

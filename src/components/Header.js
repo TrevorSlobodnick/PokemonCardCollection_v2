@@ -10,7 +10,6 @@ const Header = () => {
 
     useEffect(() => {
         Backend.checkAuth().then(response => {
-            console.log(response);
             if(response.completed === false){
                 //authentication failed
                 setAuth(false);
@@ -21,16 +20,28 @@ const Header = () => {
                 return;
             }
         });
-    }, [])
+    })
 
-    const displayAdminNavLinks = () => {
+    const displayNav = () => {
         if(auth){
-            return <li className="nav-item">
-            <Link className={location.pathname === "/add" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/add">Add</Link>
-            </li>
+            return <ul className="navbar-nav">
+                <li className="nav-item">
+                    <Link className={location.pathname === "/" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/">Home</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className={location.pathname === "/add" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/add">Add</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className={location.pathname === "/logout" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/logout">Logout</Link>
+                </li>
+            </ul>
         }
         else{
-            return null;
+            return <ul className="navbar-nav">
+                <li className="nav-item">
+                    <Link className={location.pathname === "/" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/">Home</Link>
+                </li>
+            </ul>
         }
     }
 
@@ -45,12 +56,7 @@ const Header = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <Link className={location.pathname === "/" ? "nav-link active" : "nav-link"} onClick={() => document.querySelector(".navbar-toggler").click()} to="/">Home</Link>
-                            </li>
-                            {displayAdminNavLinks()}
-                        </ul>
+                        {displayNav()}
                     </div>
                 </div>
             </nav>

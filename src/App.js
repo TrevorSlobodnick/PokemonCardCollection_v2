@@ -4,6 +4,7 @@ import AddCardPage from './components/AddCardPage';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from './components/Login';
+import Logout from './components/Logout';
 
 function App() {
 
@@ -12,6 +13,9 @@ function App() {
       <div className="App">
         <Header/>
         <Switch>
+          <Route exact path="/logout">
+            <Logout/>
+          </Route>
           <Route exact path="/login">
             <Login/>
           </Route>

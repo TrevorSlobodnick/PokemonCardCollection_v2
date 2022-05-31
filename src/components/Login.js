@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Backend } from '../util/Backend';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 import { useHistory } from "react-router-dom";
 
 const Login = () => {
@@ -18,7 +18,6 @@ const Login = () => {
             return;
         }
         Backend.login(email, password).then(response => {
-            console.log(response);
             if(response.completed === false){
                 setErrorMessage(response.data.message)
                 toast.error("Login Failed")

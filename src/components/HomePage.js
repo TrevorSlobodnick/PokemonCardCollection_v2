@@ -18,7 +18,6 @@ const HomePage = ( props ) => {
     useEffect(() => {
         if(fetchCards === true){
             Backend.getCards().then(response => {
-                console.log(response);
                 if(response.completed){
                     if(response.data.length > 0){
                         let parsedCards = response.data.map(card => {
@@ -32,14 +31,10 @@ const HomePage = ( props ) => {
                         setCards([])
                     }
                 }
-                else if(response.data.message != null){
+                else{
                     //we got a warning...
                     //in this case, its because there are no cards in the set
                     setCards([]);
-                }
-                else{
-                    //unknown error occurred
-                    console.log(response.data);
                 }
             });
             setFetchCards(false)
