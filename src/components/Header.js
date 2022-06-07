@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../images/logo.png'
 import { Backend } from '../util/Backend';
-import { toast } from 'react-toastify';
 
 const Header = () => {
 

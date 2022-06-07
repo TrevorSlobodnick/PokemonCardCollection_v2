@@ -125,6 +125,7 @@ const AddCardPage = () => {
         info.small_image = card.images.small;
         info.large_image = card.images.large;
         Backend.addCard(info).then(response => {
+            console.log(response);
             if(response.completed === false){
                 toast.error("Card could not be added - \"" + response.data.message + "\"");
             }

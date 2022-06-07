@@ -9,7 +9,7 @@ require_once("../util/Database.php");
 class PokemonCard{
 
     //class variables
-    public $artist, $hp, $card_id, $name, $card_number, $supertype, $types, $small_image, $large_image, $grade, $grade_company, $rarity, $tags, $set_id, $set_name, $set_series;
+    public $artist, $hp, $card_id, $name, $card_number, $supertype, $types, $small_image, $large_image, $grade, $grade_company, $rarity, $tags, $set_id, $set_name, $set_series, $quantity;
 
     private function __construct(){}
     
@@ -65,10 +65,10 @@ class PokemonCard{
     }
 
     /**
-     * getTags is used to get the tags for a card given some information.
+     * getTags is used to get the tags for a card - given some information.
      *
      * @param string $appearance - the card variant, if any ("", "Holo", "Reverse Holo")
-     * @param array $subtypes - the card subtypes (from the api)
+     * @param array|string $subtypes - the card subtypes (from the api)
      * @param string $name - the name on the card
      * @param string $rarity - the card rarity (from the api)
      * @return array - an array containing the tags for that card
@@ -79,7 +79,10 @@ class PokemonCard{
             //appearance is either holo or reverse holo
             $tags[] = $appearance;
         }
-        if(count($subtypes) > 0){
+        if(gettype($subtypes) === "string"){
+            $tags[] = $subtypes;
+        }
+        else{
             for ($i=0; $i < count($subtypes); $i++) { 
                 //this will get all subtypes and add them to tags
                 if($subtypes[$i] == "EX"){
@@ -173,14 +176,30 @@ class PokemonCard{
      */
     public function insert(){
         $dbc = Database::getInstance();
-        $keys = ["card_id", "card_number", "name", "supertype", "types", "artist", "hp", "rarity", "tags", "small_image", "large_image", "grade", "grade_company", "set_id", "set_name", "set_series", "is_promo", "language_code"];
-        $sql = 'INSERT INTO pokemon_cards ' . 
-                '(card_id, card_number, name, supertype, types, artist, hp, rarity, tags, small_image, large_image, grade, grade_company, set_id, set_name, set_series, is_promo, language_code) ' .
-                'VALUES ' .
-                '(:card_id, :card_number, :name, :supertype, :types, :artist, :hp, :rarity, :tags, :small_image, :large_image, :grade, :grade_company, :set_id, :set_name, :set_series, :is_promo, :language_code)';
+        $sql = 'SELECT * FROM pokemon_cards WHERE card_id = :card_id AND tags = :tags;';
+        $keys = ["card_id", "tags"];
         $bindVals = $this->getBindVals($keys);
-        $status = $dbc->sqlQuery($sql, $bindVals);
-        return $status;
+        $card = $dbc->fetch($sql, $bindVals);
+        if($card){
+            // A card was found, update the quantity
+            $this->quantity = $card["quantity"] + 1;
+            $sql = 'UPDATE pokemon_cards SET quantity = :quantity WHERE id = :id';
+            $bindVals = ["id" => $card["id"], "quantity" => $this->quantity];
+            $status = $dbc->sqlQuery($sql, $bindVals);
+            return $status;
+        }
+        else{
+            // No card found, add a new card
+            $this->quantity = 1;
+            $keys = ["card_id", "card_number", "name", "supertype", "types", "artist", "hp", "rarity", "tags", "small_image", "large_image", "grade", "grade_company", "set_id", "set_name", "set_series", "is_promo", "language_code", "quantity"];
+            $sql = 'INSERT INTO pokemon_cards ' . 
+                    '(card_id, card_number, name, supertype, types, artist, hp, rarity, tags, small_image, large_image, grade, grade_company, set_id, set_name, set_series, is_promo, language_code, quantity) ' .
+                    'VALUES ' .
+                    '(:card_id, :card_number, :name, :supertype, :types, :artist, :hp, :rarity, :tags, :small_image, :large_image, :grade, :grade_company, :set_id, :set_name, :set_series, :is_promo, :language_code, :quantity)';
+            $bindVals = $this->getBindVals($keys);
+            $status = $dbc->sqlQuery($sql, $bindVals);
+            return $status;
+        }
     }
 }
 
