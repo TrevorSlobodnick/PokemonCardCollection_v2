@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import logo from '../images/logo.png'
+import logo from '../images/pokeball.png'
 import { Backend } from '../util/Backend';
 
 const Header = () => {
@@ -47,10 +47,10 @@ const Header = () => {
 
     return (
         <header>
-            <nav className="navbar navbar-expand-lg  navbar-light">
+            <nav className="navbar navbar-expand-lg  navbar-light py-3">
                 <div className="container-fluid">
                     <div className="navbar-brand" href="#">
-                        <img src={logo} alt="" />
+                        <img width="80px" src={logo} alt="" />
                     </div>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>

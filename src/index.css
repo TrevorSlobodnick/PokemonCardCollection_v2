@@ -130,15 +130,17 @@ p{
 
 
 
-
-.home-form{
-  flex-direction: row;
-  justify-content: flex-end;
+.sort-filter-form{
+  background-color: #dddddd;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.home-form *{
-  min-height: 0px;
-}
+
+
+
+
 
 .search-div{
   box-sizing: border-box;

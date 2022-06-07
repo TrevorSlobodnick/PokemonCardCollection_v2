@@ -1,22 +1,7 @@
-export const VALID_SORT_VALUES = [
-    "rarity",
-    "alpha",
-    "price",
-    "set",
-    "recent"
-]
-export const VALID_SEARCHTYPE_VALUES = [
-    "name",
-    "set"
-]
-
 export const SORT_OPTIONS = [
-    { "label" : "Rarity", "value" : "rarity" },
-    { "label" : "A-Z", "value" : "alpha" },
-    { "label" : "Price", "value" : "price" },
-    { "label" : "Set", "value" : "set" },
-    { "label" : "New \u2192 Old", "value" : "newold" },
-    { "label" : "Old \u2192 New", "value" : "oldnew" }
+    {value: 1, label: "Default"},
+    {value: 2, label: "Newest"},
+    {value: 3, label: "Rarity"},
 ]
 
 export const SEARCH_TYPE_OPTIONS = [
