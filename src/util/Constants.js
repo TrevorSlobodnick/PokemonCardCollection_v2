@@ -1,7 +1,18 @@
+// Even if this variable is never used, keep it as a reference for all the potential rarity values
+export const RARITIES = [
+    "common",
+    "uncommon",
+    "rare",
+    "amazing rare",
+    "ultra rare",
+    "secret rare"
+]
+
 export const SORT_OPTIONS = [
     {value: 1, label: "Default"},
     {value: 2, label: "Newest"},
-    {value: 3, label: "Rarity"},
+    {value: 3, label: "Rarity (Low)"},
+    {value: 4, label: "Rarity (High)"}
 ]
 
 export const SEARCH_TYPE_OPTIONS = [

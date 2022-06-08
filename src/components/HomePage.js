@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { SORT_OPTIONS } from "../util/Constants.js"
 import { Backend } from "../util/Backend.js"
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { toast } from 'react-toastify';
+import { rarityToInt } from '../util/Utils.js';
 
 const HomePage = ( props ) => {
 
@@ -79,7 +79,7 @@ const HomePage = ( props ) => {
         const val = e.currentTarget.value;
         let sortedCards = cards;
         if(val === "1"){
-            // 1 = Default (id)
+            // 1 = Oldest
             sortedCards = cards.sort((a, b) => a.id - b.id);
         }
         else if(val === "2"){
@@ -88,7 +88,21 @@ const HomePage = ( props ) => {
         }
         else if(val === "3"){
             // 3 = Rarity
-            // TODO: implement this
+            try{
+                sortedCards = cards.sort((a, b) => rarityToInt(a.rarity) - rarityToInt(b.rarity));
+            }
+            catch(e){
+                console.log(e)
+            }
+        }
+        else if(val === "4"){
+            // 4 = Rarity (High)
+            try{
+                sortedCards = cards.sort((a, b) => rarityToInt(b.rarity) - rarityToInt(a.rarity));
+            }
+            catch(e){
+                console.log(e)
+            }
         }
         else{
             // unhandled value
