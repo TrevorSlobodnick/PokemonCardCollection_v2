@@ -1,201 +1,145 @@
-import qs from "query-string";
-import { useLocation } from "react-router";
-import { useState } from 'react';
-import { VALID_SORT_VALUES, VALID_SEARCHTYPE_VALUES } from "../util/Constants.js"
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect, useState } from 'react'
+import { SORT_OPTIONS } from "../util/Constants.js"
+import { Backend } from "../util/Backend.js"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { rarityToInt } from '../util/Utils.js';
 
 const HomePage = ( props ) => {
 
-    const searchQuery = qs.parse(useLocation().search)
-    const history = useHistory()
-    let updateUrl = false
+    //TODO: implement URL filtering/sorting
 
-    /**
-     * Gets a value for a given key from the url search query,
-     * or returns the default for value for the key if a value is invalid or not provided
-     * @param {String} key the value to get from the url search query
-     * @returns {string} the value given with the key, or a default value if no value was given, or the value was invalid
-     */
-    const getValFromQuery = (key) => {
-        if(key === "sort"){
-            //must check for null first
-            if(searchQuery.sort == null){
-                updateUrl = true // update the url to include all required key/value pairs
-                return "rarity" //default
-            }
-            else if(VALID_SORT_VALUES.includes(searchQuery.sort)){
-                return searchQuery.sort
-            }
-            else{
-                return "rarity" //default
-            }
+    const [fetchCards, setFetchCards] = useState(true)
+    const [cards, setCards] = useState([])
+    const [sortOption, setSortOption] = useState(1)
+
+    useEffect(() => {
+        if(fetchCards === true){
+            Backend.getCards().then(response => {
+                if(response.completed){
+                    if(response.data.length > 0){
+                        let parsedCards = response.data.map(card => {
+                            card.types = JSON.parse(card.types)
+                            card.tags = JSON.parse(card.tags)
+                            return card
+                        })
+                        setCards(parsedCards)
+                    }
+                    else{
+                        setCards([])
+                    }
+                }
+                else{
+                    //we got a warning...
+                    //in this case, its because there are no cards in the set
+                    setCards([]);
+                }
+            });
+            setFetchCards(false)
         }
-        else if(key === "search"){
-            //must check for null first
-            if(searchQuery.search == null){
-                updateUrl = true // update the url to include all required key/value pairs
-                return "" //default
-            }
-            else{
-                return searchQuery.search
-            }
+    }, [])
+
+    const displayCards = () => {
+        if(cards.length === 0){
+            return <div className="mt-5 text-center text-muted">No Cards Found</div>
         }
-        else if(key === "searchType"){
-            //must check for null first
-            if(searchQuery.searchType == null){
-                updateUrl = true // update the url to include all required key/value pairs
-                return "name" //default
+        else{
+            let cardsToDisplay = cards.map(card => {
+            let specialText = ""
+            let specialClass = ""
+            if(card.tags.includes("Holo")){
+                specialText = "HOLO"
+                specialClass = "holo"
             }
-            else if(VALID_SEARCHTYPE_VALUES.includes(searchQuery.searchType)){
-                return searchQuery.searchType
+            else if(card.tags.includes("Reverse Holo")){
+                specialText = "REVERSE HOLO"
+                specialClass = "reverse-holo"
             }
-            else{
-                return "name" //default
-            }
-        }
-    }
-
-    const initSortVal = getValFromQuery("sort")
-    const initSearchVal = getValFromQuery("search")
-    const initSearchTypeVal = getValFromQuery("searchType")
-
-    // if the url needs to be updated...
-    // meaning, one or more key/value pairs were missing from the url search query,
-    // in order to create a sharable link, all key/value pairs are required to be in the url
-    //  NOTE: we just want to update the url display, not a full rerender
-    if(updateUrl){
-        console.log("replacing...");
-        //change url using react, many people noted this will sometimes reload the page, which isnt a big issue
-        history.replace("/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
-        //change url using browser history api, since it does not necessarily communicate with react, I will be using the react method since this is a react project
-        //window.history.replaceState(null, "Bob", "/?sort=" + initSortVal + "&search=" + initSearchVal + "&searchType=" + initSearchTypeVal)
-    }
-
-    // set the initial state using init variables above, which will set the value if the url contains one and it is valid,
-    // otherwise, it will use the default value
-    //  NOTE: I used init variables over the inline function because if I used the function inline it would get called like an async function,
-    //       since I need to update the url if values are missing, I need to know this info at the start, which is why the 
-    //       functions are not used inline and are instead stored in the init variables
-    const [sort, setSort] = useState(initSortVal)
-    const [search, setSearch] = useState(initSearchVal)
-    const [searchType, setSearchType] = useState(initSearchTypeVal)
-
-    /**
-     * - Set the sort state to the current value of the sort drop down box,
-     * - update the home path,
-     * - then sort the collection
-     * @param {Event} e 
-     */
-    const onSortValueChanged = (e) => {
-        console.log(e.target.value)
-        setSort(e.target.value)
-        updateHomePath(e.target.value, search, searchType)
-        sortCollection()
-    }
-
-    /**
-     * set the search state to the current value of the search input field
-     * @param {Event} e 
-     */
-    const onSearchValueChanged = (e) => {
-        setSearch(e.target.value)
-    }
-
-    /**
-     * set the searchType state to the current value of the searchType drop down box
-     * @param {Event} e 
-     */
-    const onSearchTypeValueChanged = (e) => {
-        setSearchType(e.target.value)
-        updateHomePath(sort, search, e.target.value)
-    }
-
-    /**
-     * Called when the user clicks any key down in the search field,
-     * however it only handles when the user presses the enter key
-     * - prevents the page from reloading/refreshing itself
-     * - - searchs the collection for anything that matches the given criteria and displays it
-     * @param {KeyboardEvent} e 
-     */
-    const onKeyDown = (e) => {
-        // only handle event if enter key was pressed
-        if(e.key === 'Enter'){
-            e.preventDefault() //prevents page reload
-            console.log("Enter key pressed");
-            updateHomePath(sort, search, searchType)
-            searchCollection()
+            return <div key={card.id} data-id={card.id} className="pokemon-card m-3">
+                <div className='position-relative'>
+                <LazyLoadImage
+                    src={card.small_image}
+                    alt={card.name}
+                    width={245}
+                    height={342}
+                    // width and height are required for lazy loading to work, so I set them to the size of the small card image (in pixels)
+                />
+                <p style={{bottom:"8px", fontSize:"1.4rem"}} className={specialClass + ' fs-5 position-absolute start-50 translate-middle-x m-0'}><span className='badge p-2'>{specialText}</span></p>
+                </div>
+            </div>
+            });
+            return cardsToDisplay;
         }
     }
 
     /**
-     * Called when the search icon is clicked
-     * - prevents the page from reloading/refreshing itself
-     * - searchs the collection for anything that matches the given criteria and displays it
-     * @param {MouseEvent} e the event object
+     * Determines what happens when the sort value changes
+     * @param Event e the change event
      */
-    const onSubmit = (e) => {
-        e.preventDefault() //stops page reload
-        console.log("Search Icon Clicked");
-        updateHomePath(sort, search, searchType)
-        let info = { 
-            "KEY" : "VALUE!",
-            "search" : "Wat",
-            "searchType" : "set"
-         }
-        axios({
-            method: 'post',
-            url: 'https://www.tslobodnick.ca/Test/post.php',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            data: new URLSearchParams(info)
-        }).then(result => {
-            console.log(result)
-        })
-        searchCollection()
+    const onSortChange = (e) => {
+        const val = e.currentTarget.value;
+        let sortedCards = cards;
+        if(val === "1"){
+            // 1 = Oldest
+            sortedCards = cards.sort((a, b) => a.id - b.id);
+        }
+        else if(val === "2"){
+            // 2 = Newest
+            sortedCards = cards.sort((a, b) => a.id - b.id).reverse();
+        }
+        else if(val === "3"){
+            // 3 = Rarity
+            try{
+                sortedCards = cards.sort((a, b) => rarityToInt(a.rarity) - rarityToInt(b.rarity));
+            }
+            catch(e){
+                console.log(e)
+            }
+        }
+        else if(val === "4"){
+            // 4 = Rarity (High)
+            try{
+                sortedCards = cards.sort((a, b) => rarityToInt(b.rarity) - rarityToInt(a.rarity));
+            }
+            catch(e){
+                console.log(e)
+            }
+        }
+        else{
+            // unhandled value
+            throw new Error("Unhandled Sort Value");
+        }
+        setCards(sortedCards);
+        setSortOption(e.currentTarget.value);
     }
 
     /**
-     * Filters the cards to match the sort criteria
+     * Generate the options for the sort <select> element based off the SORT_OPTIONS constant
+     * @return array An array of options for the sort <select> element
      */
-    const sortCollection = () => {
-        console.log("Sort Complete!")
-    }
-
-    /**
-     * Filters the cards to only show the ones that pass the search criteria
-     */
-    const searchCollection = () => {
-        console.log("Search Complete");
-    }
-
-    //HELPER FUNCTION
-    const updateHomePath = (sortVal, searchVal, searchTypeVal) => {
-        console.log("Old: " + props.homePath)
-        const newPath = "/?sort=" + sortVal + "&search=" + searchVal + "&searchType=" + searchTypeVal
-        props.setHomePath(newPath)
-        history.replace(newPath)
-        console.log("New: " + newPath)
+    const displaySortOptions = () => {
+        return SORT_OPTIONS.map(opt =>  {
+            return <option key={opt.value} value={opt.value}>{opt.label}</option>
+        }); 
     }
 
     return (
-        <form>
-            <select onChange={onSortValueChanged} name="sort" defaultValue={sort}>
-                <option value="rarity">Rarity</option>
-                <option value="alpha">A-Z</option>
-                <option value="price">Price</option>
-                <option value="set">Set</option>
-                <option value="newold">New &#8594; Old</option>
-                <option value="oldnew">Old &#8594; New</option>
-            </select>
-            <input type="text" name="search" onChange={onSearchValueChanged} onKeyDown={onKeyDown} defaultValue={search} />
-            <select onChange={onSearchTypeValueChanged} name="searchType" defaultValue={searchType}>
-                <option value="name">Name</option>
-                <option value="set">Set</option>
-            </select>
-            <input type="image" name="submit" onClick={onSubmit} src="" alt="Go!" border="0" />
-        </form>
+        <div className="px-3" style={{maxWidth: "1920px", margin: "auto"}}>
+            <h3 className="text-center my-5">My Collection</h3>
+            <form className="sort-filter-form m-5 p-3">
+                <div className='d-flex align-items-center'>
+                    <p className='m-0'>{cards.length} results</p>
+                </div>
+                <div className='d-flex align-items-center'>
+                    <label>Sort:</label>
+                    <select className="form-select ms-2" onChange={onSortChange} value={sortOption}>
+                        {displaySortOptions()}
+                    </select>
+                </div>
+            </form>
+            <div id="cards" className="mb-5">
+                {displayCards()}
+            </div>
+        </div>
     )
 }
 

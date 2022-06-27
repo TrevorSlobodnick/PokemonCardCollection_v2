@@ -1,47 +1,353 @@
+/*
+COLORS -> https://www.schemecolor.com/pokemon-colors.php
+  Boston University Red: #c52018
+  Cerulean Blue: #3B4CCA
+  Alt Blue: #0d5bc4
+  Golden Yellow: #FFDE00
+  Gold Foil: #B3A125
+  Silver: #eaeaea
+*/
+
 @font-face {
   font-family: 'PokeText';
   src: url("./fonts/poketext_font.ttf");
 }
 
+@font-face {
+  font-family: 'Roboto Thin';
+  src: url("./fonts/Roboto-Thin.ttf");
+}
+
+@font-face {
+  font-family: 'Baloo Bhaijaan';
+  src: url("./fonts/Baloo-Bhaijaan-Regular.ttf");
+}
+
+/*Reset Styles*/
 *{
   padding: 0px;
   margin: 0px;
   border: none;
+  list-style-type: none;
 }
 
+a{
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+/*Reset Styles*/
+
+/*HTML Element Styles*/
 body{
   font-family: Helvetica, Verdana, sans-serif;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
+  background-color: #eaeaea;
 }
 
-body > div{
-  display: flex;
+header{
+  background-color: #c52018;
 }
 
 h1{
-  text-align: center;
-  font-family: 'PokeText', Helvetica, Verdana, sans-serif;
-  padding-top: 0.5em;
+  margin-top: 1em;
 }
 
-img{
-  width: 30%;
+p{
+  box-sizing: border-box;
 }
 
-/*TODO: change this*/
-input, select{
-  border: solid thin black;
-  margin: 0.5em;
+.add-page > *{
+  max-width: 800px;
+  margin: 0px auto;
+}
+/*HTML Element Styles*/
+
+
+#cards{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.pokemon-card{
+  display: inline-block;
+  width: auto;
 }
 
 
 
-.image-wrapper{
-  text-align: center;
+
+
+.login-form{
+  width: 21rem;
+  margin: auto;
 }
 
-.image-wrapper:first-of-type img{
-  transform: scaleX(-1);
+.input-group{
+  margin: 1rem 0px;
+}
+
+
+
+
+
+
+.reverse-holo{
+  background: radial-gradient(50% 123.47% at 50% 50%, #00FF94 0%, #FF00C7 100%), linear-gradient(121.28deg, #213100 0%, #FF0000 100%), linear-gradient(360deg, #0029FF 0%, #8FFF00 100%), linear-gradient(114.9deg, #00C6A2 0%, #6A45A8 100%), radial-gradient(100% 148.07% at 0% 0%, #FFFFFF 0%, #1DCD00 100%);
+  background-blend-mode: screen, color-dodge, overlay, difference, normal;
+}
+
+.reverse-holo > span{
+  color: #0d004d;
+}
+
+.holo{
+  background-color: #0d004d;
+  border-radius: 0.25rem;
+}
+
+.holo > span{
+  background: radial-gradient(50% 123.47% at 50% 50%, #00FF94 0%, #FF00C7 100%), linear-gradient(121.28deg, #213100 0%, #FF0000 100%), linear-gradient(360deg, #0029FF 0%, #8FFF00 100%), linear-gradient(114.9deg, #00C6A2 0%, #6A45A8 100%), radial-gradient(100% 148.07% at 0% 0%, #FFFFFF 0%, #1DCD00 100%);
+  background-blend-mode: screen, color-dodge, overlay, difference, normal;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-text-fill-color: transparent;
+}
+
+.holo > span, .reverse-holo > span{
+  font-family: 'Baloo Bhaijaan', 'Arial', 'Verdana';
+  font-size: 1.2rem;
+  bottom: 8px;
+  padding: 0.7rem 0.9rem;
+  font-weight: bold;
+}
+
+
+
+
+
+
+.sort-filter-form{
+  background-color: #dddddd;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+
+
+
+
+
+.search-div{
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 3%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.search{
+  background-color: transparent;
+  border-bottom: solid thin black;
+  max-height: 20px;
+}
+
+.search:focus{
+  outline: none;
+}
+
+.search-icon{
+  width: 15px;
+  border-bottom: solid thin black;
+  margin-left: 1%;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 4px;
+}
+
+input[type="submit"].apply-filters{
+  margin-top: 0.7em;
+  padding: 0.7em;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.display-grade{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.validation-text{
+  color: red;
+}
+
+
+
+
+/* bootstrap styles */
+.form-control:focus, .btn:focus {
+  box-shadow: none;
+  border-color: initial;
+}
+
+.nav-link{
+  font-size: 1.2rem;
+}
+
+
+
+
+
+/*react-select styles*/
+.pokemon-set__control, .appearance__control, .grade-company__control{
+  border-style: none !important;
+  border-color: black !important;
+}
+
+.pokemon-set__control--is-focused, .appearance__control--is-focused, .grade-company__control--is-focused{
+  box-shadow: none !important;
+}
+
+.pokemon-set__value-container{
+  overflow: visible !important;
+}
+
+.css-g1d714-ValueContainer{
+  padding-left: 4px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.css-b8ldur-Input{
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.option{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.option-img{
+  width: 32px;
+}
+
+#base-img{
+  width: 65px;
+}
+
+.option-text{
+  display: flex;
+  align-items: center;
+  text-align: right;
+  padding-left: 6px;
+  margin-bottom: 0px;
+}
+
+.react-select.sort-select{
+  width: 75%;
+  padding-left: 3%;
+}
+
+.search-div .react-select{
+  width: 25%;
+}
+
+.react-select{
+  font-size: 0.9em;
+}
+
+div.sort-select__indicator, div.search-type-select__indicator{
+  padding: 0px 2px;
+}
+
+.sort-select__indicator svg, .search-type-select__indicator svg{
+  height: 15px;
+  width: 15px;
+}
+
+div.sort-select__control, div.search-type-select__control{
+  min-height: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  box-sizing: border-box;
+}
+
+div.sort-select__value-container, div.search-type-select__value-container{
+  padding-right: 0px;
+  padding-left: 2px !important;
+}
+
+div.sort-select__single-value, div.search-type-select__single-value{
+  color: black;
+}
+/*react-select styles*/
+
+
+
+
+
+/* Tag/Variant Styles */
+#tags > li{
+  display: flex;
+}
+
+.tag{
+  display: flex;
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.tag:hover{
+  background-color: rgb(199, 199, 199);
+  cursor: pointer;
+}
+
+.tag > div {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.6rem;
+  padding-right: 0.1rem;
+}
+
+.tag .text{
+  font-size: 1rem;
+}
+
+.close-tab{
+  min-width: 21px;
+  padding-right: 0.5rem;
+}
+
+
+
+
+
+
+
+.toast{
+  display: flex;
+}
+
+.toastDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.toastStatus{
+  padding-left: 1em;
+}
+
+.errorMessage{
+  padding-left: 2em;
+  font-size: 0.9em;
 }

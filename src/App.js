@@ -1,23 +1,29 @@
 import Header from './components/Header';
 import HomePage from './components/HomePage';
 import AddCardPage from './components/AddCardPage';
-import { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Login from './components/Login';
+import Logout from './components/Logout';
 
 function App() {
-
-  const [homePath, setHomePath] = useState("/?sort=rarity&search=&searchType=name")
 
   return (
     <Router>
       <div className="App">
         <Header/>
         <Switch>
-          <Route path="/">
-            <HomePage homePath={homePath} setHomePath={setHomePath} />
+          <Route exact path="/logout">
+            <Logout/>
           </Route>
-          <Route path="/add">
+          <Route exact path="/login">
+            <Login/>
+          </Route>
+          <Route exact path="/add">
             <AddCardPage/>
+          </Route>
+          <Route exact path="/">
+            <HomePage />
           </Route>
         </Switch>
       </div>
