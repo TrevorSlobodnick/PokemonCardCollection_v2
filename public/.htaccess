@@ -1,0 +1,7 @@
+    Options -MultiViews
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} /add [OR]
+    RewriteCond %{REQUEST_URI} /login [OR]
+    RewriteCond %{REQUEST_URI} /logout
+    RewriteRule ^ index.html [QSA,L]

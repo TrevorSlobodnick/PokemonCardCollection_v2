@@ -26,10 +26,14 @@ export const GRADING_COMPANIES = [
     {value: "CGC", label: "CGC (Certified Guaranty Company)"},
 ]
 
+export const HOST = "https://tslobodnick.ca";
+export const PATH = "/projects/pokemon-card-collection";
+export const HOMEPAGE = HOST + PATH;
+
 export const ENDPOINTS = {
-    "cards": "/api/cards/index.php",
-    "sets": "/api/sets/index.php",
-    "login": "/api/auth/login.php",
-    "logout": "/api/auth/logout.php",
-    "register": "/api/auth/register.php"
+    "cards": HOMEPAGE + "/api/cards/index.php",
+    "sets": HOMEPAGE + "/api/sets/index.php",
+    "login": HOMEPAGE + "/api/auth/login.php",
+    "logout": HOMEPAGE + "/api/auth/logout.php",
+    "register": HOMEPAGE + "/api/auth/register.php"
 }
